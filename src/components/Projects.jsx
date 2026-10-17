@@ -8,7 +8,9 @@ export default function Projects({ onOpenDemo }) {
 
   const categories = ['All', 'Agentic AI', 'Generative AI & RAG', 'LLM Fine-Tuning', 'Machine Learning'];
 
-  const filteredProjects = PROJECTS.filter(project => {
+  // Hidden entries (hidden: true) are never rendered — kept in data only.
+  const visibleProjects = PROJECTS.filter((project) => !project.hidden);
+  const filteredProjects = visibleProjects.filter(project => {
     if (activeFilter === 'All') return true;
     if (activeFilter === 'Agentic AI') return project.category.includes('Agentic');
     if (activeFilter === 'Generative AI & RAG') return project.category.includes('RAG') || project.category.includes('Generative');
@@ -17,7 +19,11 @@ export default function Projects({ onOpenDemo }) {
     return true;
   });
 
-  const featuredProject = PROJECTS[0]; // CompetiTrack AI
+  // Featured order: 1) CompetiTrack AI  2) BizBrain  3) content-automation
+  // client project (placeholder, hidden until real content is added).
+  const featuredProjects = filteredProjects.filter(p => p.isFeatured);
+  const featuredProject = featuredProjects[0] || null;
+  const secondaryFeatured = featuredProjects.slice(1);
   const standardProjects = filteredProjects.filter(p => !p.isFeatured);
 
   return (
@@ -72,8 +78,8 @@ export default function Projects({ onOpenDemo }) {
           ))}
         </div>
 
-        {/* FEATURED PROJECT CARD (CompetiTrack AI) */}
-        {(activeFilter === 'All' || activeFilter === 'Agentic AI') && (
+        {/* FEATURED PROJECT CARD #1 (CompetiTrack AI) */}
+        {featuredProject && (
           <div style={{ marginBottom: '2.5rem' }} className="reveal">
             <div className="glass-card" style={{
               padding: '2.25rem',
@@ -266,105 +272,51 @@ export default function Projects({ onOpenDemo }) {
           </div>
         )}
 
-        {/* STANDARD PROJECTS GRID (Projects 2 through 8) */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
-          gap: '1.75rem'
-        }}>
-          {standardProjects.map((project, index) => (
-            <div
-              key={project.id}
-              className="glass-card reveal"
-              style={{
-                padding: '1.75rem',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                position: 'relative',
-                transitionDelay: `${(index % 3) * 90}ms`
-              }}
-            >
-              <div>
-                {/* Category & Badge */}
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginBottom: '1rem'
-                }}>
-                  <span style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.75rem',
-                    color: 'var(--accent-cyan)',
-                    background: 'rgba(0, 240, 255, 0.08)',
-                    padding: '0.2rem 0.6rem',
-                    borderRadius: '4px',
-                    border: '1px solid rgba(0, 240, 255, 0.2)'
-                  }}>
-                    {project.category}
-                  </span>
-                  <span style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.75rem',
-                    color: 'var(--text-dim)'
-                  }}>
-                    #{index + 2}
-                  </span>
-                </div>
+        {/* FEATURED PROJECT CARDS #2-#3 (BizBrain + hidden client project placeholder) */}
+        {secondaryFeatured.length > 0 && (
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
+            gap: '1.75rem',
+            marginBottom: '2.5rem'
+          }}>
+            {secondaryFeatured.map((project, index) => (
+              <ProjectCard key={project.id} project={project} index={index + 1} />
+            ))}
+          </div>
+        )}
 
-                {/* Title */}
-                <h3 style={{
-                  fontSize: '1.35rem',
-                  lineHeight: 1.3,
-                  marginBottom: '0.75rem',
-                  color: 'var(--text-main)'
-                }}>
-                  {project.title}
-                </h3>
-
-                {/* Description */}
-                <p style={{
-                  fontSize: '0.92rem',
-                  lineHeight: 1.6,
-                  color: 'var(--text-muted)',
-                  marginBottom: '1.25rem'
-                }}>
-                  {project.description}
-                </p>
-              </div>
-
-              <div>
-                {/* Tech Stack tags */}
-                <div style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '0.4rem',
-                  marginBottom: '1.5rem'
-                }}>
-                  {project.stack.map(tech => (
-                    <span key={tech} className="tech-tag">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {/* GitHub link button */}
-                <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '1rem' }}>
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-secondary btn-sm"
-                    style={{ width: '100%', justifyContent: 'center' }}
-                  >
-                    <GithubIcon size={16} /> View on GitHub
-                  </a>
-                </div>
-              </div>
+        {/* MORE PROJECTS — collapsed until the visitor opens it */}
+        {standardProjects.length > 0 && (
+          <details style={{
+            border: '1px solid var(--border-subtle)',
+            borderRadius: '12px',
+            background: 'var(--bg-glass)',
+            padding: '1.1rem 1.5rem',
+            marginTop: '0.5rem'
+          }}>
+            <summary style={{
+              cursor: 'pointer',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.92rem',
+              color: 'var(--accent-cyan)',
+              letterSpacing: '0.03em',
+              userSelect: 'none'
+            }}>
+              More projects ({standardProjects.length})
+            </summary>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
+              gap: '1.75rem',
+              marginTop: '1.75rem'
+            }}>
+              {standardProjects.map((project, index) => (
+                <ProjectCard key={project.id} project={project} index={index + 3} />
+              ))}
             </div>
-          ))}
-        </div>
+          </details>
+        )}
       </div>
 
       <style>{`
@@ -373,5 +325,99 @@ export default function Projects({ onOpenDemo }) {
         }
       `}</style>
     </section>
+  );
+}
+
+function ProjectCard({ project, index }) {
+  return (
+    <div
+      className="glass-card reveal"
+      style={{
+        padding: '1.75rem',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        position: 'relative',
+        transitionDelay: `${(index % 3) * 90}ms`
+      }}
+    >
+      <div>
+        {/* Category & Badge */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: '1rem'
+        }}>
+          <span style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.75rem',
+            color: 'var(--accent-cyan)',
+            background: 'rgba(0, 240, 255, 0.08)',
+            padding: '0.2rem 0.6rem',
+            borderRadius: '4px',
+            border: '1px solid rgba(0, 240, 255, 0.2)'
+          }}>
+            {project.category}
+          </span>
+          <span style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.75rem',
+            color: 'var(--text-dim)'
+          }}>
+            #{index + 1}
+          </span>
+        </div>
+
+        {/* Title */}
+        <h3 style={{
+          fontSize: '1.35rem',
+          lineHeight: 1.3,
+          marginBottom: '0.75rem',
+          color: 'var(--text-main)'
+        }}>
+          {project.title}
+        </h3>
+
+        {/* Description */}
+        <p style={{
+          fontSize: '0.92rem',
+          lineHeight: 1.6,
+          color: 'var(--text-muted)',
+          marginBottom: '1.25rem'
+        }}>
+          {project.description}
+        </p>
+      </div>
+
+      <div>
+        {/* Tech Stack tags */}
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '0.4rem',
+          marginBottom: '1.5rem'
+        }}>
+          {project.stack.map(tech => (
+            <span key={tech} className="tech-tag">
+              {tech}
+            </span>
+          ))}
+        </div>
+
+        {/* GitHub link button */}
+        <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '1rem' }}>
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-secondary btn-sm"
+            style={{ width: '100%', justifyContent: 'center' }}
+          >
+            <GithubIcon size={16} /> View on GitHub
+          </a>
+        </div>
+      </div>
+    </div>
   );
 }

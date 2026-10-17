@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Terminal, Download, Zap } from 'lucide-react';
+import { ArrowRight, Terminal, Download } from 'lucide-react';
 import { PROFILE } from '../data/portfolioData';
 
 export default function Hero({ setActiveTab }) {
@@ -33,6 +33,7 @@ export default function Hero({ setActiveTab }) {
         }} className="hero-grid">
           {/* Left Column: Text, Photo & CTAs */}
           <div>
+            {/* TODO: hero will be re-written per vertical after discovery calls */}
             {/* Status Indicator */}
             <div style={{ marginBottom: '1.25rem' }}>
               <div className="status-badge">
@@ -135,7 +136,7 @@ export default function Hero({ setActiveTab }) {
             {/* Quick Stat Pill Grid */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
+              gridTemplateColumns: 'repeat(3, 1fr)',
               gap: '1rem',
               paddingTop: '1.5rem',
               borderTop: '1px solid var(--border-subtle)'
@@ -224,21 +225,6 @@ export default function Hero({ setActiveTab }) {
                 <div>&nbsp;&nbsp;agent.add_node(<span style={{ color: '#34D399' }}>"cohere_rerank"</span>, rerank_nodes)</div>
                 <div>&nbsp;&nbsp;agent.add_node(<span style={{ color: '#34D399' }}>"ragas_eval"</span>, evaluate_faithfulness)</div>
                 <div>&nbsp;&nbsp;<span style={{ color: '#F472B6' }}>return</span> await agent.compile().ainvoke(...)</div>
-                <br />
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  padding: '0.6rem 0.8rem',
-                  borderRadius: '6px',
-                  background: 'rgba(16, 185, 129, 0.1)',
-                  border: '1px solid rgba(16, 185, 129, 0.25)',
-                  color: 'var(--accent-emerald)',
-                  marginTop: '0.5rem'
-                }}>
-                  <Zap size={14} />
-                  <span>[STATUS 200] Production Agent Online (Latency: ~180ms)</span>
-                </div>
               </div>
             </div>
           </div>

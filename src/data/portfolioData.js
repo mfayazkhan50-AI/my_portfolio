@@ -1,48 +1,31 @@
 export const PROFILE = {
   name: "Muhammad Fayaz Khan",
-  title: "LLM Engineer | RAG Systems • Agentic AI • FastAPI • LangChain",
+  // TODO: hero copy per vertical — see TODO in Hero.jsx (rewritten after discovery calls).
+  title: "AI Automation Engineer | LLM Agents • Python • Business Workflows",
   shortTitle: "LLM Engineer",
-  valueProp: "I build production-ready AI agents and RAG systems that solve real business problems, not demos.",
+  valueProp: "I build AI automation and LLM agents that take repetitive business work off your plate. Built, deployed, and running.",
   aboutSummary: `LLM Engineer specializing in Enterprise-grade RAG Systems and Agentic AI workflows. Experienced in building production-ready AI applications using FastAPI, LangGraph, LangChain, and Vector Databases with a focus on retrieval accuracy, latency optimization, and LLM cost reduction. Proven ability to design end-to-end AI pipelines, from data ingestion and chunking strategy to deployment and evaluation, with measurable, demoable results.`,
   email: "muhammadfayazkhan50@gmail.com",
   linkedin: "https://linkedin.com/in/muhammad-fayaz-khan-271487381",
   github: "https://github.com/mfayazkhan50-AI",
   closingLine: "Open to freelance projects and full-time opportunities in AI engineering.",
-  status: "Available for Enterprise AI & RAG Projects",
+  status: "Available for freelance AI automation projects",
   location: "Global / Remote",
   profilePhoto: "/profile.png",
   resumeUrl: "/resume.pdf",
+  // TODO: replace with verified/true stat items if preferred later.
+  // Neutral, factual-only items — no unproven metrics or counts.
   stats: [
-    { label: "AI & ML Projects", value: "8+" },
-    { label: "Model Accuracy", value: "94%" },
-    { label: "Focus Areas", value: "RAG & Agents" },
-    { label: "Deployment", value: "Production-Ready" }
+    { label: "Status", value: "Open to freelance projects" },
+    { label: "Core Stack", value: "Python • LLMs • Automation" },
+    { label: "Clients", value: "Remote / International clients" }
   ]
 };
 
-export const TESTIMONIALS = [
-  {
-    id: 1,
-    quote: "Fayaz designed an autonomous LangGraph agent that drastically reduced our competitor monitoring overhead. His focus on retrieval accuracy and zero false-positive alerts was exceptional.",
-    name: "Alex Rivera",
-    role: "Head of Engineering, E-Com AI Solution",
-    isPlaceholder: true
-  },
-  {
-    id: 2,
-    quote: "The RAG pipeline Fayaz built with hybrid search and Cohere reranking delivered lightning-fast sub-second responses on complex 500+ page technical PDFs. True production quality.",
-    name: "Sarah Chen",
-    role: "VP of Product, FinTech Enterprise",
-    isPlaceholder: true
-  },
-  {
-    id: 3,
-    quote: "Fayaz's fine-tuning expertise on UrduGPT demonstrated deep end-to-end understanding of LLM alignment, DPO preference optimization, and PyTorch performance tuning.",
-    name: "Dr. Marcus Vance",
-    role: "Lead Research Scientist, NLP Lab",
-    isPlaceholder: true
-  }
-];
+// TODO: add real, client-approved testimonials here (quote, name, role).
+// Keep this array empty until real quotes exist — the About section renders
+// nothing when it is empty, so no placeholder/fake content appears on the page.
+export const TESTIMONIALS = [];
 
 export const SKILL_CATEGORIES = [
   {
@@ -103,6 +86,7 @@ export const PROJECTS = [
     github: "https://github.com/mfayazkhan50-AI/competitrack-ai",
     hasDemo: true,
     demoUrl: "https://linkedin.com/in/muhammad-fayaz-khan-271487381",
+    demoVideoUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7488268158206627841/",
     demoNote: "Demo video available on LinkedIn",
     highlights: [
       "Branching LangGraph workflow with robust error-handling",
@@ -128,7 +112,7 @@ export const PROJECTS = [
   {
     id: "bizbrain",
     title: "BizBrain — Business PDF Agent",
-    isFeatured: false,
+    isFeatured: true,
     category: "Generative AI & RAG",
     stack: ["FastAPI", "ChromaDB", "RAGAS", "RAG", "LangChain", "Pydantic", "Chainlit", "Docker"],
     description: "AI-powered business document assistant built with a RAG pipeline. Upload PDFs and ask questions in plain language. Features hybrid search (BM25 + ChromaDB), Cohere reranking, Groq LLM, and persistent chat history for real client deployment.",
@@ -146,11 +130,11 @@ export const PROJECTS = [
     isFeatured: false,
     category: "Machine Learning",
     stack: ["Python", "Scikit-Learn", "Random Forest", "Feature Engineering"],
-    description: "Sales prediction model for Rossmann retail stores using Random Forest, achieving 94% accuracy in forecasting to help businesses make smarter inventory decisions.",
+    description: "Sales forecasting tool for Rossmann retail stores using Random Forest, forecasting sales to support inventory decisions.",
     github: "https://github.com/mfayazkhan50-AI/rossmann-sales-predictor",
     hasDemo: false,
     highlights: [
-      "Achieved 94% predictive accuracy in store sales forecasting",
+      "Store sales forecasting to support inventory decisions",
       "Extensive temporal feature engineering & promotion analysis"
     ]
   },
@@ -209,5 +193,20 @@ export const PROJECTS = [
       "Custom Convolutional Neural Network architecture",
       "Real-time image upload & prediction pipeline"
     ]
+  },
+  // TODO: content-automation client project — featured slot #3.
+  // Fill in real, client-approved title / description / stack / links, then
+  // remove `hidden: true` to publish it. Nothing below renders while hidden.
+  {
+    id: "content-automation-client",
+    title: "Content Automation — Client Project",
+    isFeatured: true,
+    hidden: true,
+    category: "Automation",
+    stack: [],
+    description: "TODO: add client-approved description, tech stack and links before publishing.",
+    github: null,
+    hasDemo: false,
+    highlights: []
   }
 ];

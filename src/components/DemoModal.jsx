@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { X, Play, ExternalLink, Sparkles } from 'lucide-react';
 import { GithubIcon } from './BrandIcons';
 import { PROJECTS } from '../data/portfolioData';
 
 export default function DemoModal({ isOpen, onClose }) {
-  const [customUrl, setCustomUrl] = useState('');
-  const defaultLinkedInUrl = "https://www.linkedin.com/feed/update/urn:li:activity:7488268158206627841/";
-  
   if (!isOpen) return null;
 
   const project = PROJECTS[0]; // CompetiTrack AI
 
+  // Demo video URL comes only from portfolioData.js (project.demoVideoUrl).
+  const videoUrl = project.demoVideoUrl || project.demoUrl;
+
   const handleOpenVideo = () => {
-    window.open(customUrl || defaultLinkedInUrl, '_blank');
+    window.open(videoUrl, '_blank');
   };
 
   return (
@@ -108,42 +108,6 @@ export default function DemoModal({ isOpen, onClose }) {
           <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
             Hosted on LinkedIn Post / Video
           </div>
-        </div>
-
-        {/* URL Input Configurator for User */}
-        <div style={{
-          padding: '1rem',
-          borderRadius: '8px',
-          background: 'rgba(15, 23, 42, 0.6)',
-          border: '1px solid var(--border-subtle)',
-          marginBottom: '1.5rem'
-        }}>
-          <label style={{
-            display: 'block',
-            fontSize: '0.78rem',
-            fontFamily: 'var(--font-mono)',
-            color: 'var(--accent-cyan)',
-            marginBottom: '0.4rem'
-          }}>
-            LINKEDIN VIDEO URL (EDITABLE)
-          </label>
-          <input
-            type="text"
-            placeholder={defaultLinkedInUrl}
-            value={customUrl}
-            onChange={(e) => setCustomUrl(e.target.value)}
-            style={{
-              width: '100%',
-              padding: '0.6rem 0.8rem',
-              borderRadius: '6px',
-              background: 'rgba(8, 12, 20, 0.9)',
-              border: '1px solid var(--border-subtle)',
-              color: 'var(--text-main)',
-              fontSize: '0.88rem',
-              fontFamily: 'var(--font-mono)',
-              outline: 'none'
-            }}
-          />
         </div>
 
         {/* Action Buttons */}

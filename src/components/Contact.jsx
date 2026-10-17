@@ -3,9 +3,12 @@ import { Mail, Send, Copy, Check, MessageSquare, ExternalLink, AlertCircle } fro
 import { GithubIcon, LinkedinIcon } from './BrandIcons';
 import { PROFILE } from '../data/portfolioData';
 
+// Formspree endpoint — single source of truth, not editable from the UI.
+// TODO: replace with own form backend if deliverability/spam becomes an issue.
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xbjnqpkz';
+
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [formEndpoint, setFormEndpoint] = useState('https://formspree.io/f/xbjnqpkz');
   const [status, setStatus] = useState({ submitting: false, submitted: false, error: null });
   const [copiedEmail, setCopiedEmail] = useState(false);
 
@@ -33,7 +36,7 @@ export default function Contact() {
 
     try {
       // Attempt Formspree submission
-      const response = await fetch(formEndpoint, {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -371,32 +374,6 @@ export default function Contact() {
                       }}
                       onFocus={(e) => e.target.style.borderColor = 'var(--accent-cyan)'}
                       onBlur={(e) => e.target.style.borderColor = 'var(--border-subtle)'}
-                    />
-                  </div>
-
-                  {/* Formspree Endpoint Config (Editable) */}
-                  <div style={{
-                    fontSize: '0.75rem',
-                    fontFamily: 'var(--font-mono)',
-                    color: 'var(--text-dim)',
-                    background: 'rgba(255, 255, 255, 0.02)',
-                    padding: '0.5rem 0.75rem',
-                    borderRadius: '6px',
-                    border: '1px solid var(--border-subtle)'
-                  }}>
-                    Form Endpoint: <input
-                      type="text"
-                      value={formEndpoint}
-                      onChange={(e) => setFormEndpoint(e.target.value)}
-                      style={{
-                        background: 'none',
-                        border: 'none',
-                        color: 'var(--accent-cyan)',
-                        fontFamily: 'inherit',
-                        fontSize: 'inherit',
-                        width: '80%',
-                        outline: 'none'
-                      }}
                     />
                   </div>
 
