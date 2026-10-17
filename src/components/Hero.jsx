@@ -33,6 +33,7 @@ export default function Hero({ setActiveTab }) {
         }} className="hero-grid">
           {/* Left Column: Text, Photo & CTAs */}
           <div>
+            {/* TODO: hero will be re-written per vertical after discovery calls */}
             {/* Status Indicator */}
             <div style={{ marginBottom: '1.25rem' }}>
               <div className="status-badge">

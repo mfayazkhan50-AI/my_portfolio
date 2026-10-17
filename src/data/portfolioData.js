@@ -1,14 +1,15 @@
 export const PROFILE = {
   name: "Muhammad Fayaz Khan",
-  title: "LLM Engineer | RAG Systems • Agentic AI • FastAPI • LangChain",
+  // TODO: hero copy per vertical — see TODO in Hero.jsx (rewritten after discovery calls).
+  title: "AI Automation Engineer | LLM Agents • Python • Business Workflows",
   shortTitle: "LLM Engineer",
-  valueProp: "I build production-ready AI agents and RAG systems that solve real business problems, not demos.",
+  valueProp: "I build AI automation and LLM agents that take repetitive business work off your plate. Built, deployed, and running.",
   aboutSummary: `LLM Engineer specializing in Enterprise-grade RAG Systems and Agentic AI workflows. Experienced in building production-ready AI applications using FastAPI, LangGraph, LangChain, and Vector Databases with a focus on retrieval accuracy, latency optimization, and LLM cost reduction. Proven ability to design end-to-end AI pipelines, from data ingestion and chunking strategy to deployment and evaluation, with measurable, demoable results.`,
   email: "muhammadfayazkhan50@gmail.com",
   linkedin: "https://linkedin.com/in/muhammad-fayaz-khan-271487381",
   github: "https://github.com/mfayazkhan50-AI",
   closingLine: "Open to freelance projects and full-time opportunities in AI engineering.",
-  status: "Available for Enterprise AI & RAG Projects",
+  status: "Available for freelance AI automation projects",
   location: "Global / Remote",
   profilePhoto: "/profile.png",
   resumeUrl: "/resume.pdf",
