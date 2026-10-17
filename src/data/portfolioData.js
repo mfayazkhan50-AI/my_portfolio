@@ -20,29 +20,10 @@ export const PROFILE = {
   ]
 };
 
-export const TESTIMONIALS = [
-  {
-    id: 1,
-    quote: "Fayaz designed an autonomous LangGraph agent that drastically reduced our competitor monitoring overhead. His focus on retrieval accuracy and zero false-positive alerts was exceptional.",
-    name: "Alex Rivera",
-    role: "Head of Engineering, E-Com AI Solution",
-    isPlaceholder: true
-  },
-  {
-    id: 2,
-    quote: "The RAG pipeline Fayaz built with hybrid search and Cohere reranking delivered lightning-fast sub-second responses on complex 500+ page technical PDFs. True production quality.",
-    name: "Sarah Chen",
-    role: "VP of Product, FinTech Enterprise",
-    isPlaceholder: true
-  },
-  {
-    id: 3,
-    quote: "Fayaz's fine-tuning expertise on UrduGPT demonstrated deep end-to-end understanding of LLM alignment, DPO preference optimization, and PyTorch performance tuning.",
-    name: "Dr. Marcus Vance",
-    role: "Lead Research Scientist, NLP Lab",
-    isPlaceholder: true
-  }
-];
+// TODO: add real, client-approved testimonials here (quote, name, role).
+// Keep this array empty until real quotes exist — the About section renders
+// nothing when it is empty, so no placeholder/fake content appears on the page.
+export const TESTIMONIALS = [];
 
 export const SKILL_CATEGORIES = [
   {
@@ -103,6 +84,7 @@ export const PROJECTS = [
     github: "https://github.com/mfayazkhan50-AI/competitrack-ai",
     hasDemo: true,
     demoUrl: "https://linkedin.com/in/muhammad-fayaz-khan-271487381",
+    demoVideoUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7488268158206627841/",
     demoNote: "Demo video available on LinkedIn",
     highlights: [
       "Branching LangGraph workflow with robust error-handling",

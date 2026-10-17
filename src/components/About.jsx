@@ -175,7 +175,9 @@ export default function About() {
           ))}
         </div>
 
-        {/* TESTIMONIALS PLACEHOLDER SECTION */}
+        {/* TESTIMONIALS SECTION — renders only when real quotes exist in
+            portfolioData.js (TESTIMONIALS = [] hides it entirely) */}
+        {TESTIMONIALS.length > 0 && (
         <div>
           <div style={{
             display: 'flex',
@@ -191,9 +193,6 @@ export default function About() {
                 Client & Peer Testimonials
               </h3>
             </div>
-            <span className="placeholder-badge">
-              ● PLACEHOLDER CONTENT (EDITABLE)
-            </span>
           </div>
 
           <div style={{
@@ -240,6 +239,7 @@ export default function About() {
             ))}
           </div>
         </div>
+        )}
       </div>
     </section>
   );
