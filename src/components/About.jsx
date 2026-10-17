@@ -99,10 +99,6 @@ export default function About() {
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--text-main)', fontSize: '0.92rem' }}>
               <CheckCircle2 size={18} color="var(--accent-emerald)" />
-              <span>Sub-second Latency Pipelines</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--text-main)', fontSize: '0.92rem' }}>
-              <CheckCircle2 size={18} color="var(--accent-emerald)" />
               <span>Token & Cost Reduction Strategies</span>
             </div>
           </div>

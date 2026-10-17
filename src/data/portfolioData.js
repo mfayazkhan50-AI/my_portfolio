@@ -12,11 +12,12 @@ export const PROFILE = {
   location: "Global / Remote",
   profilePhoto: "/profile.png",
   resumeUrl: "/resume.pdf",
+  // TODO: replace with verified/true stat items if preferred later.
+  // Neutral, factual-only items — no unproven metrics or counts.
   stats: [
-    { label: "AI & ML Projects", value: "8+" },
-    { label: "Model Accuracy", value: "94%" },
-    { label: "Focus Areas", value: "RAG & Agents" },
-    { label: "Deployment", value: "Production-Ready" }
+    { label: "Status", value: "Open to freelance projects" },
+    { label: "Core Stack", value: "Python • LLMs • Automation" },
+    { label: "Clients", value: "Remote / International clients" }
   ]
 };
 
@@ -128,11 +129,11 @@ export const PROJECTS = [
     isFeatured: false,
     category: "Machine Learning",
     stack: ["Python", "Scikit-Learn", "Random Forest", "Feature Engineering"],
-    description: "Sales prediction model for Rossmann retail stores using Random Forest, achieving 94% accuracy in forecasting to help businesses make smarter inventory decisions.",
+    description: "Sales forecasting tool for Rossmann retail stores using Random Forest, forecasting sales to support inventory decisions.",
     github: "https://github.com/mfayazkhan50-AI/rossmann-sales-predictor",
     hasDemo: false,
     highlights: [
-      "Achieved 94% predictive accuracy in store sales forecasting",
+      "Store sales forecasting to support inventory decisions",
       "Extensive temporal feature engineering & promotion analysis"
     ]
   },
