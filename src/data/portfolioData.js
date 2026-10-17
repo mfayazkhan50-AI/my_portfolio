@@ -112,7 +112,7 @@ export const PROJECTS = [
   {
     id: "bizbrain",
     title: "BizBrain — Business PDF Agent",
-    isFeatured: false,
+    isFeatured: true,
     category: "Generative AI & RAG",
     stack: ["FastAPI", "ChromaDB", "RAGAS", "RAG", "LangChain", "Pydantic", "Chainlit", "Docker"],
     description: "AI-powered business document assistant built with a RAG pipeline. Upload PDFs and ask questions in plain language. Features hybrid search (BM25 + ChromaDB), Cohere reranking, Groq LLM, and persistent chat history for real client deployment.",
@@ -193,5 +193,20 @@ export const PROJECTS = [
       "Custom Convolutional Neural Network architecture",
       "Real-time image upload & prediction pipeline"
     ]
+  },
+  // TODO: content-automation client project — featured slot #3.
+  // Fill in real, client-approved title / description / stack / links, then
+  // remove `hidden: true` to publish it. Nothing below renders while hidden.
+  {
+    id: "content-automation-client",
+    title: "Content Automation — Client Project",
+    isFeatured: true,
+    hidden: true,
+    category: "Automation",
+    stack: [],
+    description: "TODO: add client-approved description, tech stack and links before publishing.",
+    github: null,
+    hasDemo: false,
+    highlights: []
   }
 ];
