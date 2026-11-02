@@ -1,18 +1,12 @@
 import React from 'react';
-import { Cpu, Terminal, Bot, Server, Globe, Database, BrainCircuit, Boxes, Sparkles, CheckCircle2, Download, MessageSquareQuote } from 'lucide-react';
+import { Cpu, Server, Database, CheckCircle2, MessageSquareQuote } from 'lucide-react';
 import { PROFILE, SKILL_CATEGORIES, TESTIMONIALS } from '../data/portfolioData';
 
 export default function About() {
   const iconMap = {
-    Cpu: <Cpu size={20} color="var(--accent-cyan)" />,
-    Terminal: <Terminal size={20} color="#F59E0B" />,
-    Bot: <Bot size={20} color="var(--accent-emerald)" />,
-    Server: <Server size={20} color="#60A5FA" />,
-    Globe: <Globe size={20} color="#EC4899" />,
-    Database: <Database size={20} color="#A855F7" />,
-    BrainCircuit: <BrainCircuit size={20} color="#F43F5E" />,
-    Boxes: <Boxes size={20} color="#3B82F6" />,
-    Sparkles: <Sparkles size={20} color="var(--accent-cyan)" />
+    'AI & LLMs': <Cpu size={20} color="var(--accent-cyan)" />,
+    'Backend & APIs': <Server size={20} color="#60A5FA" />,
+    'Frontend & Databases': <Database size={20} color="#A855F7" />
   };
 
   return (
@@ -20,86 +14,37 @@ export default function About() {
       <div className="container">
         {/* Section Header */}
         <div className="section-header">
-          <span className="section-tag">// ENGINEERING BACKGROUND</span>
-          <h2>About & Technical Skills</h2>
+          <span className="section-tag">ABOUT ME</span>
+          <h2>Meet the Founder Behind the Systems</h2>
           <p>
-            Specializing in high-performance AI architectures, enterprise RAG systems, and autonomous multi-agent workflows.
+            Practical AI engineering focused on reliable systems, measurable outcomes, and better business workflows.
           </p>
         </div>
 
-        {/* Professional Summary Card with Profile Photo */}
-        <div className="glass-card" style={{
-          padding: '2.5rem',
-          marginBottom: '3.5rem',
-          position: 'relative',
-          background: 'linear-gradient(135deg, rgba(14, 20, 32, 0.8) 0%, rgba(18, 26, 44, 0.9) 100%)',
-          border: '1px solid rgba(0, 240, 255, 0.25)'
-        }}>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginBottom: '1.5rem',
-            flexWrap: 'wrap',
-            gap: '1rem'
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              {/* Small Profile Photo with Accent Ring */}
-              <div className="profile-photo-container">
-                <img
-                  src={PROFILE.profilePhoto}
-                  alt={PROFILE.name}
-                  className="profile-photo-img"
-                  style={{ width: '64px', height: '64px' }}
-                />
-              </div>
-
-              <div>
-                <h3 style={{ fontSize: '1.4rem' }}>{PROFILE.name}</h3>
-                <span style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.8rem',
-                  color: 'var(--accent-cyan)'
-                }}>
-                  {PROFILE.shortTitle} • Enterprise RAG & Agents
-                </span>
-              </div>
-            </div>
-
-            {/* Download Resume Action Button */}
-            <a
-              href={PROFILE.resumeUrl}
-              download="Muhammad_Fayaz_Khan_Resume.pdf"
-              className="btn btn-outline btn-sm"
-              style={{ padding: '0.6rem 1.2rem' }}
-            >
-              <Download size={16} /> Download Resume (PDF)
-            </a>
+        <div className="about-founder-grid">
+          <div className="founder-portrait">
+            <img
+              src={PROFILE.profilePhoto}
+              alt={`${PROFILE.name}, founder and AI Software Engineer`}
+              className="founder-portrait-image"
+            />
+            <span className="founder-portrait-label">FOUNDER · AI SOFTWARE ENGINEER</span>
           </div>
 
-          <p style={{
-            fontSize: '1.08rem',
-            lineHeight: 1.75,
-            color: '#CBD5E1',
-            marginBottom: '1.5rem'
-          }}>
-            {PROFILE.aboutSummary}
-          </p>
+          <div className="founder-copy">
+            <span className="founder-copy-eyebrow">FOUNDER &amp; AI SOFTWARE ENGINEER</span>
+            <h3>{PROFILE.bioLine}</h3>
+            <p className="founder-pitch">{PROFILE.aboutSummary}</p>
 
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-            gap: '1rem',
-            paddingTop: '1.5rem',
-            borderTop: '1px solid var(--border-subtle)'
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--text-main)', fontSize: '0.92rem' }}>
-              <CheckCircle2 size={18} color="var(--accent-emerald)" />
-              <span>Retrieval Accuracy Optimization</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--text-main)', fontSize: '0.92rem' }}>
-              <CheckCircle2 size={18} color="var(--accent-emerald)" />
-              <span>Token & Cost Reduction Strategies</span>
+            <div className="founder-proof-points">
+              <div>
+                <CheckCircle2 size={19} aria-hidden="true" />
+                <span>Retrieval Accuracy Optimization</span>
+              </div>
+              <div>
+                <CheckCircle2 size={19} aria-hidden="true" />
+                <span>Token &amp; Cost Reduction Strategies</span>
+              </div>
             </div>
           </div>
         </div>
@@ -115,7 +60,7 @@ export default function About() {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
           gap: '1.5rem',
           marginBottom: '4rem'
         }}>
@@ -144,7 +89,7 @@ export default function About() {
                     background: 'rgba(255, 255, 255, 0.04)',
                     border: '1px solid var(--border-subtle)'
                   }}>
-                    {iconMap[cat.icon] || <Cpu size={20} color="var(--accent-cyan)" />}
+                    {iconMap[cat.category]}
                   </div>
                   <h4 style={{
                     fontSize: '1.1rem',
@@ -184,7 +129,7 @@ export default function About() {
             gap: '1rem'
           }}>
             <div>
-              <span className="section-tag">// ENDORSEMENTS</span>
+              <span className="section-tag">ENDORSEMENTS</span>
               <h3 style={{ fontSize: '1.5rem', fontFamily: 'var(--font-heading)' }}>
                 Client & Peer Testimonials
               </h3>
@@ -237,6 +182,119 @@ export default function About() {
         </div>
         )}
       </div>
+      <style>{`
+        .about-founder-grid {
+          display: grid;
+          grid-template-columns: minmax(300px, 0.86fr) minmax(0, 1.14fr);
+          align-items: center;
+          gap: clamp(2rem, 5vw, 4.5rem);
+          margin-bottom: 3.5rem;
+        }
+        .founder-portrait {
+          position: relative;
+          isolation: isolate;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+          width: 100%;
+          max-width: 410px;
+          min-height: 390px;
+          aspect-ratio: 0.92;
+          overflow: hidden;
+          border: 1px solid transparent;
+          border-radius: 22px;
+          background:
+            linear-gradient(155deg, rgba(16, 36, 64, 0.96), rgba(9, 17, 31, 0.98)) padding-box,
+            linear-gradient(145deg, rgba(34, 211, 238, 0.85), rgba(59, 130, 246, 0.7) 55%, rgba(129, 140, 248, 0.45)) border-box;
+          box-shadow: 0 24px 70px rgba(2, 8, 20, 0.4), 0 0 36px rgba(34, 211, 238, 0.12);
+        }
+        .founder-portrait::before {
+          content: '';
+          position: absolute;
+          z-index: -1;
+          inset: 0;
+          background:
+            radial-gradient(ellipse at 50% 36%, rgba(37, 99, 180, 0.3), transparent 58%),
+            linear-gradient(180deg, transparent 62%, rgba(7, 14, 26, 0.72));
+        }
+        .founder-portrait-image {
+          display: block;
+          width: min(100%, 360px);
+          max-height: 100%;
+          object-fit: contain;
+          object-position: center bottom;
+          filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.25));
+        }
+        .founder-portrait-label {
+          position: absolute;
+          right: 0.8rem;
+          bottom: 0.8rem;
+          left: 0.8rem;
+          padding: 0.7rem 0.85rem;
+          border: 1px solid rgba(148, 193, 230, 0.18);
+          border-radius: 9px;
+          background: rgba(8, 17, 31, 0.74);
+          color: #D8E9FA;
+          text-align: center;
+          font: 600 0.68rem var(--font-body);
+          letter-spacing: 0.12em;
+          backdrop-filter: blur(12px);
+        }
+        .founder-copy { max-width: 650px; }
+        .founder-copy-eyebrow {
+          display: block;
+          margin-bottom: 0.7rem;
+          color: var(--accent-cyan);
+          font: 700 0.72rem var(--font-body);
+          letter-spacing: 0.15em;
+        }
+        .founder-copy h3 {
+          margin-bottom: 1rem;
+          font-size: clamp(1.7rem, 3.5vw, 2.45rem);
+          line-height: 1.18;
+        }
+        .founder-pitch {
+          max-width: 590px;
+          color: #B8C6D8;
+          font-size: 1.05rem;
+          line-height: 1.8;
+        }
+        .founder-proof-points {
+          display: grid;
+          gap: 0.85rem;
+          margin-top: 1.7rem;
+          padding-top: 1.4rem;
+          border-top: 1px solid var(--border-subtle);
+        }
+        .founder-proof-points > div {
+          display: flex;
+          align-items: center;
+          gap: 0.7rem;
+          color: #D8E3F0;
+          font-size: 0.94rem;
+          line-height: 1.5;
+        }
+        .founder-proof-points svg { flex: 0 0 auto; color: #34D399; }
+        @media (max-width: 767px) {
+          .about-founder-grid {
+            grid-template-columns: minmax(0, 1fr);
+            justify-items: center;
+            gap: 1.75rem;
+            margin-bottom: 3rem;
+          }
+          .founder-portrait {
+            width: min(100%, 360px);
+            min-height: 0;
+          }
+          .founder-portrait-image { width: 100%; }
+          .founder-copy { width: 100%; }
+          .founder-pitch { font-size: 0.98rem; }
+        }
+        @media (max-width: 420px) {
+          .founder-portrait { width: min(100%, 330px); }
+          .founder-proof-points > div { align-items: flex-start; font-size: 0.88rem; }
+        }
+      `}</style>
     </section>
   );
 }

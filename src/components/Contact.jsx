@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Mail, Send, Copy, Check, MessageSquare, ExternalLink, AlertCircle } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from './BrandIcons';
+import { Mail, Send, Copy, Check, MessageSquare, ExternalLink, AlertCircle, CalendarDays } from 'lucide-react';
+import { LinkedinIcon } from './BrandIcons';
 import { PROFILE } from '../data/portfolioData';
 
 // Formspree endpoint — single source of truth, not editable from the UI.
@@ -83,7 +83,7 @@ export default function Contact() {
       <div className="container">
         {/* Section Header */}
         <div className="section-header">
-          <span className="section-tag">// GET IN TOUCH</span>
+          <span className="section-tag">GET IN TOUCH</span>
           <h2>Let&apos;s Automate Your Business.</h2>
           <p>
             {PROFILE.closingLine}
@@ -129,7 +129,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>Direct Email</div>
-                    <div style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-main)' }}>{PROFILE.email}</div>
+                    <div style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-main)', overflowWrap: 'anywhere' }}>{PROFILE.email}</div>
                   </div>
                 </div>
 
@@ -186,47 +186,42 @@ export default function Contact() {
                 <ExternalLink size={18} color="var(--text-muted)" />
               </a>
 
-              {/* GitHub Link Card */}
-              <a
-                href={PROFILE.github}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                type="button"
+                disabled
+                title="WhatsApp and booking link coming soon"
                 style={{
+                  width: '100%',
                   padding: '1.25rem',
                   borderRadius: '10px',
-                  background: 'rgba(15, 23, 42, 0.8)',
-                  border: '1px solid var(--border-subtle)',
+                  background: 'rgba(15, 23, 42, 0.45)',
+                  border: '1px dashed rgba(16, 185, 129, 0.3)',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'space-between',
-                  gap: '1rem',
-                  textDecoration: 'none',
-                  transition: 'var(--transition-smooth)'
+                  gap: '0.85rem',
+                  textAlign: 'left',
+                  color: 'var(--text-muted)',
+                  cursor: 'not-allowed',
+                  opacity: 0.8
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(0, 240, 255, 0.4)'}
-                onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-subtle)'}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-                  <div style={{
-                    width: '40px',
-                    height: '40px',
-                    borderRadius: '8px',
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid var(--border-subtle)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'var(--text-main)'
-                  }}>
-                    <GithubIcon size={20} />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>GitHub Repositories</div>
-                    <div style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-main)' }}>mfayazkhan50-AI</div>
-                  </div>
-                </div>
-                <ExternalLink size={18} color="var(--text-muted)" />
-              </a>
+                <span style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '8px',
+                  background: 'rgba(16, 185, 129, 0.1)',
+                  border: '1px solid rgba(16, 185, 129, 0.2)',
+                  display: 'grid',
+                  placeItems: 'center',
+                  color: 'var(--accent-emerald)'
+                }}>
+                  <CalendarDays size={20} />
+                </span>
+                <span>
+                  <span style={{ display: 'block', fontSize: '0.92rem', fontWeight: 600, color: 'var(--text-main)' }}>WhatsApp / Book a Call</span>
+                  <span style={{ display: 'block', marginTop: '0.2rem', fontSize: '0.76rem', fontFamily: 'var(--font-mono)' }}>Booking link coming soon</span>
+                </span>
+              </button>
             </div>
           </div>
 
@@ -393,8 +388,16 @@ export default function Contact() {
       </div>
 
       <style>{`
+        .contact-grid > div,
+        .contact-grid .glass-card { min-width: 0; }
+        .contact-grid .glass-card {
+          border-color: rgba(148, 163, 184, 0.14);
+          background: rgba(13, 23, 39, 0.76);
+          backdrop-filter: blur(18px);
+          box-shadow: 0 18px 48px rgba(2, 8, 20, 0.24);
+        }
         @media (max-width: 768px) {
-          .contact-grid { grid-template-columns: 1fr !important; }
+          .contact-grid { grid-template-columns: minmax(0, 1fr) !important; }
         }
       `}</style>
     </section>

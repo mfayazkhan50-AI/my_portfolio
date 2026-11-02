@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import TrustStrip from './components/TrustStrip';
 import Projects from './components/Projects';
 import About from './components/About';
 import Contact from './components/Contact';
@@ -83,6 +84,7 @@ export default function App() {
         <div id="home">
           <Hero setActiveTab={goToSection} />
         </div>
+        <TrustStrip />
         <Projects onOpenDemo={setSelectedDemoProject} />
         <About />
         <Contact />

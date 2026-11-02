@@ -113,10 +113,14 @@ export default function Hero({ setActiveTab }) {
               <div className="hero-appointment">
                 <div className="hero-appointment-icon"><CalendarCheck size={18} /></div>
                 <div className="hero-appointment-copy">
-                  <strong>Appointment request</strong>
+                  <strong>Appointment Booked</strong>
                   <span><Clock3 size={13} /> Tomorrow · 10:30 AM</span>
                 </div>
                 <Check size={18} className="hero-appointment-check" />
+              </div>
+              <div className="hero-typing" aria-label="Assistant is typing">
+                <span /><span /><span />
+                <small>Assistant is ready for the next request</small>
               </div>
 
               <div className="hero-mockup-footer">
@@ -224,6 +228,30 @@ export default function Hero({ setActiveTab }) {
           background: rgba(0, 240, 255, 0.055);
           border: 1px solid rgba(0, 240, 255, 0.14);
         }
+        .hero-typing {
+          display: flex;
+          align-items: center;
+          gap: 0.28rem;
+          padding: 0.75rem 0.25rem 0;
+          color: var(--text-dim);
+        }
+        .hero-typing > span {
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: var(--accent-cyan);
+          animation: hero-typing-pulse 1.1s infinite ease-in-out;
+        }
+        .hero-typing > span:nth-child(2) { animation-delay: 0.15s; }
+        .hero-typing > span:nth-child(3) { animation-delay: 0.3s; }
+        .hero-typing small {
+          margin-left: 0.35rem;
+          font-size: 0.67rem;
+        }
+        @keyframes hero-typing-pulse {
+          0%, 60%, 100% { opacity: 0.35; transform: translateY(0); }
+          30% { opacity: 1; transform: translateY(-3px); }
+        }
         .hero-appointment-copy { flex: 1; }
         .hero-appointment-copy strong { margin-bottom: 0.25rem; font-size: 0.78rem; color: var(--text-main); }
         .hero-appointment-copy span { gap: 0.3rem; color: var(--text-muted); font-size: 0.7rem; }
@@ -242,7 +270,8 @@ export default function Hero({ setActiveTab }) {
           .hero-grid { grid-template-columns: 1fr !important; }
         }
         @media (max-width: 767px) {
-          .hero-visual { display: none !important; }
+          .hero-visual { display: block !important; margin-top: 0.5rem; }
+          .hero-mockup { padding: 1rem; }
           .hero-title { font-size: clamp(2.35rem, 10vw, 3.2rem) !important; }
           .hero-actions { flex-direction: column; align-items: stretch; }
           .hero-actions .btn { width: 100%; }

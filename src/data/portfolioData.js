@@ -1,16 +1,17 @@
 export const PROFILE = {
   name: "Muhammad Fayaz Khan",
   title: "AI Agents for Business Automation",
-  shortTitle: "LLM Engineer",
+  shortTitle: "AI Software Engineer",
+  bioLine: "Muhammad Fayaz Khan — AI Software Engineer",
   valueProp: "Stop losing customers to missed calls or slow manual workflows. I build production-ready AI systems that save you time and money. (e.g., 24/7 AI Receptionists, RAG Document Assistants).",
-  aboutSummary: `LLM Engineer specializing in Enterprise-grade RAG Systems and Agentic AI workflows. Experienced in building production-ready AI applications using FastAPI, LangGraph, LangChain, and Vector Databases with a focus on retrieval accuracy, latency optimization, and LLM cost reduction. Proven ability to design end-to-end AI pipelines, from data ingestion and chunking strategy to deployment and evaluation, with measurable, demoable results.`,
+  aboutSummary: "Specializing in high-performance AI architectures, enterprise RAG systems, and autonomous multi-agent workflows. I build complete, full-stack software solutions—from custom backends to interactive Web UIs.",
   email: "muhammadfayazkhan50@gmail.com",
   linkedin: "https://linkedin.com/in/muhammad-fayaz-khan-271487381",
   github: "https://github.com/mfayazkhan50-AI",
   closingLine: "Open for freelance projects and consulting. Ready to save time and scale? Send me a message.",
-  status: "Available for freelance AI automation projects",
+  status: "Available for Q4 AI Automation Projects",
   location: "Global / Remote",
-  profilePhoto: "/profile.png",
+  profilePhoto: "/images/fayaz-profile-cutout.png",
   resumeUrl: "/resume.pdf",
   // TODO: replace with verified/true stat items if preferred later.
   // Neutral, factual-only items — no unproven metrics or counts.
@@ -28,68 +29,36 @@ export const TESTIMONIALS = [];
 
 export const SKILL_CATEGORIES = [
   {
-    category: "Generative AI & RAG",
-    icon: "Cpu",
-    skills: ["RAG Pipeline", "Hybrid Search (Dense + BM25)", "Neural Reranking", "Self-Querying", "RAGAS Evaluation"]
-  },
-  {
-    category: "Prompt Engineering",
-    icon: "Terminal",
-    skills: ["Zero-shot", "Few-shot", "Chain-of-Thought", "ReAct Pattern", "Context Engineering"]
-  },
-  {
-    category: "Agentic AI",
-    icon: "Bot",
-    skills: ["LangGraph", "CrewAI", "LangChain", "Tool Calling", "Multi-Agent Workflows", "MCP"]
+    category: "AI & LLMs",
+    skills: ["LangChain", "LangGraph", "PyTorch", "RAG"]
   },
   {
     category: "Backend & APIs",
-    icon: "Server",
-    skills: ["FastAPI", "Python (Async/Await, Decorators, Generators)", "Pydantic v2", "Instructor Library"]
+    skills: ["FastAPI", "Python (Async)", "Pydantic", "Docker"]
   },
   {
-    category: "Automation & Scraping",
-    icon: "Globe",
-    skills: ["Playwright", "Web Scraping", "Scheduled Pipelines"]
-  },
-  {
-    category: "Vector Databases",
-    icon: "Database",
-    skills: ["ChromaDB", "Qdrant", "Pinecone"]
-  },
-  {
-    category: "Core AI / ML",
-    icon: "BrainCircuit",
-    skills: ["Machine Learning", "Deep Learning (PyTorch)", "CNNs", "Scikit-Learn"]
-  },
-  {
-    category: "DevOps & Tools",
-    icon: "Boxes",
-    skills: ["Docker", "Docker Compose", "Git/GitHub", "Streamlit", "AWS"]
-  },
-  {
-    category: "LLM Providers",
-    icon: "Sparkles",
-    skills: ["OpenAI", "Anthropic Claude", "Google Gemini", "Groq"]
+    category: "Frontend & Databases",
+    skills: ["React", "Next.js", "ChromaDB", "Qdrant"]
   }
 ];
 
 export const PROJECTS = [
   {
     id: "clinicflow-ai",
-    title: "ClinicFlow AI — 24/7 Automated Receptionist",
+    title: "ClinicFlow AI",
     isFeatured: true,
+    thumbnail: "/images/clinicflow-dashboard.png",
     category: "Agentic AI & RAG",
     tags: ["Business Automation", "AI Agent", "RAG"],
     stack: ["FastAPI", "LangGraph", "ChromaDB", "Hybrid Search", "Groq LLM", "SQLite"],
     description: "Help clinics capture more appointment requests with an AI receptionist that is available after hours and during busy periods.",
-    problem: "Clinics can lose potential patients when calls come in after hours or receptionists are already busy.",
-    solution: "An AI receptionist talks with patients, books and reschedules appointments 24/7, answers common questions, and emails confirmations. A live doctor dashboard gives the clinic a clear view of appointments.",
+    problem: "Clinics lose potential patients when calls come in after hours.",
+    solution: "AI receptionist that books/reschedules appointments 24/7 with email confirmations.",
     github: null,
     hasDemo: true,
-    demoVideoUrl: null,
-    demoNote: "Demo video coming soon.",
-    demoDescription: "A preview of ClinicFlow AI's patient conversations, appointment booking, and doctor dashboard will be available here soon.",
+    demoVideoUrl: "/video/clinicflow-demo.mp4",
+    demoNote: "Watch the ClinicFlow AI demo",
+    demoDescription: "See the AI receptionist manage an appointment and confirm it with the clinic.",
     highlightsLabel: "What it handles:",
     highlights: [
       "Books and reschedules appointments around the clock",
@@ -105,12 +74,16 @@ export const PROJECTS = [
   },
   {
     id: "competitrack-ai",
-    title: "CompetiTrack AI — Competitor Price & Stock Monitoring Agent",
+    title: "CompetiTrack AI",
     isFeatured: true,
+    thumbnail: "/images/competitrack-terminal.jpg",
     category: "Agentic AI",
     tags: ["E-Commerce", "Business Automation", "AI Agent"],
     stack: ["LangGraph", "Playwright", "FastAPI", "Streamlit", "Groq"],
-    description: "Save time on manual competitor checks and spot meaningful price or stock changes sooner. The monitoring agent filters out unchanged results and sends email alerts when it detects a real change, with a dashboard for on-demand or scheduled checks.",
+    description: "Autonomous competitor monitoring that checks prices daily and sends automated alerts.",
+    problem: "Manual competitor tracking wastes hours.",
+    solution: "Autonomous agent using Playwright and LLMs to track prices daily and send automated alerts.",
+    primaryAction: "View Case Study",
     github: "https://github.com/mfayazkhan50-AI/competitrack-ai",
     hasDemo: true,
     demoVideoUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7488268158206627841/",
@@ -146,14 +119,21 @@ export const PROJECTS = [
   },
   {
     id: "bizbrain",
-    title: "BizBrain — Business PDF Agent",
+    title: "BizBrain",
     isFeatured: true,
+    thumbnail: "/images/bizbrain-chat.jpg",
     category: "Generative AI & RAG",
     tags: ["Business Automation", "Document Assistant", "RAG"],
     stack: ["FastAPI", "ChromaDB", "RAGAS", "RAG", "LangChain", "Pydantic", "Chainlit", "Docker"],
-    description: "Find answers in business PDFs without manually searching page by page. Upload documents and ask questions in plain language, with persistent chat history for follow-up.",
+    description: "Enterprise hybrid search for instant document querying with source citations.",
+    problem: "Searching through hundreds of pages of business PDFs manually slows down decision-making.",
+    solution: "Enterprise hybrid search for instant document querying with source citations.",
+    primaryAction: "Watch Demo",
     github: "https://github.com/mfayazkhan50-AI/BizBrain",
-    hasDemo: false,
+    hasDemo: true,
+    demoVideoUrl: null,
+    demoNote: "BizBrain demo coming soon",
+    demoDescription: "A product walkthrough for BizBrain will be added here soon.",
     highlights: [
       "Hybrid dense-sparse retrieval (ChromaDB + BM25)",
       "Cohere Neural Reranking for high retrieval precision",

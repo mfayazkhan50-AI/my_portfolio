@@ -1,319 +1,144 @@
 import React, { useState } from 'react';
-import { Play, Sparkles, Code2, Check, Filter } from 'lucide-react';
+import { ArrowUpRight, Filter, Play } from 'lucide-react';
 import { GithubIcon } from './BrandIcons';
 import { PROJECTS } from '../data/portfolioData';
 
+const CATEGORIES = ['All', 'Agentic AI', 'Generative AI & RAG', 'LLM Fine-Tuning', 'Machine Learning'];
+
+function matchesCategory(project, category) {
+  if (category === 'All') return true;
+  if (category === 'Agentic AI') return project.category.includes('Agentic');
+  if (category === 'Generative AI & RAG') {
+    return project.category.includes('RAG') || project.category.includes('Generative');
+  }
+  if (category === 'LLM Fine-Tuning') {
+    return project.category.includes('Fine-Tuning') || project.category.includes('LLM');
+  }
+  return project.category.includes('Machine Learning') || project.category.includes('Deep Learning');
+}
+
 export default function Projects({ onOpenDemo }) {
   const [activeFilter, setActiveFilter] = useState('All');
-
-  const categories = ['All', 'Agentic AI', 'Generative AI & RAG', 'LLM Fine-Tuning', 'Machine Learning'];
-
-  // Hidden entries (hidden: true) are never rendered — kept in data only.
   const visibleProjects = PROJECTS.filter((project) => !project.hidden);
-  const filteredProjects = visibleProjects.filter(project => {
-    if (activeFilter === 'All') return true;
-    if (activeFilter === 'Agentic AI') return project.category.includes('Agentic');
-    if (activeFilter === 'Generative AI & RAG') return project.category.includes('RAG') || project.category.includes('Generative');
-    if (activeFilter === 'LLM Fine-Tuning') return project.category.includes('Fine-Tuning') || project.category.includes('LLM');
-    if (activeFilter === 'Machine Learning') return project.category.includes('Machine Learning') || project.category.includes('Deep Learning');
-    return true;
-  });
-
-  // Featured projects follow their order in portfolioData.js.
-  const featuredProjects = filteredProjects.filter(p => p.isFeatured);
-  const featuredProject = featuredProjects[0] || null;
-  const secondaryFeatured = featuredProjects.slice(1);
-  const standardProjects = filteredProjects.filter(p => !p.isFeatured);
+  const filteredProjects = visibleProjects.filter((project) => matchesCategory(project, activeFilter));
+  const featuredProjects = filteredProjects.filter((project) => project.isFeatured);
+  const additionalProjects = filteredProjects.filter((project) => !project.isFeatured);
 
   return (
-    <section id="projects" style={{ padding: '4rem 0' }}>
+    <section id="projects" className="projects-section">
       <div className="container">
-        {/* Section Header */}
         <div className="section-header">
-          <span className="section-tag">// PORTFOLIO WORK</span>
-          <h2>Featured & Enterprise Projects</h2>
-          <p>
-            A curated collection of production-grade AI agents, LLM pipelines, RAG applications, and Machine Learning models built for impact.
-          </p>
+          <span className="section-tag">CASE STUDIES</span>
+          <h2>AI Systems Built for Real Work</h2>
+          <p>From business automation to enterprise search, explore the problem, solution, and impact behind each system.</p>
         </div>
 
-        {/* Category Filters */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.75rem',
-          flexWrap: 'wrap',
-          marginBottom: '2.5rem'
-        }}>
-          <span style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.4rem',
-            color: 'var(--text-dim)',
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.85rem',
-            marginRight: '0.5rem'
-          }}>
-            <Filter size={14} /> Filter:
-          </span>
-          {categories.map((cat) => (
+        <div className="project-filters" aria-label="Filter projects by category">
+          <span className="filter-label"><Filter size={14} /> Explore:</span>
+          {CATEGORIES.map((category) => (
             <button
-              key={cat}
-              onClick={() => setActiveFilter(cat)}
-              style={{
-                background: activeFilter === cat ? 'rgba(0, 240, 255, 0.15)' : 'var(--bg-glass)',
-                border: activeFilter === cat ? '1px solid rgba(0, 240, 255, 0.4)' : '1px solid var(--border-subtle)',
-                color: activeFilter === cat ? 'var(--accent-cyan)' : 'var(--text-muted)',
-                padding: '0.45rem 1rem',
-                borderRadius: '20px',
-                fontSize: '0.85rem',
-                fontWeight: activeFilter === cat ? 600 : 400,
-                cursor: 'pointer',
-                transition: 'var(--transition-smooth)'
-              }}
+              type="button"
+              key={category}
+              onClick={() => setActiveFilter(category)}
+              className={`project-filter${activeFilter === category ? ' active' : ''}`}
+              aria-pressed={activeFilter === category}
             >
-              {cat}
+              {category}
             </button>
           ))}
         </div>
 
-        {/* FEATURED PROJECT CARD #1 */}
-        {featuredProject && (
-          <div style={{ marginBottom: '2.5rem' }} className="reveal">
-            <div className="glass-card" style={{
-              padding: '2.25rem',
-              background: 'linear-gradient(135deg, rgba(14, 23, 42, 0.9) 0%, rgba(10, 25, 45, 0.95) 100%)',
-              border: '1px solid rgba(0, 240, 255, 0.4)',
-              boxShadow: '0 0 30px rgba(0, 240, 255, 0.12)',
-              position: 'relative',
-              overflow: 'hidden'
-            }}>
-              {/* Top Accent Ribbon */}
-              <div style={{
-                position: 'absolute',
-                top: 0,
-                right: 0,
-                background: 'linear-gradient(90deg, #00F0FF, #3B82F6)',
-                color: '#07090E',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.75rem',
-                fontWeight: 700,
-                padding: '0.35rem 1.25rem',
-                borderBottomLeftRadius: '10px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.35rem'
-              }}>
-                <Sparkles size={13} /> FEATURED PROJECT #1
+        <div className="case-study-grid">
+          {featuredProjects.map((project, index) => (
+            <article className="case-study-card glass-card reveal" key={project.id}>
+              <div className="case-study-image">
+                <img src={project.thumbnail} alt={`${project.title} product interface`} loading="lazy" />
+                <span className="case-study-number">0{index + 1}</span>
               </div>
 
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: featuredProject.workflow?.length ? '1.4fr 1fr' : '1fr',
-                gap: '2.5rem',
-                alignItems: 'center'
-              }} className="featured-grid">
-                <div>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.6rem',
-                    marginBottom: '0.75rem',
-                    flexWrap: 'wrap'
-                  }}>
-                    {(featuredProject.tags || [featuredProject.category]).map(tag => (
-                      <span key={tag} className="tech-tag featured">{tag}</span>
-                    ))}
+              <div className="case-study-content">
+                <div className="case-study-tags">
+                  {(project.tags || [project.category]).map((tag) => (
+                    <span className="case-study-tag" key={tag}>{tag}</span>
+                  ))}
+                </div>
+                <h3>{project.title}</h3>
+
+                <div className="case-study-context">
+                  <div>
+                    <span className="context-label">The problem</span>
+                    <p>{project.problem || project.description}</p>
                   </div>
-
-                  <h3 style={{
-                    fontSize: '1.85rem',
-                    lineHeight: 1.2,
-                    marginBottom: '1rem',
-                    color: '#FFFFFF'
-                  }}>
-                    {featuredProject.title}
-                  </h3>
-
-                  <p style={{
-                    fontSize: '1.02rem',
-                    color: '#CBD5E1',
-                    marginBottom: '1.5rem',
-                    lineHeight: 1.65
-                  }}>
-                    {featuredProject.description}
-                  </p>
-
-                  {(featuredProject.problem || featuredProject.solution) && (
-                    <div className="featured-project-context">
-                      {featuredProject.problem && (
-                        <div>
-                          <h4>Problem</h4>
-                          <p>{featuredProject.problem}</p>
-                        </div>
-                      )}
-                      {featuredProject.solution && (
-                        <div>
-                          <h4>Solution</h4>
-                          <p>{featuredProject.solution}</p>
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Highlights Bullet List */}
-                  <div style={{ marginBottom: '1.75rem' }}>
-                    <h4 style={{
-                      fontSize: '0.85rem',
-                      fontFamily: 'var(--font-mono)',
-                      color: 'var(--accent-cyan)',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.05em',
-                      marginBottom: '0.6rem'
-                    }}>
-                      {featuredProject.highlightsLabel || 'Business benefits:'}
-                    </h4>
-                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                      {featuredProject.highlights.map((h, i) => (
-                        <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
-                          <Check size={16} color="var(--accent-cyan)" />
-                          {h}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Tech Stack Pills */}
-                  <div style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: '0.5rem',
-                    marginBottom: '2rem'
-                  }}>
-                    {featuredProject.stack.map(tech => (
-                      <span key={tech} className="project-tech-tag" style={{ fontSize: '0.74rem', padding: '0.25rem 0.6rem' }}>
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-                    {featuredProject.github && (
-                      <a
-                        href={featuredProject.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn-primary"
-                        style={{ padding: '0.75rem 1.4rem' }}
-                      >
-                        <GithubIcon size={18} /> View on GitHub
-                      </a>
-                    )}
-
-                    {featuredProject.hasDemo && (
-                      <button
-                        onClick={() => onOpenDemo(featuredProject)}
-                        className="btn btn-secondary"
-                        style={{
-                          padding: '0.75rem 1.4rem',
-                          borderColor: 'rgba(0, 240, 255, 0.4)',
-                          color: 'var(--accent-cyan)'
-                        }}
-                      >
-                        <Play size={16} fill="var(--accent-cyan)" /> Watch Demo
-                      </button>
-                    )}
+                  <div>
+                    <span className="context-label">The solution</span>
+                    <p>{project.solution || project.description}</p>
                   </div>
                 </div>
 
-                {featuredProject.workflow?.length > 0 && (
-                  <div style={{
-                    background: 'rgba(8, 12, 20, 0.95)',
-                    border: '1px solid rgba(0, 240, 255, 0.2)',
-                    borderRadius: '12px',
-                    padding: '1.5rem',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '1rem'
-                  }}>
-                    <div style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.8rem',
-                      color: 'var(--accent-cyan)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.4rem',
-                      borderBottom: '1px solid var(--border-subtle)',
-                      paddingBottom: '0.6rem'
-                    }}>
-                      <Code2 size={16} /> {featuredProject.workflowTitle}
-                    </div>
-
-                    <div style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '0.75rem',
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.8rem'
-                    }}>
-                      {featuredProject.workflow.map((step, index) => (
-                        <React.Fragment key={step}>
-                          <div className="featured-workflow-step">{step}</div>
-                          {index < featuredProject.workflow.length - 1 && (
-                            <div style={{ textAlign: 'center', color: 'var(--text-dim)', fontSize: '0.7rem' }}>↓</div>
-                          )}
-                        </React.Fragment>
-                      ))}
-                    </div>
+                {project.stack?.length > 0 && (
+                  <div className="case-study-stack" aria-label="Technologies used">
+                    {project.stack.slice(0, 5).map((technology) => (
+                      <span key={technology}>{technology}</span>
+                    ))}
                   </div>
                 )}
+
+                <div className="case-study-actions">
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => onOpenDemo(project)}
+                  >
+                    {project.primaryAction === 'View Case Study' ? (
+                      <><ArrowUpRight size={17} /> View Case Study</>
+                    ) : (
+                      <><Play size={16} fill="currentColor" /> Watch Demo</>
+                    )}
+                  </button>
+                  {project.github ? (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-outline"
+                    >
+                      <GithubIcon size={17} /> View GitHub
+                    </a>
+                  ) : (
+                    <button
+                      type="button"
+                      className="btn btn-outline"
+                      disabled
+                      title="GitHub repository link not provided"
+                    >
+                      <GithubIcon size={17} /> View GitHub
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
-          </div>
+            </article>
+          ))}
+        </div>
+
+        {featuredProjects.length === 0 && (
+          <p className="no-projects">No featured projects in this category yet.</p>
         )}
 
-        {/* Additional featured projects */}
-        {secondaryFeatured.length > 0 && (
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 350px), 1fr))',
-            gap: '1.75rem',
-            marginBottom: '2.5rem'
-          }} className="project-card-grid">
-            {secondaryFeatured.map((project, index) => (
-              <ProjectCard key={project.id} project={project} index={index + 1} onOpenDemo={onOpenDemo} />
-            ))}
-          </div>
-        )}
-
-        {/* MORE PROJECTS — collapsed until the visitor opens it */}
-        {standardProjects.length > 0 && (
-          <details style={{
-            border: '1px solid var(--border-subtle)',
-            borderRadius: '12px',
-            background: 'var(--bg-glass)',
-            padding: '1.1rem 1.5rem',
-            marginTop: '0.5rem'
-          }}>
-            <summary style={{
-              cursor: 'pointer',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.92rem',
-              color: 'var(--accent-cyan)',
-              letterSpacing: '0.03em',
-              userSelect: 'none'
-            }}>
-              More projects ({standardProjects.length})
-            </summary>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 350px), 1fr))',
-              gap: '1.75rem',
-              marginTop: '1.75rem'
-            }} className="project-card-grid">
-              {standardProjects.map((project, index) => (
-                <ProjectCard key={project.id} project={project} index={index + 3} onOpenDemo={onOpenDemo} />
+        {additionalProjects.length > 0 && (
+          <details className="more-projects">
+            <summary>Explore more projects <span>({additionalProjects.length})</span></summary>
+            <div className="more-project-grid">
+              {additionalProjects.map((project) => (
+                <article className="more-project-card" key={project.id}>
+                  <span>{project.category}</span>
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+                  {project.github && (
+                    <a href={project.github} target="_blank" rel="noopener noreferrer">
+                      View GitHub <ArrowUpRight size={15} />
+                    </a>
+                  )}
+                </article>
               ))}
             </div>
           </details>
@@ -321,167 +146,193 @@ export default function Projects({ onOpenDemo }) {
       </div>
 
       <style>{`
-        .featured-project-context {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 1rem;
-          margin: 0 0 1.5rem;
+        .projects-section { padding: 5rem 0; }
+        .project-filters {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 0.6rem;
+          margin-bottom: 1.75rem;
         }
-        .featured-project-context > div {
+        .filter-label {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          margin-right: 0.25rem;
+          color: var(--text-dim);
+          font: 0.78rem var(--font-mono);
+        }
+        .project-filter {
+          padding: 0.48rem 0.82rem;
+          border: 1px solid var(--border-subtle);
+          border-radius: 999px;
+          background: var(--bg-glass);
+          color: var(--text-muted);
+          font: 0.76rem var(--font-body);
+          cursor: pointer;
+          transition: var(--transition-smooth);
+        }
+        .project-filter:hover, .project-filter.active {
+          color: var(--accent-cyan);
+          border-color: rgba(0, 240, 255, 0.4);
+          background: rgba(0, 240, 255, 0.09);
+        }
+        .case-study-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+          align-items: stretch;
+          gap: 1.25rem;
+        }
+        .case-study-card {
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          border: 1px solid rgba(148, 163, 184, 0.13);
+          background: rgba(13, 23, 39, 0.76);
+          backdrop-filter: blur(18px);
+          box-shadow: 0 18px 48px rgba(2, 8, 20, 0.24);
+        }
+        .case-study-image {
+          position: relative;
+          aspect-ratio: 16 / 9;
+          overflow: hidden;
+          background: rgba(4, 9, 18, 0.9);
+          border-bottom: 1px solid var(--border-subtle);
+        }
+        .case-study-image::after {
+          content: '';
+          position: absolute;
+          inset: 45% 0 0;
+          pointer-events: none;
+          background: linear-gradient(transparent, rgba(8, 15, 27, 0.62));
+        }
+        .case-study-image img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .case-study-card:hover .case-study-image img { transform: scale(1.035); }
+        .case-study-number {
+          position: absolute;
+          z-index: 1;
+          right: 0.8rem;
+          bottom: 0.65rem;
+          color: rgba(255, 255, 255, 0.78);
+          font: 0.7rem var(--font-mono);
+        }
+        .case-study-content {
+          display: flex;
+          flex: 1;
+          flex-direction: column;
+          padding: 1.35rem;
+        }
+        .case-study-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.9rem; }
+        .case-study-tag {
+          padding: 0.22rem 0.5rem;
+          border: 1px solid rgba(0, 240, 255, 0.18);
+          border-radius: 4px;
+          background: rgba(0, 240, 255, 0.055);
+          color: #9DECF1;
+          font: 0.65rem var(--font-mono);
+        }
+        .case-study-content h3 { margin-bottom: 1rem; font-size: 1.45rem; }
+        .case-study-context { display: grid; gap: 0.8rem; }
+        .case-study-context > div {
+          padding-left: 0.75rem;
+          border-left: 2px solid rgba(0, 240, 255, 0.28);
+        }
+        .case-study-context > div:last-child { border-left-color: rgba(59, 130, 246, 0.5); }
+        .context-label {
+          display: block;
+          margin-bottom: 0.25rem;
+          color: var(--accent-cyan);
+          font: 0.68rem var(--font-mono);
+          text-transform: uppercase;
+          letter-spacing: 0.06em;
+        }
+        .case-study-context p { font-size: 0.82rem; line-height: 1.55; }
+        .case-study-stack { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 1rem; }
+        .case-study-stack span {
+          color: var(--text-dim);
+          font: 0.66rem var(--font-mono);
+        }
+        .case-study-stack span + span::before { content: '·'; margin-right: 0.35rem; color: var(--accent-cyan); }
+        .case-study-actions { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: auto; padding-top: 1.2rem; }
+        .case-study-actions .btn-primary {
+          flex: 1 1 145px;
+          padding: 0.7rem 0.8rem;
+          background: linear-gradient(135deg, #3B82F6, #2563EB);
+          border-color: rgba(96, 165, 250, 0.45);
+          color: #F8FAFC;
+          box-shadow: 0 6px 20px rgba(37, 99, 235, 0.22);
+          font-size: 0.82rem;
+        }
+        .case-study-actions .btn-primary:hover {
+          background: linear-gradient(135deg, #60A5FA, #3B82F6);
+          box-shadow: 0 8px 24px rgba(37, 99, 235, 0.32);
+        }
+        .case-study-actions .btn-outline {
+          flex: 0 0 auto;
+          gap: 0.4rem;
+          padding: 0.52rem 0.62rem;
+          border-color: rgba(148, 163, 184, 0.2);
+          color: #8797AE;
+          font-size: 0.7rem;
+        }
+        .case-study-actions .btn-outline:hover {
+          border-color: rgba(148, 163, 184, 0.38);
+          color: #CBD5E1;
+          background: rgba(148, 163, 184, 0.06);
+        }
+        .case-study-actions .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+        .more-projects {
+          margin-top: 2rem;
+          padding: 1rem 1.2rem;
+          border: 1px solid var(--border-subtle);
+          border-radius: 12px;
+          background: rgba(15, 23, 42, 0.38);
+        }
+        .more-projects summary {
+          color: var(--accent-cyan);
+          font: 0.82rem var(--font-mono);
+          cursor: pointer;
+        }
+        .more-projects summary span { color: var(--text-dim); }
+        .more-project-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+          gap: 0.85rem;
+          margin-top: 1rem;
+        }
+        .more-project-card {
           padding: 1rem;
           border: 1px solid var(--border-subtle);
-          border-radius: 10px;
-          background: rgba(8, 12, 20, 0.45);
+          border-radius: 9px;
+          background: rgba(8, 12, 20, 0.6);
         }
-        .featured-project-context h4 {
-          margin-bottom: 0.4rem;
-          color: var(--accent-cyan);
-          font: 600 0.75rem var(--font-mono);
-          letter-spacing: 0.04em;
-          text-transform: uppercase;
+        .more-project-card > span { color: var(--accent-cyan); font: 0.66rem var(--font-mono); }
+        .more-project-card h3 { margin: 0.45rem 0; font-size: 1rem; }
+        .more-project-card p { font-size: 0.8rem; }
+        .more-project-card a {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.3rem;
+          margin-top: 0.8rem;
+          color: #93C5FD;
+          font-size: 0.78rem;
+          text-decoration: none;
         }
-        .featured-project-context p {
-          color: var(--text-muted);
-          font-size: 0.86rem;
-          line-height: 1.6;
-        }
-        .project-tech-tag {
-          border: 1px solid rgba(148, 163, 184, 0.14);
-          border-radius: 4px;
-          background: rgba(148, 163, 184, 0.06);
-          color: var(--text-dim);
-          font-size: 0.7rem;
-          line-height: 1.4;
-          padding: 0.2rem 0.5rem;
-        }
-        .project-card-actions {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.65rem;
-        }
-        .project-card-actions .btn { flex: 1; }
-        .featured-workflow-step {
-          padding: 0.7rem 0.8rem;
-          border: 1px solid rgba(0, 240, 255, 0.18);
-          border-radius: 6px;
-          background: rgba(0, 240, 255, 0.06);
-          color: #BAE6FD;
-          line-height: 1.5;
-        }
-        @media (max-width: 992px) {
-          .featured-grid { grid-template-columns: 1fr !important; }
-        }
+        .more-project-card a:hover { color: var(--accent-cyan); }
+        .no-projects { padding: 2rem; border: 1px solid var(--border-subtle); border-radius: 12px; }
         @media (max-width: 767px) {
-          .project-card-grid { grid-template-columns: 1fr !important; }
-          .featured-project-context { grid-template-columns: 1fr; }
+          .projects-section { padding: 3.5rem 0; }
+          .case-study-content { padding: 1.1rem; }
+          .project-filters { gap: 0.45rem; }
+          .filter-label { width: 100%; }
         }
       `}</style>
     </section>
-  );
-}
-
-function ProjectCard({ project, index, onOpenDemo }) {
-  return (
-    <div
-      className="glass-card reveal"
-      style={{
-        padding: '1.75rem',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        position: 'relative',
-        transitionDelay: `${(index % 3) * 90}ms`
-      }}
-    >
-      <div>
-        {/* Category & Badge */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginBottom: '1rem'
-        }}>
-          <span style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.75rem',
-            color: 'var(--accent-cyan)',
-            background: 'rgba(0, 240, 255, 0.08)',
-            padding: '0.2rem 0.6rem',
-            borderRadius: '4px',
-            border: '1px solid rgba(0, 240, 255, 0.2)'
-          }}>
-            {project.category}
-          </span>
-          <span style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.75rem',
-            color: 'var(--text-dim)'
-          }}>
-            #{index + 1}
-          </span>
-        </div>
-
-        {/* Title */}
-        <h3 style={{
-          fontSize: '1.35rem',
-          lineHeight: 1.3,
-          marginBottom: '0.75rem',
-          color: 'var(--text-main)'
-        }}>
-          {project.title}
-        </h3>
-
-        {/* Description */}
-        <p style={{
-          fontSize: '0.92rem',
-          lineHeight: 1.6,
-          color: 'var(--text-muted)',
-          marginBottom: '1.25rem'
-        }}>
-          {project.description}
-        </p>
-      </div>
-
-      <div>
-        {/* Tech Stack tags */}
-        <div style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '0.4rem',
-          marginBottom: '1.5rem'
-        }}>
-          {project.stack.map(tech => (
-            <span key={tech} className="project-tech-tag">
-              {tech}
-            </span>
-          ))}
-        </div>
-
-        {/* GitHub link button */}
-        <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '1rem' }}>
-          <div className="project-card-actions">
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-secondary btn-sm"
-              >
-                <GithubIcon size={16} /> View on GitHub
-              </a>
-            )}
-            {project.hasDemo && (
-              <button
-                type="button"
-                onClick={() => onOpenDemo(project)}
-                className="btn btn-secondary btn-sm"
-              >
-                <Play size={15} /> Watch Demo
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
   );
 }
