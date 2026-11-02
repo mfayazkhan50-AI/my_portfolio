@@ -7,6 +7,7 @@ export default function DemoModal({ isOpen, onClose, project }) {
 
   const videoUrl = project.demoVideoUrl;
   const isPlayableVideo = videoUrl && /\.(mp4|webm|ogg)(\?.*)?$/i.test(videoUrl);
+  const embedUrl = project.demoEmbedUrl;
   const isCaseStudy = project.primaryAction === 'View Case Study';
 
   const openExternalDemo = () => {
@@ -41,7 +42,16 @@ export default function DemoModal({ isOpen, onClose, project }) {
           </div>
         )}
 
-        {isPlayableVideo ? (
+        {embedUrl ? (
+          <iframe
+            className="demo-video"
+            src={embedUrl}
+            title={`${project.title} demo video`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          />
+        ) : isPlayableVideo ? (
           <video
             className="demo-video"
             src={videoUrl}
@@ -83,6 +93,7 @@ export default function DemoModal({ isOpen, onClose, project }) {
           width: 100%;
           max-width: 720px;
           max-height: calc(100vh - 2rem);
+          max-height: calc(100dvh - 2rem);
           overflow-y: auto;
           padding: clamp(1.25rem, 4vw, 2rem);
           border: 1px solid rgba(0, 240, 255, 0.35);
@@ -130,6 +141,7 @@ export default function DemoModal({ isOpen, onClose, project }) {
           border-radius: 10px;
           background: #05080F;
         }
+        iframe.demo-video { height: auto; }
         .demo-placeholder {
           display: flex;
           min-height: 180px;
@@ -160,7 +172,13 @@ export default function DemoModal({ isOpen, onClose, project }) {
         .demo-modal-actions { display: flex; flex-wrap: wrap; gap: 0.65rem; }
         @media (max-width: 560px) {
           .demo-case-study { grid-template-columns: 1fr; }
-          .modal-overlay { padding: 0.75rem; }
+          .modal-overlay {
+            height: 100dvh;
+            align-items: flex-start;
+            padding: 0.75rem;
+            overflow-y: auto;
+          }
+          .demo-modal { max-height: calc(100dvh - 1.5rem); }
         }
       `}</style>
     </div>

@@ -399,3 +399,10 @@ p {
     font-size: 1.8rem;
   }
 }
+
+@media (max-width: 420px) {
+  .container {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+}

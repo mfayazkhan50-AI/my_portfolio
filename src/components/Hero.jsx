@@ -8,7 +8,7 @@ export default function Hero({ setActiveTab }) {
       padding: '4.5rem 0 3.5rem',
       position: 'relative',
       overflow: 'hidden'
-    }} className="animate-fade-up">
+    }} className="hero-section animate-fade-up">
       <div style={{
         position: 'absolute',
         top: '-10%',
@@ -269,10 +269,10 @@ export default function Hero({ setActiveTab }) {
         @media (max-width: 992px) {
           .hero-grid { grid-template-columns: 1fr !important; }
         }
-        @media (max-width: 767px) {
-          .hero-visual { display: block !important; margin-top: 0.5rem; }
-          .hero-mockup { padding: 1rem; }
-          .hero-title { font-size: clamp(2.35rem, 10vw, 3.2rem) !important; }
+        @media (max-width: 768px) {
+          .hero-section { padding: 3rem 0 2.5rem !important; }
+          .hero-visual { display: none !important; }
+          .hero-title { font-size: clamp(2.15rem, 9.5vw, 3rem) !important; }
           .hero-actions { flex-direction: column; align-items: stretch; }
           .hero-actions .btn { width: 100%; }
         }

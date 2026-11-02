@@ -56,7 +56,7 @@ export const PROJECTS = [
     solution: "AI receptionist that books/reschedules appointments 24/7 with email confirmations.",
     github: null,
     hasDemo: true,
-    demoVideoUrl: "/video/clinicflow-demo.mp4",
+    demoEmbedUrl: "https://www.youtube.com/embed/3Hel8uL5V04?si=HmFgtJZwCzllFRZR",
     demoNote: "Watch the ClinicFlow AI demo",
     demoDescription: "See the AI receptionist manage an appointment and confirm it with the clinic.",
     highlightsLabel: "What it handles:",

@@ -326,11 +326,16 @@ export default function Projects({ onOpenDemo }) {
         }
         .more-project-card a:hover { color: var(--accent-cyan); }
         .no-projects { padding: 2rem; border: 1px solid var(--border-subtle); border-radius: 12px; }
-        @media (max-width: 767px) {
+        @media (max-width: 768px) {
           .projects-section { padding: 3.5rem 0; }
+          .case-study-grid { grid-template-columns: minmax(0, 1fr); }
           .case-study-content { padding: 1.1rem; }
           .project-filters { gap: 0.45rem; }
           .filter-label { width: 100%; }
+        }
+        @media (max-width: 420px) {
+          .case-study-actions { flex-direction: column; }
+          .case-study-actions .btn { width: 100%; }
         }
       `}</style>
     </section>
