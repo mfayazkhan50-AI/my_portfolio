@@ -1,24 +1,22 @@
 import React from 'react';
 import { X, Play, ExternalLink, Sparkles } from 'lucide-react';
 import { GithubIcon } from './BrandIcons';
-import { PROJECTS } from '../data/portfolioData';
 
-export default function DemoModal({ isOpen, onClose }) {
-  if (!isOpen) return null;
+export default function DemoModal({ isOpen, onClose, project }) {
+  if (!isOpen || !project) return null;
 
-  const project = PROJECTS[0]; // CompetiTrack AI
-
-  // Demo video URL comes only from portfolioData.js (project.demoVideoUrl).
-  const videoUrl = project.demoVideoUrl || project.demoUrl;
-
+  const videoUrl = project.demoVideoUrl;
   const handleOpenVideo = () => {
-    window.open(videoUrl, '_blank');
+    if (videoUrl) window.open(videoUrl, '_blank', 'noopener,noreferrer');
   };
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div 
-        className="glass-card" 
+      <div
+        className="glass-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="project-demo-title"
         onClick={(e) => e.stopPropagation()}
         style={{
           width: '100%',
@@ -30,9 +28,10 @@ export default function DemoModal({ isOpen, onClose }) {
           position: 'relative'
         }}
       >
-        {/* Close Button */}
         <button
+          type="button"
           onClick={onClose}
+          aria-label="Close demo"
           style={{
             position: 'absolute',
             top: '1.25rem',
@@ -49,28 +48,24 @@ export default function DemoModal({ isOpen, onClose }) {
             cursor: 'pointer',
             transition: 'var(--transition-smooth)'
           }}
-          onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
-          onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
         >
           <X size={20} />
         </button>
 
-        {/* Modal Header */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem' }}>
           <span className="tech-tag featured" style={{ fontSize: '0.78rem' }}>
             <Sparkles size={12} style={{ marginRight: '4px' }} /> DEMO PREVIEW
           </span>
         </div>
 
-        <h3 style={{ fontSize: '1.5rem', marginBottom: '0.75rem', color: '#FFFFFF' }}>
+        <h3 id="project-demo-title" style={{ fontSize: '1.5rem', marginBottom: '0.75rem', paddingRight: '2.5rem', color: '#FFFFFF' }}>
           {project.title}
         </h3>
 
         <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>
-          Watch the live demonstration video showing the autonomous LangGraph workflow, Playwright web scraper, and real-time alert generation in action.
+          {project.demoDescription || 'Explore a preview of this project.'}
         </p>
 
-        {/* Video Placeholder Container */}
         <div style={{
           aspectRatio: '16/9',
           background: 'rgba(5, 8, 15, 0.9)',
@@ -82,52 +77,75 @@ export default function DemoModal({ isOpen, onClose }) {
           justifyContent: 'center',
           padding: '2rem',
           textAlign: 'center',
-          marginBottom: '1.5rem',
-          position: 'relative'
+          marginBottom: '1.5rem'
         }}>
-          <div style={{
-            width: '60px',
-            height: '60px',
-            borderRadius: '50%',
-            background: 'rgba(0, 240, 255, 0.15)',
-            border: '1px solid var(--accent-cyan)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'var(--accent-cyan)',
-            marginBottom: '1rem',
-            cursor: 'pointer',
-            boxShadow: '0 0 20px rgba(0, 240, 255, 0.3)'
-          }} onClick={handleOpenVideo}>
-            <Play size={28} fill="var(--accent-cyan)" style={{ marginLeft: '4px' }} />
-          </div>
+          {videoUrl ? (
+            <button
+              type="button"
+              onClick={handleOpenVideo}
+              aria-label={`Open ${project.title} demo video`}
+              style={{
+                width: '60px',
+                height: '60px',
+                borderRadius: '50%',
+                background: 'rgba(0, 240, 255, 0.15)',
+                border: '1px solid var(--accent-cyan)',
+                display: 'grid',
+                placeItems: 'center',
+                color: 'var(--accent-cyan)',
+                marginBottom: '1rem',
+                cursor: 'pointer',
+                boxShadow: '0 0 20px rgba(0, 240, 255, 0.3)'
+              }}
+            >
+              <Play size={28} fill="var(--accent-cyan)" style={{ marginLeft: '4px' }} />
+            </button>
+          ) : (
+            <div style={{
+              width: '60px',
+              height: '60px',
+              borderRadius: '50%',
+              background: 'rgba(0, 240, 255, 0.08)',
+              border: '1px solid rgba(0, 240, 255, 0.25)',
+              display: 'grid',
+              placeItems: 'center',
+              color: 'var(--accent-cyan)',
+              marginBottom: '1rem'
+            }}>
+              <Play size={26} />
+            </div>
+          )}
 
           <div style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '0.3rem' }}>
-            CompetiTrack AI Demo Video
+            {project.demoNote || 'Demo video coming soon.'}
           </div>
           <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-            Hosted on LinkedIn Post / Video
+            {videoUrl ? 'Select to open the demo video' : 'Video preview will be added soon'}
           </div>
         </div>
 
-        {/* Action Buttons */}
         <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-          <button
-            onClick={handleOpenVideo}
-            className="btn btn-primary"
-            style={{ flex: 1 }}
-          >
-            <ExternalLink size={18} /> Open Demo on LinkedIn
-          </button>
-          
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-secondary"
-          >
-            <GithubIcon size={18} /> View Code
-          </a>
+          {videoUrl && (
+            <button
+              type="button"
+              onClick={handleOpenVideo}
+              className="btn btn-primary"
+              style={{ flex: 1 }}
+            >
+              <ExternalLink size={18} /> Open Demo Video
+            </button>
+          )}
+
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-secondary"
+            >
+              <GithubIcon size={18} /> View Code
+            </a>
+          )}
         </div>
       </div>
     </div>

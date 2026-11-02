@@ -1,15 +1,14 @@
 import React from 'react';
-import { ArrowRight, Terminal, Download } from 'lucide-react';
+import { ArrowRight, CalendarCheck, Check, Clock3, MessageCircle } from 'lucide-react';
 import { PROFILE } from '../data/portfolioData';
 
 export default function Hero({ setActiveTab }) {
   return (
     <section style={{
-      padding: '4.5rem 0 3.5rem 0',
+      padding: '4.5rem 0 3.5rem',
       position: 'relative',
       overflow: 'hidden'
     }} className="animate-fade-up">
-      {/* Hero Backdrop Animated Mesh */}
       <div style={{
         position: 'absolute',
         top: '-10%',
@@ -25,16 +24,13 @@ export default function Hero({ setActiveTab }) {
       }} />
 
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-        <div style={{
+        <div className="hero-grid" style={{
           display: 'grid',
-          gridTemplateColumns: '1.2fr 0.8fr',
+          gridTemplateColumns: '1.1fr 0.9fr',
           gap: '3rem',
           alignItems: 'center'
-        }} className="hero-grid">
-          {/* Left Column: Text, Photo & CTAs */}
+        }}>
           <div>
-            {/* TODO: hero will be re-written per vertical after discovery calls */}
-            {/* Status Indicator */}
             <div style={{ marginBottom: '1.25rem' }}>
               <div className="status-badge">
                 <span className="pulse-dot"></span>
@@ -42,189 +38,90 @@ export default function Hero({ setActiveTab }) {
               </div>
             </div>
 
-            {/* Profile Photo + Headline Layout */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '1.5rem',
-              marginBottom: '1rem',
-              flexWrap: 'wrap'
+            <h1 className="hero-title" style={{
+              fontSize: 'clamp(2.6rem, 5vw, 4rem)',
+              lineHeight: 1.08,
+              margin: '0 0 1.25rem'
             }}>
-              {/* Circular Profile Photo with Glowing Accent Ring */}
-              <div className="profile-photo-container">
-                <img
-                  src={PROFILE.profilePhoto}
-                  alt={PROFILE.name}
-                  className="profile-photo-img"
-                  style={{ width: '100px', height: '100px' }}
-                />
-              </div>
+              I build <span className="gradient-text">AI Agents</span> that automate repetitive business work.
+            </h1>
 
-              <div>
-                <h1 style={{
-                  fontSize: '3rem',
-                  lineHeight: 1.1,
-                  margin: 0
-                }} className="hero-title">
-                  Hi, I'm <br />
-                  <span className="gradient-text">{PROFILE.name}</span>
-                </h1>
-              </div>
-            </div>
-
-            {/* Subtitle / Role Tag */}
-            <div style={{
-              display: 'inline-block',
-              padding: '0.4rem 0.85rem',
-              borderRadius: '6px',
-              background: 'rgba(59, 130, 246, 0.1)',
-              border: '1px solid rgba(59, 130, 246, 0.25)',
-              color: '#93C5FD',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.9rem',
-              fontWeight: 500,
-              marginBottom: '1.5rem'
-            }}>
-              {PROFILE.title}
-            </div>
-
-            {/* One-Line Value Proposition */}
             <p style={{
-              fontSize: '1.22rem',
+              fontSize: '1.12rem',
               color: 'var(--text-main)',
               fontWeight: 400,
-              lineHeight: 1.6,
+              lineHeight: 1.7,
               marginBottom: '2rem',
-              maxWidth: '620px'
+              maxWidth: '650px'
             }}>
-              "{PROFILE.valueProp}"
+              {PROFILE.valueProp}
             </p>
 
-            {/* Action CTAs */}
-            <div style={{
+            <div className="hero-actions" style={{
               display: 'flex',
               flexWrap: 'wrap',
               gap: '1rem',
-              marginBottom: '3rem'
+              marginBottom: '1rem'
             }}>
               <button
-                onClick={() => setActiveTab('projects')}
+                onClick={() => setActiveTab('contact')}
                 className="btn btn-primary"
-                style={{ padding: '0.9rem 1.8rem', fontSize: '1rem' }}
+                style={{ padding: '0.9rem 1.35rem', fontSize: '1rem' }}
               >
-                View Projects <ArrowRight size={18} />
+                <CalendarCheck size={18} /> Book a Free Consultation
               </button>
 
               <button
-                onClick={() => setActiveTab('contact')}
+                onClick={() => setActiveTab('projects')}
                 className="btn btn-secondary"
-                style={{ padding: '0.9rem 1.8rem', fontSize: '1rem' }}
+                style={{ padding: '0.9rem 1.35rem', fontSize: '1rem' }}
               >
-                Get In Touch
+                See My Work <ArrowRight size={18} />
               </button>
-
-              <a
-                href={PROFILE.resumeUrl}
-                download="Muhammad_Fayaz_Khan_Resume.pdf"
-                className="btn btn-outline"
-                style={{ padding: '0.9rem 1.4rem', fontSize: '0.95rem' }}
-              >
-                <Download size={18} /> Download Resume
-              </a>
-            </div>
-
-            {/* Quick Stat Pill Grid */}
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
-              gap: '1rem',
-              paddingTop: '1.5rem',
-              borderTop: '1px solid var(--border-subtle)'
-            }} className="hero-stats">
-              {PROFILE.stats.map((stat, idx) => (
-                <div key={idx} style={{ textAlign: 'left' }}>
-                  <div style={{
-                    fontSize: '1.5rem',
-                    fontFamily: 'var(--font-heading)',
-                    fontWeight: 800,
-                    color: 'var(--accent-cyan)'
-                  }}>
-                    {stat.value}
-                  </div>
-                  <div style={{
-                    fontSize: '0.78rem',
-                    color: 'var(--text-muted)',
-                    fontFamily: 'var(--font-mono)'
-                  }}>
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
 
-          {/* Right Column: Deep-Tech Terminal Box */}
-          <div className="hero-terminal-container">
-            <div className="glass-card" style={{
-              padding: '0',
-              overflow: 'hidden',
-              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.6)',
-              border: '1px solid rgba(0, 240, 255, 0.25)'
-            }}>
-              {/* Window Bar */}
-              <div style={{
-                background: 'rgba(15, 23, 42, 0.9)',
-                padding: '0.75rem 1rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                borderBottom: '1px solid var(--border-subtle)'
-              }}>
-                <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'center' }}>
-                  <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#EF4444' }} />
-                  <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#F59E0B' }} />
-                  <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#10B981' }} />
+          <div className="hero-visual" aria-hidden="true">
+            <div className="hero-mockup-glow" />
+            <div className="glass-card hero-mockup">
+              <div className="hero-mockup-header">
+                <div className="hero-mockup-brand">
+                  <div className="hero-mockup-icon"><MessageCircle size={17} /></div>
+                  <div>
+                    <strong>Business Assistant</strong>
+                    <span>AI workflow preview</span>
+                  </div>
                 </div>
-                <div style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.78rem',
-                  color: 'var(--text-muted)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.4rem'
-                }}>
-                  <Terminal size={14} color="var(--accent-cyan)" />
-                  agent_pipeline.py
-                </div>
-                <div style={{ width: 40 }}></div>
+                <span className="hero-online"><span /> Online</span>
               </div>
 
-              {/* Code snippet display */}
-              <div style={{
-                padding: '1.25rem',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.82rem',
-                lineHeight: 1.6,
-                color: '#E2E8F0',
-                background: 'rgba(8, 12, 20, 0.95)'
-              }}>
-                <div><span style={{ color: '#F472B6' }}>from</span> <span style={{ color: '#60A5FA' }}>langgraph.graph</span> <span style={{ color: '#F472B6' }}>import</span> StateGraph</div>
-                <div><span style={{ color: '#F472B6' }}>from</span> <span style={{ color: '#60A5FA' }}>fastapi</span> <span style={{ color: '#F472B6' }}>import</span> FastAPI</div>
-                <div><span style={{ color: '#F472B6' }}>from</span> <span style={{ color: '#60A5FA' }}>chromadb</span> <span style={{ color: '#F472B6' }}>import</span> Client</div>
-                <br />
-                <div style={{ color: '#64748B' }}># Initialize Autonomous Agent State</div>
-                <div><span style={{ color: '#34D399' }}>class</span> <span style={{ color: '#FBBF24' }}>RAGState</span>(TypedDict):</div>
-                <div>&nbsp;&nbsp;query: <span style={{ color: '#60A5FA' }}>str</span></div>
-                <div>&nbsp;&nbsp;documents: <span style={{ color: '#60A5FA' }}>List[Document]</span></div>
-                <div>&nbsp;&nbsp;eval_score: <span style={{ color: '#60A5FA' }}>float</span></div>
-                <br />
-                <div><span style={{ color: '#F472B6' }}>@app.post</span>(<span style={{ color: '#34D399' }}>"/api/v1/execute-agent"</span>)</div>
-                <div><span style={{ color: '#F472B6' }}>async def</span> <span style={{ color: '#60A5FA' }}>run_agent</span>(request: AgentRequest):</div>
-                <div>&nbsp;&nbsp;agent = StateGraph(RAGState)</div>
-                <div>&nbsp;&nbsp;agent.add_node(<span style={{ color: '#34D399' }}>"hybrid_search"</span>, retrieve_docs)</div>
-                <div>&nbsp;&nbsp;agent.add_node(<span style={{ color: '#34D399' }}>"cohere_rerank"</span>, rerank_nodes)</div>
-                <div>&nbsp;&nbsp;agent.add_node(<span style={{ color: '#34D399' }}>"ragas_eval"</span>, evaluate_faithfulness)</div>
-                <div>&nbsp;&nbsp;<span style={{ color: '#F472B6' }}>return</span> await agent.compile().ainvoke(...)</div>
+              <div className="hero-chat">
+                <div className="hero-chat-message">
+                  Hi! I can help book an appointment or answer a question.
+                  <small>AI Assistant · just now</small>
+                </div>
+                <div className="hero-chat-message hero-chat-message-user">
+                  Do you have an appointment available tomorrow?
+                  <small>You · just now</small>
+                </div>
+                <div className="hero-chat-message">
+                  I found an opening at 10:30 AM. Would you like me to reserve it?
+                  <small>AI Assistant · just now</small>
+                </div>
+              </div>
+
+              <div className="hero-appointment">
+                <div className="hero-appointment-icon"><CalendarCheck size={18} /></div>
+                <div className="hero-appointment-copy">
+                  <strong>Appointment request</strong>
+                  <span><Clock3 size={13} /> Tomorrow · 10:30 AM</span>
+                </div>
+                <Check size={18} className="hero-appointment-check" />
+              </div>
+
+              <div className="hero-mockup-footer">
+                <span><span className="hero-pulse" /> Responding around the clock</span>
+                <span>Preview</span>
               </div>
             </div>
           </div>
@@ -232,10 +129,123 @@ export default function Hero({ setActiveTab }) {
       </div>
 
       <style>{`
+        .hero-mockup-glow {
+          position: absolute;
+          inset: 12% 4%;
+          background: radial-gradient(ellipse, rgba(0, 240, 255, 0.16), transparent 70%);
+          filter: blur(35px);
+          pointer-events: none;
+        }
+        .hero-mockup {
+          position: relative;
+          overflow: hidden;
+          padding: 1.25rem;
+          border: 1px solid rgba(0, 240, 255, 0.22);
+          background: linear-gradient(145deg, rgba(14, 23, 42, 0.94), rgba(8, 12, 20, 0.96));
+          box-shadow: 0 25px 70px rgba(0, 0, 0, 0.45), 0 0 35px rgba(0, 240, 255, 0.08);
+        }
+        .hero-mockup-header, .hero-mockup-brand, .hero-online,
+        .hero-appointment, .hero-appointment-copy span, .hero-mockup-footer,
+        .hero-mockup-footer > span:first-child {
+          display: flex;
+          align-items: center;
+        }
+        .hero-mockup-header, .hero-mockup-footer {
+          justify-content: space-between;
+        }
+        .hero-mockup-header {
+          padding-bottom: 1rem;
+          border-bottom: 1px solid var(--border-subtle);
+        }
+        .hero-mockup-brand { gap: 0.7rem; }
+        .hero-mockup-brand strong, .hero-mockup-brand span,
+        .hero-appointment-copy strong, .hero-appointment-copy span {
+          display: block;
+        }
+        .hero-mockup-brand strong { font-size: 0.88rem; color: var(--text-main); }
+        .hero-mockup-brand span { margin-top: 0.15rem; font-size: 0.72rem; color: var(--text-muted); }
+        .hero-mockup-icon, .hero-appointment-icon {
+          display: grid;
+          place-items: center;
+          width: 38px;
+          height: 38px;
+          border-radius: 11px;
+          color: var(--accent-cyan);
+          background: rgba(0, 240, 255, 0.1);
+          border: 1px solid rgba(0, 240, 255, 0.2);
+        }
+        .hero-online {
+          gap: 0.4rem;
+          padding: 0.35rem 0.6rem;
+          border: 1px solid rgba(16, 185, 129, 0.22);
+          border-radius: 20px;
+          color: #6EE7B7;
+          font-size: 0.72rem;
+        }
+        .hero-online span, .hero-pulse {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: #10B981;
+          box-shadow: 0 0 10px rgba(16, 185, 129, 0.65);
+        }
+        .hero-chat {
+          display: flex;
+          flex-direction: column;
+          gap: 0.8rem;
+          padding: 1.25rem 0;
+        }
+        .hero-chat-message {
+          max-width: 88%;
+          padding: 0.75rem 0.85rem;
+          border: 1px solid rgba(255, 255, 255, 0.07);
+          border-radius: 4px 12px 12px;
+          background: rgba(255, 255, 255, 0.045);
+          color: #DCE7F4;
+          font-size: 0.8rem;
+          line-height: 1.5;
+        }
+        .hero-chat-message small {
+          display: block;
+          margin-top: 0.4rem;
+          color: var(--text-dim);
+          font-size: 0.66rem;
+        }
+        .hero-chat-message-user {
+          align-self: flex-end;
+          border-color: rgba(59, 130, 246, 0.18);
+          border-radius: 12px 4px 12px 12px;
+          background: rgba(59, 130, 246, 0.1);
+        }
+        .hero-appointment {
+          gap: 0.75rem;
+          padding: 0.85rem;
+          border-radius: 10px;
+          background: rgba(0, 240, 255, 0.055);
+          border: 1px solid rgba(0, 240, 255, 0.14);
+        }
+        .hero-appointment-copy { flex: 1; }
+        .hero-appointment-copy strong { margin-bottom: 0.25rem; font-size: 0.78rem; color: var(--text-main); }
+        .hero-appointment-copy span { gap: 0.3rem; color: var(--text-muted); font-size: 0.7rem; }
+        .hero-appointment-check { color: #34D399; }
+        .hero-mockup-footer {
+          padding-top: 0.9rem;
+          color: var(--text-muted);
+          font-size: 0.68rem;
+        }
+        .hero-mockup-footer > span:first-child { gap: 0.4rem; }
+        .hero-mockup-footer > span:last-child {
+          font-family: var(--font-mono);
+          color: var(--text-dim);
+        }
         @media (max-width: 992px) {
           .hero-grid { grid-template-columns: 1fr !important; }
-          .hero-title { font-size: 2.5rem !important; }
-          .hero-stats { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 767px) {
+          .hero-visual { display: none !important; }
+          .hero-title { font-size: clamp(2.35rem, 10vw, 3.2rem) !important; }
+          .hero-actions { flex-direction: column; align-items: stretch; }
+          .hero-actions .btn { width: 100%; }
         }
       `}</style>
     </section>

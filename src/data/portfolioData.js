@@ -1,14 +1,13 @@
 export const PROFILE = {
   name: "Muhammad Fayaz Khan",
-  // TODO: hero copy per vertical — see TODO in Hero.jsx (rewritten after discovery calls).
-  title: "AI Automation Engineer | LLM Agents • Python • Business Workflows",
+  title: "AI Agents for Business Automation",
   shortTitle: "LLM Engineer",
-  valueProp: "I build AI automation and LLM agents that take repetitive business work off your plate. Built, deployed, and running.",
+  valueProp: "Stop losing customers to missed calls or slow manual workflows. I build production-ready AI systems that save you time and money. (e.g., 24/7 AI Receptionists, RAG Document Assistants).",
   aboutSummary: `LLM Engineer specializing in Enterprise-grade RAG Systems and Agentic AI workflows. Experienced in building production-ready AI applications using FastAPI, LangGraph, LangChain, and Vector Databases with a focus on retrieval accuracy, latency optimization, and LLM cost reduction. Proven ability to design end-to-end AI pipelines, from data ingestion and chunking strategy to deployment and evaluation, with measurable, demoable results.`,
   email: "muhammadfayazkhan50@gmail.com",
   linkedin: "https://linkedin.com/in/muhammad-fayaz-khan-271487381",
   github: "https://github.com/mfayazkhan50-AI",
-  closingLine: "Open to freelance projects and full-time opportunities in AI engineering.",
+  closingLine: "Open for freelance projects and consulting. Ready to save time and scale? Send me a message.",
   status: "Available for freelance AI automation projects",
   location: "Global / Remote",
   profilePhoto: "/profile.png",
@@ -77,21 +76,57 @@ export const SKILL_CATEGORIES = [
 
 export const PROJECTS = [
   {
+    id: "clinicflow-ai",
+    title: "ClinicFlow AI — 24/7 Automated Receptionist",
+    isFeatured: true,
+    category: "Agentic AI & RAG",
+    tags: ["Business Automation", "AI Agent", "RAG"],
+    stack: ["FastAPI", "LangGraph", "ChromaDB", "Hybrid Search", "Groq LLM", "SQLite"],
+    description: "Help clinics capture more appointment requests with an AI receptionist that is available after hours and during busy periods.",
+    problem: "Clinics can lose potential patients when calls come in after hours or receptionists are already busy.",
+    solution: "An AI receptionist talks with patients, books and reschedules appointments 24/7, answers common questions, and emails confirmations. A live doctor dashboard gives the clinic a clear view of appointments.",
+    github: null,
+    hasDemo: true,
+    demoVideoUrl: null,
+    demoNote: "Demo video coming soon.",
+    demoDescription: "A preview of ClinicFlow AI's patient conversations, appointment booking, and doctor dashboard will be available here soon.",
+    highlightsLabel: "What it handles:",
+    highlights: [
+      "Books and reschedules appointments around the clock",
+      "Answers patient questions and emails appointment confirmations",
+      "Provides doctors with a live appointment dashboard"
+    ],
+    workflowTitle: "How the assistant helps",
+    workflow: [
+      "Patient calls or asks a question",
+      "AI answers and manages appointment requests",
+      "Doctor dashboard and email confirmation"
+    ]
+  },
+  {
     id: "competitrack-ai",
     title: "CompetiTrack AI — Competitor Price & Stock Monitoring Agent",
     isFeatured: true,
     category: "Agentic AI",
+    tags: ["E-Commerce", "Business Automation", "AI Agent"],
     stack: ["LangGraph", "Playwright", "FastAPI", "Streamlit", "Groq"],
-    description: "Built an autonomous agent that scrapes competitor e-commerce websites, detects price and stock changes through a branching LangGraph workflow with error handling, and generates business insights using an LLM. Sends automated email alerts only when a real change is detected, avoiding false-positive noise. Deployed with a FastAPI backend and a Streamlit dashboard for on-demand or scheduled checks.",
+    description: "Save time on manual competitor checks and spot meaningful price or stock changes sooner. The monitoring agent filters out unchanged results and sends email alerts when it detects a real change, with a dashboard for on-demand or scheduled checks.",
     github: "https://github.com/mfayazkhan50-AI/competitrack-ai",
     hasDemo: true,
-    demoUrl: "https://linkedin.com/in/muhammad-fayaz-khan-271487381",
     demoVideoUrl: "https://www.linkedin.com/feed/update/urn:li:activity:7488268158206627841/",
     demoNote: "Demo video available on LinkedIn",
+    demoDescription: "See how CompetiTrack AI checks competitor product pages and sends alerts only when a price or stock change is detected.",
+    highlightsLabel: "Business benefits:",
     highlights: [
-      "Branching LangGraph workflow with robust error-handling",
-      "Smart delta detector to eliminate false-positive email alerts",
-      "FastAPI REST backend + Streamlit interactive control plane"
+      "Reduces repetitive manual competitor checks",
+      "Filters unchanged results to avoid noisy email alerts",
+      "Supports on-demand or scheduled monitoring"
+    ],
+    workflowTitle: "How monitoring works",
+    workflow: [
+      "Check competitor product pages",
+      "Detect meaningful price and stock changes",
+      "Send email alerts and surface results in the dashboard"
     ]
   },
   {
@@ -100,7 +135,7 @@ export const PROJECTS = [
     isFeatured: false,
     category: "LLM Fine-Tuning",
     stack: ["Transformers", "PyTorch", "LoRA", "TRL", "DPO"],
-    description: "End-to-end LLM engineering project for Urdu, using Supervised Fine-Tuning (SFT) and Direct Preference Optimization (DPO) to train a custom Urdu language model, published on Hugging Face.",
+    description: "Make Urdu-language AI more useful for Urdu-speaking users with a custom language model fine-tuned for instruction following and preference alignment.",
     github: "https://github.com/mfayazkhan50-AI/UrduGPT",
     hasDemo: false,
     highlights: [
@@ -114,8 +149,9 @@ export const PROJECTS = [
     title: "BizBrain — Business PDF Agent",
     isFeatured: true,
     category: "Generative AI & RAG",
+    tags: ["Business Automation", "Document Assistant", "RAG"],
     stack: ["FastAPI", "ChromaDB", "RAGAS", "RAG", "LangChain", "Pydantic", "Chainlit", "Docker"],
-    description: "AI-powered business document assistant built with a RAG pipeline. Upload PDFs and ask questions in plain language. Features hybrid search (BM25 + ChromaDB), Cohere reranking, Groq LLM, and persistent chat history for real client deployment.",
+    description: "Find answers in business PDFs without manually searching page by page. Upload documents and ask questions in plain language, with persistent chat history for follow-up.",
     github: "https://github.com/mfayazkhan50-AI/BizBrain",
     hasDemo: false,
     highlights: [
@@ -130,7 +166,7 @@ export const PROJECTS = [
     isFeatured: false,
     category: "Machine Learning",
     stack: ["Python", "Scikit-Learn", "Random Forest", "Feature Engineering"],
-    description: "Sales forecasting tool for Rossmann retail stores using Random Forest, forecasting sales to support inventory decisions.",
+    description: "Support better retail inventory planning with sales forecasts that help teams anticipate demand across Rossmann stores.",
     github: "https://github.com/mfayazkhan50-AI/rossmann-sales-predictor",
     hasDemo: false,
     highlights: [
@@ -144,7 +180,7 @@ export const PROJECTS = [
     isFeatured: false,
     category: "Machine Learning & API",
     stack: ["Python", "Scikit-Learn", "FastAPI"],
-    description: "Customer churn prediction using machine learning, with a FastAPI backend and a modern UI, including data preprocessing, feature selection, and precision/recall model evaluation.",
+    description: "Help teams identify customers who may be at risk of leaving so they can prioritize retention outreach, with predictions available through a web interface.",
     github: "https://github.com/mfayazkhan50-AI/churn-predictor",
     hasDemo: false,
     highlights: [
@@ -158,7 +194,7 @@ export const PROJECTS = [
     isFeatured: false,
     category: "Machine Learning & App",
     stack: ["Python", "Scikit-Learn", "Streamlit"],
-    description: "ML-powered app that predicts diabetes risk using health metrics, deployed as an interactive Streamlit web app.",
+    description: "Give users an interactive way to explore diabetes risk indicators from health metrics; the app is an informational prediction tool, not a medical diagnosis.",
     github: "https://github.com/mfayazkhan50-AI/diabetes-risk-analyzer",
     hasDemo: false,
     highlights: [
@@ -172,7 +208,7 @@ export const PROJECTS = [
     isFeatured: false,
     category: "Machine Learning",
     stack: ["Python", "Regression", "Scikit-Learn", "Streamlit"],
-    description: "End-to-end machine learning pipeline for house price prediction, including data cleaning, EDA, model comparison, and a Streamlit interface.",
+    description: "Get a data-informed estimate of house prices to support early property comparisons, with an interactive interface for exploring predictions.",
     github: "https://github.com/mfayazkhan50-AI/house-price-prediction",
     hasDemo: false,
     highlights: [
@@ -186,7 +222,7 @@ export const PROJECTS = [
     isFeatured: false,
     category: "Deep Learning",
     stack: ["PyTorch/TensorFlow", "CNN", "Streamlit"],
-    description: "Deep learning image classification model using Convolutional Neural Networks, deployed as an interactive Streamlit app.",
+    description: "Quickly sort uploaded pet photos into cat and dog categories with an interactive image-classification app.",
     github: "https://github.com/mfayazkhan50-AI/cat-vs-dog-cnn",
     hasDemo: false,
     highlights: [

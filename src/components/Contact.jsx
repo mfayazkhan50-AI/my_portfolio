@@ -84,7 +84,7 @@ export default function Contact() {
         {/* Section Header */}
         <div className="section-header">
           <span className="section-tag">// GET IN TOUCH</span>
-          <h2>Connect & Collaborate</h2>
+          <h2>Let&apos;s Automate Your Business.</h2>
           <p>
             {PROFILE.closingLine}
           </p>

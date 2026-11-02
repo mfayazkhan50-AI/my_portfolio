@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ExternalLink, Play, Sparkles, Code2, Check, Filter } from 'lucide-react';
+import { Play, Sparkles, Code2, Check, Filter } from 'lucide-react';
 import { GithubIcon } from './BrandIcons';
 import { PROJECTS } from '../data/portfolioData';
 
@@ -19,8 +19,7 @@ export default function Projects({ onOpenDemo }) {
     return true;
   });
 
-  // Featured order: 1) CompetiTrack AI  2) BizBrain  3) content-automation
-  // client project (placeholder, hidden until real content is added).
+  // Featured projects follow their order in portfolioData.js.
   const featuredProjects = filteredProjects.filter(p => p.isFeatured);
   const featuredProject = featuredProjects[0] || null;
   const secondaryFeatured = featuredProjects.slice(1);
@@ -78,7 +77,7 @@ export default function Projects({ onOpenDemo }) {
           ))}
         </div>
 
-        {/* FEATURED PROJECT CARD #1 (CompetiTrack AI) */}
+        {/* FEATURED PROJECT CARD #1 */}
         {featuredProject && (
           <div style={{ marginBottom: '2.5rem' }} className="reveal">
             <div className="glass-card" style={{
@@ -110,7 +109,7 @@ export default function Projects({ onOpenDemo }) {
 
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: '1.4fr 1fr',
+                gridTemplateColumns: featuredProject.workflow?.length ? '1.4fr 1fr' : '1fr',
                 gap: '2.5rem',
                 alignItems: 'center'
               }} className="featured-grid">
@@ -122,8 +121,9 @@ export default function Projects({ onOpenDemo }) {
                     marginBottom: '0.75rem',
                     flexWrap: 'wrap'
                   }}>
-                    <span className="tech-tag featured">Autonomous Agent</span>
-                    <span className="tech-tag featured">E-Commerce Monitoring</span>
+                    {(featuredProject.tags || [featuredProject.category]).map(tag => (
+                      <span key={tag} className="tech-tag featured">{tag}</span>
+                    ))}
                   </div>
 
                   <h3 style={{
@@ -144,6 +144,23 @@ export default function Projects({ onOpenDemo }) {
                     {featuredProject.description}
                   </p>
 
+                  {(featuredProject.problem || featuredProject.solution) && (
+                    <div className="featured-project-context">
+                      {featuredProject.problem && (
+                        <div>
+                          <h4>Problem</h4>
+                          <p>{featuredProject.problem}</p>
+                        </div>
+                      )}
+                      {featuredProject.solution && (
+                        <div>
+                          <h4>Solution</h4>
+                          <p>{featuredProject.solution}</p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   {/* Highlights Bullet List */}
                   <div style={{ marginBottom: '1.75rem' }}>
                     <h4 style={{
@@ -154,7 +171,7 @@ export default function Projects({ onOpenDemo }) {
                       letterSpacing: '0.05em',
                       marginBottom: '0.6rem'
                     }}>
-                      Key Engineering Accomplishments:
+                      {featuredProject.highlightsLabel || 'Business benefits:'}
                     </h4>
                     <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                       {featuredProject.highlights.map((h, i) => (
@@ -174,7 +191,7 @@ export default function Projects({ onOpenDemo }) {
                     marginBottom: '2rem'
                   }}>
                     {featuredProject.stack.map(tech => (
-                      <span key={tech} className="tech-tag featured" style={{ fontSize: '0.82rem', padding: '0.3rem 0.75rem' }}>
+                      <span key={tech} className="project-tech-tag" style={{ fontSize: '0.74rem', padding: '0.25rem 0.6rem' }}>
                         {tech}
                       </span>
                     ))}
@@ -182,106 +199,90 @@ export default function Projects({ onOpenDemo }) {
 
                   {/* Action Buttons */}
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-                    <a
-                      href={featuredProject.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn-primary"
-                      style={{ padding: '0.75rem 1.4rem' }}
-                    >
-                      <GithubIcon size={18} /> View on GitHub
-                    </a>
-                    
-                    <button
-                      onClick={onOpenDemo}
-                      className="btn btn-secondary"
-                      style={{
-                        padding: '0.75rem 1.4rem',
-                        borderColor: 'rgba(0, 240, 255, 0.4)',
-                        color: 'var(--accent-cyan)'
-                      }}
-                    >
-                      <Play size={16} fill="var(--accent-cyan)" /> Watch Demo
-                    </button>
+                    {featuredProject.github && (
+                      <a
+                        href={featuredProject.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-primary"
+                        style={{ padding: '0.75rem 1.4rem' }}
+                      >
+                        <GithubIcon size={18} /> View on GitHub
+                      </a>
+                    )}
+
+                    {featuredProject.hasDemo && (
+                      <button
+                        onClick={() => onOpenDemo(featuredProject)}
+                        className="btn btn-secondary"
+                        style={{
+                          padding: '0.75rem 1.4rem',
+                          borderColor: 'rgba(0, 240, 255, 0.4)',
+                          color: 'var(--accent-cyan)'
+                        }}
+                      >
+                        <Play size={16} fill="var(--accent-cyan)" /> Watch Demo
+                      </button>
+                    )}
                   </div>
                 </div>
 
-                {/* Visual Agent Workflow Diagram Box */}
-                <div style={{
-                  background: 'rgba(8, 12, 20, 0.95)',
-                  border: '1px solid rgba(0, 240, 255, 0.2)',
-                  borderRadius: '12px',
-                  padding: '1.5rem',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '1rem'
-                }}>
+                {featuredProject.workflow?.length > 0 && (
                   <div style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.8rem',
-                    color: 'var(--accent-cyan)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.4rem',
-                    borderBottom: '1px solid var(--border-subtle)',
-                    paddingBottom: '0.6rem'
-                  }}>
-                    <Code2 size={16} /> LangGraph Agent Architecture
-                  </div>
-
-                  <div style={{
+                    background: 'rgba(8, 12, 20, 0.95)',
+                    border: '1px solid rgba(0, 240, 255, 0.2)',
+                    borderRadius: '12px',
+                    padding: '1.5rem',
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '0.75rem',
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.8rem'
+                    gap: '1rem'
                   }}>
                     <div style={{
-                      padding: '0.6rem 0.8rem',
-                      background: 'rgba(59, 130, 246, 0.1)',
-                      border: '1px solid rgba(59, 130, 246, 0.25)',
-                      borderRadius: '6px',
-                      color: '#93C5FD'
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '0.8rem',
+                      color: 'var(--accent-cyan)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.4rem',
+                      borderBottom: '1px solid var(--border-subtle)',
+                      paddingBottom: '0.6rem'
                     }}>
-                      1. Playwright Web Scraper (Target E-Commerce)
+                      <Code2 size={16} /> {featuredProject.workflowTitle}
                     </div>
-                    <div style={{ textAlign: 'center', color: 'var(--text-dim)', fontSize: '0.7rem' }}>↓</div>
+
                     <div style={{
-                      padding: '0.6rem 0.8rem',
-                      background: 'rgba(0, 240, 255, 0.1)',
-                      border: '1px solid rgba(0, 240, 255, 0.25)',
-                      borderRadius: '6px',
-                      color: 'var(--accent-cyan)'
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '0.75rem',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '0.8rem'
                     }}>
-                      2. LangGraph Delta Evaluator (Price & Stock)
-                    </div>
-                    <div style={{ textAlign: 'center', color: 'var(--text-dim)', fontSize: '0.7rem' }}>↓</div>
-                    <div style={{
-                      padding: '0.6rem 0.8rem',
-                      background: 'rgba(16, 185, 129, 0.1)',
-                      border: '1px solid rgba(16, 185, 129, 0.25)',
-                      borderRadius: '6px',
-                      color: 'var(--accent-emerald)'
-                    }}>
-                      3. Groq LLM Insight Generator & Alert Dispatch
+                      {featuredProject.workflow.map((step, index) => (
+                        <React.Fragment key={step}>
+                          <div className="featured-workflow-step">{step}</div>
+                          {index < featuredProject.workflow.length - 1 && (
+                            <div style={{ textAlign: 'center', color: 'var(--text-dim)', fontSize: '0.7rem' }}>↓</div>
+                          )}
+                        </React.Fragment>
+                      ))}
                     </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </div>
         )}
 
-        {/* FEATURED PROJECT CARDS #2-#3 (BizBrain + hidden client project placeholder) */}
+        {/* Additional featured projects */}
         {secondaryFeatured.length > 0 && (
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 350px), 1fr))',
             gap: '1.75rem',
             marginBottom: '2.5rem'
-          }}>
+          }} className="project-card-grid">
             {secondaryFeatured.map((project, index) => (
-              <ProjectCard key={project.id} project={project} index={index + 1} />
+              <ProjectCard key={project.id} project={project} index={index + 1} onOpenDemo={onOpenDemo} />
             ))}
           </div>
         )}
@@ -307,12 +308,12 @@ export default function Projects({ onOpenDemo }) {
             </summary>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 350px), 1fr))',
               gap: '1.75rem',
               marginTop: '1.75rem'
-            }}>
+            }} className="project-card-grid">
               {standardProjects.map((project, index) => (
-                <ProjectCard key={project.id} project={project} index={index + 3} />
+                <ProjectCard key={project.id} project={project} index={index + 3} onOpenDemo={onOpenDemo} />
               ))}
             </div>
           </details>
@@ -320,15 +321,66 @@ export default function Projects({ onOpenDemo }) {
       </div>
 
       <style>{`
+        .featured-project-context {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
+          margin: 0 0 1.5rem;
+        }
+        .featured-project-context > div {
+          padding: 1rem;
+          border: 1px solid var(--border-subtle);
+          border-radius: 10px;
+          background: rgba(8, 12, 20, 0.45);
+        }
+        .featured-project-context h4 {
+          margin-bottom: 0.4rem;
+          color: var(--accent-cyan);
+          font: 600 0.75rem var(--font-mono);
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+        }
+        .featured-project-context p {
+          color: var(--text-muted);
+          font-size: 0.86rem;
+          line-height: 1.6;
+        }
+        .project-tech-tag {
+          border: 1px solid rgba(148, 163, 184, 0.14);
+          border-radius: 4px;
+          background: rgba(148, 163, 184, 0.06);
+          color: var(--text-dim);
+          font-size: 0.7rem;
+          line-height: 1.4;
+          padding: 0.2rem 0.5rem;
+        }
+        .project-card-actions {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.65rem;
+        }
+        .project-card-actions .btn { flex: 1; }
+        .featured-workflow-step {
+          padding: 0.7rem 0.8rem;
+          border: 1px solid rgba(0, 240, 255, 0.18);
+          border-radius: 6px;
+          background: rgba(0, 240, 255, 0.06);
+          color: #BAE6FD;
+          line-height: 1.5;
+        }
         @media (max-width: 992px) {
           .featured-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 767px) {
+          .project-card-grid { grid-template-columns: 1fr !important; }
+          .featured-project-context { grid-template-columns: 1fr; }
         }
       `}</style>
     </section>
   );
 }
 
-function ProjectCard({ project, index }) {
+function ProjectCard({ project, index, onOpenDemo }) {
   return (
     <div
       className="glass-card reveal"
@@ -399,7 +451,7 @@ function ProjectCard({ project, index }) {
           marginBottom: '1.5rem'
         }}>
           {project.stack.map(tech => (
-            <span key={tech} className="tech-tag">
+            <span key={tech} className="project-tech-tag">
               {tech}
             </span>
           ))}
@@ -407,15 +459,27 @@ function ProjectCard({ project, index }) {
 
         {/* GitHub link button */}
         <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '1rem' }}>
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-secondary btn-sm"
-            style={{ width: '100%', justifyContent: 'center' }}
-          >
-            <GithubIcon size={16} /> View on GitHub
-          </a>
+          <div className="project-card-actions">
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-secondary btn-sm"
+              >
+                <GithubIcon size={16} /> View on GitHub
+              </a>
+            )}
+            {project.hasDemo && (
+              <button
+                type="button"
+                onClick={() => onOpenDemo(project)}
+                className="btn btn-secondary btn-sm"
+              >
+                <Play size={15} /> Watch Demo
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

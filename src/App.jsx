@@ -12,7 +12,7 @@ const SECTION_IDS = ['home', 'projects', 'about', 'contact'];
 
 export default function App() {
   const [activeTab, setActiveTabState] = useState('home');
-  const [isDemoOpen, setIsDemoOpen] = useState(false);
+  const [selectedDemoProject, setSelectedDemoProject] = useState(null);
   const isClickScrolling = useRef(false);
   const clickScrollTimeout = useRef(null);
 
@@ -83,7 +83,7 @@ export default function App() {
         <div id="home">
           <Hero setActiveTab={goToSection} />
         </div>
-        <Projects onOpenDemo={() => setIsDemoOpen(true)} />
+        <Projects onOpenDemo={setSelectedDemoProject} />
         <About />
         <Contact />
       </main>
@@ -91,8 +91,9 @@ export default function App() {
       <Footer setActiveTab={goToSection} />
 
       <DemoModal
-        isOpen={isDemoOpen}
-        onClose={() => setIsDemoOpen(false)}
+        project={selectedDemoProject}
+        isOpen={Boolean(selectedDemoProject)}
+        onClose={() => setSelectedDemoProject(null)}
       />
     </div>
   );
