@@ -2,25 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://mfayazkhan.vercel.app/</loc></url>
   <url><loc>https://mfayazkhan.vercel.app/services</loc></url>
-  <url><loc>https://mfayazkhan.vercel.app/services/ai-receptionist</loc></url>
-  <url><loc>https://mfayazkhan.vercel.app/services/rag-document-assistant</loc></url>
-  <url><loc>https://mfayazkhan.vercel.app/services/custom-ai-agents</loc></url>
-  <url><loc>https://mfayazkhan.vercel.app/services/business-automation</loc></url>
-  <url><loc>https://mfayazkhan.vercel.app/services/pricing-process</loc></url>
-  <url><loc>https://mfayazkhan.vercel.app/work</loc></url>
-  <url><loc>https://mfayazkhan.vercel.app/work/clinicflow-ai</loc></url>
-  <url><loc>https://mfayazkhan.vercel.app/work/competitrack-ai</loc></url>
-  <url><loc>https://mfayazkhan.vercel.app/work/bizbrain</loc></url>
-  <url><loc>https://mfayazkhan.vercel.app/work/urdugpt</loc></url>
-  <url><loc>https://mfayazkhan.vercel.app/work/rossmann-sales-predictor</loc></url>
-  <url><loc>https://mfayazkhan.vercel.app/work/churn-predictor</loc></url>
-  <url><loc>https://mfayazkhan.vercel.app/work/diabetes-risk-analyzer</loc></url>
-  <url><loc>https://mfayazkhan.vercel.app/work/house-price-prediction</loc></url>
-  <url><loc>https://mfayazkhan.vercel.app/work/cat-vs-dog-cnn</loc></url>
+  <url><loc>https://mfayazkhan.vercel.app/projects</loc></url>
   <url><loc>https://mfayazkhan.vercel.app/about</loc></url>
-  <url><loc>https://mfayazkhan.vercel.app/about/skills</loc></url>
-  <url><loc>https://mfayazkhan.vercel.app/about/experience</loc></url>
-  <url><loc>https://mfayazkhan.vercel.app/about/certificates</loc></url>
-  <url><loc>https://mfayazkhan.vercel.app/about/resume</loc></url>
   <url><loc>https://mfayazkhan.vercel.app/contact</loc></url>
+  <url><loc>https://mfayazkhan.vercel.app/founder</loc></url>
 </urlset>

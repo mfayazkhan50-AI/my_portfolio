@@ -1,11 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BRAND } from '../data/portfolioData';
-
-const BOOKING_URL = import.meta.env.VITE_BOOKING_URL;
+import { BOOKING_URL } from '../data/portfolioData';
 
 export default function ContactCTA({ className = 'btn btn-primary', location = 'site', icon = null, style }) {
-  const label = BOOKING_URL ? 'Book a Call' : 'Message me';
+  const label = BOOKING_URL ? 'Book a Call' : 'Contact Us';
   const action = BOOKING_URL ? 'book-call' : 'message';
   const content = <>{label}{icon}</>;
   const onClick = () => window.plausible?.('CTA Click', { props: { location, action } });
@@ -15,8 +13,8 @@ export default function ContactCTA({ className = 'btn btn-primary', location = '
   }
 
   return (
-    <a className={className} href={BRAND.whatsappUrl} target="_blank" rel="noopener noreferrer" onClick={onClick} style={style}>
+    <Link className={className} to="/contact" onClick={onClick} style={style}>
       {content}
-    </a>
+    </Link>
   );
 }

@@ -24,6 +24,7 @@
   --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   --shadow-glow: 0 0 25px rgba(0, 240, 255, 0.18);
   --shadow-card: 0 15px 35px -10px rgba(0, 0, 0, 0.6);
+  --section-space: clamp(2rem, 4vw, 3rem);
 }
 
 * {
@@ -217,45 +218,6 @@ a:not(.btn):hover {
   100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
 }
 
-/* Profile Photo Ring Styling */
-.profile-photo-container {
-  position: relative;
-  isolation: isolate;
-  flex: 0 0 auto;
-  width: 90px;
-  height: 90px;
-  display: grid;
-  place-items: center;
-  overflow: visible;
-  border-radius: 50%;
-  border: 1px solid transparent;
-  background:
-    linear-gradient(var(--bg-dark), var(--bg-dark)) padding-box,
-    linear-gradient(140deg, #22D3EE 0%, #3B82F6 55%, #818CF8 100%) border-box;
-  box-shadow: 0 0 25px rgba(34, 211, 238, 0.17), 0 0 45px rgba(59, 130, 246, 0.12);
-}
-
-.profile-photo-container::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: -14px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(30, 91, 166, 0.28) 0%, rgba(23, 61, 117, 0.16) 42%, transparent 72%);
-  filter: blur(7px);
-  pointer-events: none;
-}
-
-.profile-photo-img {
-  display: block;
-  width: 82px;
-  height: 82px;
-  border-radius: 50%;
-  object-fit: cover;
-  background: radial-gradient(circle, #152743 0%, #0B1220 72%);
-  border: 2px solid rgba(11, 18, 32, 0.95);
-}
-
 /* Glass Card */
 .glass-card {
   background: var(--bg-card);
@@ -274,73 +236,9 @@ a:not(.btn):hover {
   transform: translateY(-4px);
 }
 
-/* Scroll Reveal Fade-Up Effect (page-level, used once on Hero load) */
-.animate-fade-up {
-  animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Offsets each section so the sticky navbar never overlaps content
-   when jumping to it via nav clicks or scroll-spy */
-#home, #projects, #about, #contact {
-  scroll-margin-top: 90px;
-}
-
-/* Per-card scroll-reveal, triggered via IntersectionObserver in App.jsx.
-   Apply the `reveal` class + an optional inline transitionDelay for
-   staggered entrances across a grid of cards. */
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Tech Tag / Badge */
-.tech-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.25rem 0.65rem;
-  border-radius: 6px;
-  background: rgba(59, 130, 246, 0.1);
-  border: 1px solid rgba(59, 130, 246, 0.2);
-  color: #93C5FD;
-  font-size: 0.78rem;
-  font-family: var(--font-mono);
-  transition: var(--transition-smooth);
-}
-
-.tech-tag:hover {
-  background: rgba(0, 240, 255, 0.15);
-  border-color: rgba(0, 240, 255, 0.4);
-  color: var(--accent-cyan);
-  transform: translateY(-1px);
-}
-
-.tech-tag.featured {
-  background: rgba(0, 240, 255, 0.12);
-  border-color: rgba(0, 240, 255, 0.3);
-  color: var(--accent-cyan);
-}
-
 /* Section Header */
 .section-header {
-  margin-bottom: 3rem;
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
   text-align: left;
 }
 
@@ -363,36 +261,6 @@ a:not(.btn):hover {
   max-width: 650px;
 }
 
-/* Placeholder Tag Badge */
-.placeholder-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.15rem 0.5rem;
-  border-radius: 4px;
-  background: rgba(245, 158, 11, 0.12);
-  border: 1px solid rgba(245, 158, 11, 0.3);
-  color: #FBBF24;
-  font-size: 0.7rem;
-  font-family: var(--font-mono);
-  font-weight: 500;
-}
-
-/* Modal Overlay */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(5, 8, 15, 0.85);
-  backdrop-filter: blur(8px);
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
-}
-
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -403,7 +271,7 @@ a:not(.btn):hover {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: #737373;
   border-radius: 4px;
 }
 

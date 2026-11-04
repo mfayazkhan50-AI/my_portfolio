@@ -1,89 +1,96 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import DemoModal from './components/DemoModal';
 import Contact from './components/Contact';
 import {
   AboutStoryPage,
-  CaseStudyPage,
-  CertificatesPage,
-  ExperiencePage,
+  FounderPage,
   HomePage,
   NotFoundPage,
-  PricingProcessPage,
-  ResumePage,
-  ServiceDetailPage,
   ServicesPage,
-  SkillsPage,
   WorkPage
 } from './pages/SitePages';
-import { PROJECTS, SERVICES } from './data/portfolioData';
-
-const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://mfayazkhan.vercel.app').replace(/\/$/, '');
-const HOME_TITLE = 'Muhammad Fayaz Khan | AI Engineer, RAG & AI Agents';
-const HOME_DESCRIPTION = 'I build production-ready AI systems, RAG document assistants, and custom backends to automate business workflows.';
+import { BRAND, PROFILE, SEO_PAGES, SITE_URL } from './data/portfolioData';
 
 function PageMetadata() {
   const { pathname } = useLocation();
 
   const metadata = useMemo(() => {
-    if (pathname === '/') return { title: HOME_TITLE, description: HOME_DESCRIPTION };
-    if (pathname === '/work') return { title: 'Work & Case Studies | MFK AI Solutions', description: 'Explore AI agents, document assistants, and software projects by MFK AI Solutions.' };
-    if (pathname.startsWith('/work/')) {
-      const project = PROJECTS.find((item) => item.id === pathname.split('/')[2]);
-      return { title: project ? `${project.title} | Case Study` : 'Page Not Found', description: project?.description || 'This page could not be found.' };
-    }
-    if (pathname === '/services') return { title: 'AI Automation Services | MFK AI Solutions', description: 'AI receptionists, RAG document assistants, custom agents, and business automation.' };
-    if (pathname.startsWith('/services/')) {
-      const slug = pathname.split('/')[2];
-      const service = SERVICES.find((item) => item.slug === slug);
-      if (slug === 'pricing-process') return { title: 'Pricing & Process | MFK AI Solutions', description: 'Learn how projects are scoped, prototyped, deployed, and supported.' };
-      return { title: service ? `${service.title} | MFK AI Solutions` : 'Page Not Found', description: service?.summary || 'This page could not be found.' };
-    }
-    const aboutTitles = {
-      '/about': ['My Story | Muhammad Fayaz Khan', 'Meet Muhammad Fayaz Khan, founder and lead AI engineer at MFK AI Solutions.'],
-      '/about/skills': ['Skills & Stack | MFK AI Solutions', 'AI, backend, frontend, vector database, and evaluation tools.'],
-      '/about/experience': ['Experience & Education | Muhammad Fayaz Khan', 'Experience and education background.'],
-      '/about/certificates': ['Certificates & Hackathons | Muhammad Fayaz Khan', 'Verified certificates and hackathon results.'],
-      '/about/resume': ['Resume / CV | Muhammad Fayaz Khan', 'Professional summary and skills.']
-    };
-    if (aboutTitles[pathname]) return { title: aboutTitles[pathname][0], description: aboutTitles[pathname][1] };
-    if (pathname === '/contact') return {
-      title: 'Contact | MFK AI Solutions',
-      description: import.meta.env.VITE_BOOKING_URL
-        ? 'Book a call or contact MFK AI Solutions about your AI or software project.'
-        : 'Message MFK AI Solutions about your AI or software project.'
-    };
-    return { title: 'Page Not Found | MFK AI Solutions', description: 'This page could not be found.' };
+    const pageKey = {
+      '/': 'home',
+      '/services': 'services',
+      '/projects': 'projects',
+      '/about': 'about',
+      '/contact': 'contact',
+      '/founder': 'founder'
+    }[pathname] || 'notFound';
+    return SEO_PAGES[pageKey];
   }, [pathname]);
 
   useEffect(() => {
     document.title = metadata.title;
-    let description = document.querySelector('meta[name="description"]');
-    if (!description) {
-      description = document.createElement('meta');
-      description.name = 'description';
-      document.head.appendChild(description);
-    }
-    description.content = metadata.description;
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.rel = 'canonical';
-      document.head.appendChild(canonical);
-    }
+    const setMeta = (selector, attribute, value, create) => {
+      let element = document.querySelector(selector);
+      if (!element && create) {
+        element = document.createElement('meta');
+        Object.entries(create).forEach(([key, item]) => { element.setAttribute(key, item); });
+        document.head.appendChild(element);
+      }
+      if (element) element.setAttribute(attribute, value);
+    };
+    const canonical = document.querySelector('link[rel="canonical"]') || document.head.appendChild(Object.assign(document.createElement('link'), { rel: 'canonical' }));
     canonical.href = `${SITE_URL}${pathname}`;
-    const ogTitle = document.querySelector('meta[property="og:title"]');
-    const ogDescription = document.querySelector('meta[property="og:description"]');
-    const ogUrl = document.querySelector('meta[property="og:url"]');
-    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
-    const twitterDescription = document.querySelector('meta[name="twitter:description"]');
-    if (ogTitle) ogTitle.content = metadata.title;
-    if (ogDescription) ogDescription.content = metadata.description;
-    if (ogUrl) ogUrl.content = `${SITE_URL}${pathname}`;
-    if (twitterTitle) twitterTitle.content = metadata.title;
-    if (twitterDescription) twitterDescription.content = metadata.description;
+    setMeta('meta[name="description"]', 'content', metadata.description, { name: 'description' });
+    setMeta('meta[property="og:title"]', 'content', metadata.title, { property: 'og:title' });
+    setMeta('meta[property="og:description"]', 'content', metadata.description, { property: 'og:description' });
+    setMeta('meta[property="og:url"]', 'content', canonical.href, { property: 'og:url' });
+    setMeta('meta[property="og:image"]', 'content', `${SITE_URL}/og-image.png`, { property: 'og:image' });
+    setMeta('meta[name="twitter:card"]', 'content', 'summary_large_image', { name: 'twitter:card' });
+    setMeta('meta[name="twitter:title"]', 'content', metadata.title, { name: 'twitter:title' });
+    setMeta('meta[name="twitter:description"]', 'content', metadata.description, { name: 'twitter:description' });
+    setMeta('meta[name="twitter:image"]', 'content', `${SITE_URL}/og-image.png`, { name: 'twitter:image' });
+
+    const structuredData = pathname === '/founder'
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: PROFILE.name,
+          jobTitle: PROFILE.title,
+          image: `${SITE_URL}${PROFILE.photo}`,
+          url: `${SITE_URL}/founder`,
+          worksFor: { '@type': 'Organization', name: BRAND.name, url: SITE_URL },
+          sameAs: [PROFILE.linkedin, PROFILE.github]
+        }
+      : {
+          '@context': 'https://schema.org',
+          '@type': ['Organization', 'ProfessionalService'],
+          name: BRAND.name,
+          url: SITE_URL,
+          email: BRAND.contactEmail,
+          logo: `${SITE_URL}/favicon.svg`,
+          image: `${SITE_URL}/og-image.png`,
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: 'Islamabad',
+            addressCountry: 'PK'
+          },
+          founder: {
+            '@type': 'Person',
+            name: PROFILE.name,
+            jobTitle: PROFILE.title,
+            url: `${SITE_URL}/founder`
+          },
+          sameAs: [BRAND.linkedin, BRAND.github]
+        };
+    let jsonLd = document.getElementById('page-json-ld');
+    if (!jsonLd) {
+      jsonLd = document.createElement('script');
+      jsonLd.id = 'page-json-ld';
+      jsonLd.type = 'application/ld+json';
+      document.head.appendChild(jsonLd);
+    }
+    jsonLd.textContent = JSON.stringify(structuredData);
   }, [metadata, pathname]);
 
   return null;
@@ -105,37 +112,17 @@ function Analytics() {
 }
 
 function SiteLayout() {
-  const [selectedDemoProject, setSelectedDemoProject] = useState(null);
   const location = useLocation();
-  const closeDemo = useCallback(() => setSelectedDemoProject(null), []);
 
   useEffect(() => {
     if (location.hash) {
       window.setTimeout(() => {
-        document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.getElementById(location.hash.slice(1))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 50);
     } else {
       window.scrollTo({ top: 0, behavior: 'auto' });
     }
   }, [location.pathname, location.hash]);
-
-  useEffect(() => {
-    const revealEls = document.querySelectorAll('.reveal:not(.is-visible)');
-    if (!('IntersectionObserver' in window)) {
-      revealEls.forEach((element) => element.classList.add('is-visible'));
-      return undefined;
-    }
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-    revealEls.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
-  }, [location.pathname]);
 
   return (
     <div className="site-layout">
@@ -143,26 +130,15 @@ function SiteLayout() {
       <Analytics />
       <Navbar />
       <Routes>
-        <Route path="/" element={<HomePage onOpenDemo={setSelectedDemoProject} />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/services" element={<ServicesPage />} />
-        <Route path="/services/pricing-process" element={<PricingProcessPage />} />
-        <Route path="/services/:slug" element={<ServiceDetailPage onOpenDemo={setSelectedDemoProject} />} />
-        <Route path="/work" element={<WorkPage onOpenDemo={setSelectedDemoProject} />} />
-        <Route path="/work/:slug" element={<CaseStudyPage onOpenDemo={setSelectedDemoProject} />} />
+        <Route path="/projects" element={<WorkPage />} />
         <Route path="/about" element={<AboutStoryPage />} />
-        <Route path="/about/skills" element={<SkillsPage />} />
-        <Route path="/about/experience" element={<ExperiencePage />} />
-        <Route path="/about/certificates" element={<CertificatesPage />} />
-        <Route path="/about/resume" element={<ResumePage />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/founder" element={<FounderPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
-      <DemoModal
-        isOpen={Boolean(selectedDemoProject)}
-        project={selectedDemoProject}
-        onClose={closeDemo}
-      />
     </div>
   );
 }

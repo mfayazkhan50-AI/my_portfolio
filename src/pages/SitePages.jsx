@@ -1,7 +1,10 @@
 import React from 'react';
-import { ArrowRight, ArrowUpRight, CheckCircle2 } from 'lucide-react';
-import { Link, useParams } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import About from '../components/About';
+import ContactCTA from '../components/ContactCTA';
+import FounderCard from '../components/FounderCard';
+import Hero from '../components/Hero';
 import ProjectCard from '../components/ProjectCard';
 import Projects from '../components/Projects';
 import ServiceCard from '../components/ServiceCard';
@@ -10,354 +13,284 @@ import {
   BRAND,
   CERTIFICATES,
   EDUCATION,
-  ENGAGEMENT_MODELS,
   EXPERIENCE,
-  PROCESS_STEPS,
-  PROFILE,
-  PROJECTS,
+  HOME_COPY,
   OWNER_INPUTS,
-  SERVICES,
+  PROCESS_STEPS,
+  PROJECTS,
+  PROFILE,
   SKILL_CATEGORIES,
-  TESTIMONIALS
+  SERVICES,
+  WHY_WORK_WITH_US
 } from '../data/portfolioData';
-import Hero from '../components/Hero';
-import ContactCTA from '../components/ContactCTA';
 
-function PageShell({ eyebrow, title, description, children }) {
+function SectionHeader({ eyebrow, title, description }) {
   return (
-    <main className="container site-page">
-      <header className="section-header">
-        <span className="section-tag">{eyebrow}</span>
-        <h1>{title}</h1>
-        {description && <p>{description}</p>}
-      </header>
-      {children}
-    </main>
+    <header className="section-header">
+      {eyebrow && <span className="section-tag">{eyebrow}</span>}
+      <h2>{title}</h2>
+      {description && <p>{description}</p>}
+    </header>
   );
 }
 
-function HowItWorks() {
-  return (
-    <section className="home-section container">
-      <div className="section-header">
-        <span className="section-tag">HOW I WORK</span>
-        <h2>Start with the workflow, not the tools.</h2>
-      </div>
-      <div className="process-grid">
-        {PROCESS_STEPS.map((step, index) => (
-          <article className="process-step" key={step.title}>
-            <span>0{index + 1}</span>
-            <h3>{step.title}</h3>
-            <p>{step.description}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-export function HomePage({ onOpenDemo }) {
+export function HomePage() {
+  const featuredProjects = PROJECTS.filter((project) => project.featured);
   return (
     <main>
-      <div id="top"><Hero /></div>
+      <Hero />
       <TrustStrip />
 
       <section className="home-section container">
-        <div className="section-header">
-          <span className="section-tag">SERVICES</span>
-          <h2>Practical AI and software for business workflows.</h2>
-          <p>Start with a defined process or information need; choose an implementation path that fits it.</p>
-        </div>
+        <SectionHeader eyebrow="SERVICES" title={HOME_COPY.servicesTitle} description={HOME_COPY.servicesDescription} />
         <div className="service-grid">
-          {SERVICES.slice(0, 4).map((service) => <ServiceCard key={service.slug} service={service} />)}
+          {SERVICES.map((service) => <ServiceCard key={service.id} service={service} />)}
         </div>
         <div className="section-link-row"><Link className="btn btn-secondary" to="/services">All services <ArrowRight size={16} /></Link></div>
       </section>
 
-      <Projects onOpenDemo={onOpenDemo} featuredOnly />
-      <HowItWorks />
-
-      {TESTIMONIALS.length > 0 && (
+      {featuredProjects.length > 0 && (
         <section className="home-section container">
-          <div className="section-header"><span className="section-tag">TESTIMONIALS</span><h2>What clients say</h2></div>
-          <div className="testimonial-grid">
-            {TESTIMONIALS.map((item) => (
-              <blockquote className="testimonial-card" key={item.id}>
-                <p>“{item.quote}”</p><footer>{item.name}{item.role ? ` · ${item.role}` : ''}</footer>
-              </blockquote>
+          <SectionHeader eyebrow="FEATURED PROJECTS" title="Selected work" />
+          <div className="case-study-grid">
+            {featuredProjects.map((project) => <ProjectCard key={project.id} project={project} />)}
+          </div>
+          <div className="section-link-row"><Link className="btn btn-secondary" to="/projects">All projects <ArrowRight size={16} /></Link></div>
+        </section>
+      )}
+
+      {WHY_WORK_WITH_US.length > 0 && (
+        <section className="home-section container">
+          <SectionHeader eyebrow={HOME_COPY.whyEyebrow} title={HOME_COPY.whyTitle} />
+          <div className="why-grid">
+            {WHY_WORK_WITH_US.map((item) => (
+              <article className="why-card" key={item.title}><h3>{item.title}</h3><p>{item.description}</p></article>
             ))}
           </div>
         </section>
       )}
 
+      <section className="home-section container">
+        <SectionHeader eyebrow={HOME_COPY.processEyebrow} title={HOME_COPY.processTitle} />
+        <div className="process-grid">
+          {PROCESS_STEPS.map((step, index) => (
+            <article className="process-step" key={step.title}>
+              <span>0{index + 1}</span><h3>{step.title}</h3><p>{step.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="home-section container"><FounderCard /></section>
+
       <section className="final-cta container">
-        <div><span className="section-tag">NEXT STEP</span><h2>Have a workflow worth improving?</h2><p>Share the bottleneck and I&apos;ll help you explore a practical next step.</p></div>
-        <ContactCTA location="home-final" icon={<ArrowUpRight size={17} />} />
+        <div><span className="section-tag">NEXT STEP</span><h2>{HOME_COPY.finalTitle}</h2><p>{HOME_COPY.finalDescription}</p></div>
+        <ContactCTA location="home-final" />
       </section>
 
       <style>{`
-        .home-section { padding-top: clamp(3rem, 7vw, 5rem); padding-bottom: clamp(3rem, 7vw, 5rem); }
-        .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 1rem; }
-        .process-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.9rem; }
-        .process-step { padding: 1.15rem; border: 1px solid var(--border-subtle); border-radius: 12px; background: rgba(13, 23, 39, 0.55); }
-        .process-step > span { color: var(--accent-cyan); font: 0.72rem var(--font-mono); }
-        .process-step h3 { margin: 0.5rem 0; font-size: 1rem; }
-        .process-step p { font-size: 0.82rem; }
-        .section-link-row { display: flex; justify-content: center; margin-top: 1.5rem; }
-        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 1rem; }
-        .testimonial-card { margin: 0; padding: 1.3rem; border: 1px solid var(--border-subtle); border-radius: 12px; background: rgba(13, 23, 39, 0.6); }
-        .testimonial-card p { color: var(--text-main); }
-        .testimonial-card footer { margin-top: 0.8rem; color: var(--text-muted); font-size: 0.78rem; }
-        .final-cta { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-bottom: 4rem; padding: clamp(1.25rem, 4vw, 2rem); border: 1px solid rgba(0, 240, 255, 0.22); border-radius: 16px; background: linear-gradient(120deg, rgba(0, 240, 255, 0.08), rgba(59, 130, 246, 0.08)); }
-        .final-cta h2 { margin: 0.4rem 0; font-size: clamp(1.35rem, 3vw, 2rem); }
-        .final-cta p { font-size: 0.88rem; }
-        @media (max-width: 760px) { .process-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .final-cta { align-items: flex-start; flex-direction: column; } }
-        @media (max-width: 420px) { .process-grid { grid-template-columns: minmax(0, 1fr); } .final-cta .btn { width: 100%; } }
+        .home-section { padding-top: var(--section-space); padding-bottom: var(--section-space); }
+        .service-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,230px),1fr)); gap: 1rem; }
+        .case-study-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,320px),1fr)); align-items: stretch; gap: 1.25rem; }
+        .why-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,240px),1fr)); gap: .9rem; }
+        .why-card { padding: 1.2rem; border: 1px solid var(--border-subtle); border-radius: 12px; background: rgba(13,23,39,.58); }
+        .why-card h3 { margin-bottom: .45rem; color: #E8F0FA; font-size: 1rem; }
+        .why-card p { color: #C5D2E2; font-size: .84rem; }
+        .process-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: .9rem; }
+        .process-step { padding: 1.15rem; border: 1px solid var(--border-subtle); border-radius: 12px; background: rgba(13,23,39,.55); }
+        .process-step > span { color: var(--accent-cyan); font: .72rem var(--font-mono); }
+        .process-step h3 { margin: .5rem 0; font-size: 1rem; }
+        .process-step p { color: #C5D2E2; font-size: .82rem; }
+        .section-link-row { display: flex; justify-content: center; margin-top: 1rem; }
+        .final-cta { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-bottom: var(--section-space); padding: clamp(1.25rem,4vw,2rem); border: 1px solid rgba(0,240,255,.22); border-radius: 16px; background: linear-gradient(120deg,rgba(0,240,255,.08),rgba(59,130,246,.08)); }
+        .final-cta h2 { margin: .4rem 0; font-size: clamp(1.35rem,3vw,2rem); }
+        .final-cta p { color: #D1DCEB; font-size: .88rem; }
+        @media (max-width: 760px) { .process-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } .final-cta { align-items: flex-start; flex-direction: column; } }
+        @media (max-width: 420px) { .process-grid { grid-template-columns: 1fr; } .final-cta .btn { width: 100%; } }
       `}</style>
     </main>
-  );
-}
-
-export function WorkPage({ onOpenDemo }) {
-  return (
-    <main className="site-page">
-      <header className="container section-header">
-        <span className="section-tag">WORK</span>
-        <h1>Case Studies &amp; Projects</h1>
-        <p>Explore projects by category, with the problem, solution, and available technical details.</p>
-      </header>
-      <Projects onOpenDemo={onOpenDemo} showHeader={false} />
-    </main>
-  );
-}
-
-export function CaseStudyPage({ onOpenDemo }) {
-  const { slug } = useParams();
-  const project = PROJECTS.find((item) => !item.hidden && item.id === slug);
-  if (!project) return <NotFoundPage />;
-  const projectResult = project.result || OWNER_INPUTS.projectResults[project.id] || '';
-  const related = PROJECTS.filter((item) => !item.hidden && item.id !== project.id).slice(0, 2);
-
-  return (
-    <PageShell eyebrow="CASE STUDY" title={project.title} description={project.description}>
-      <div className="detail-layout">
-        <section className="detail-main">
-          {project.thumbnail && (
-            <div className="detail-image-wrap">
-              <img className="detail-image" src={project.thumbnail} alt={`${project.title} interface`} width="1200" height="675" />
-              {project.imageLabel && <span className="project-image-label">{project.imageLabel}</span>}
-            </div>
-          )}
-          {(project.dataStatus === 'demo' || OWNER_INPUTS.projectDataStatuses[project.id] === 'demo') && <span className="demo-data-label">Demo data</span>}
-          {project.problem && <DetailBlock title="The problem"><p>{project.problem}</p></DetailBlock>}
-          {project.solution && <DetailBlock title="The solution"><p>{project.solution}</p></DetailBlock>}
-          {projectResult && <DetailBlock title="The result"><p>{projectResult}</p></DetailBlock>}
-          {project.architectureImage && <DetailBlock title="Architecture"><img className="detail-image" src={project.architectureImage} alt={`${project.title} system architecture`} loading="lazy" /></DetailBlock>}
-          {project.stack?.length > 0 && <DetailBlock title="Technology used"><div className="detail-stack">{project.stack.map((item) => <span key={item}>{item}</span>)}</div></DetailBlock>}
-          {project.learnings && <DetailBlock title="What I learned"><p>{project.learnings}</p></DetailBlock>}
-          <div className="case-study-actions">
-            {(project.hasDemo || project.demoEmbedUrl || project.demoVideoUrl) && <button className="btn btn-primary" type="button" onClick={() => onOpenDemo(project)}>Watch Demo</button>}
-            {project.github
-              ? <a className="btn btn-outline" href={project.github} target="_blank" rel="noopener noreferrer">View GitHub</a>
-              : <Link className="private-repo-link" to="/contact?subject=Code%20walkthrough%20request">Private repo: walkthrough on request</Link>}
-          </div>
-        </section>
-        <aside className="detail-sidebar">
-          <span className="section-tag">PROJECT DETAILS</span>
-          <div className="case-study-tags">{(project.tags || []).map((tag) => <span className="case-study-tag" key={tag}>{tag}</span>)}</div>
-          {projectResult && <p>{projectResult}</p>}
-        </aside>
-      </div>
-      {related.length > 0 && (
-        <section className="related-projects">
-          <div className="section-header"><span className="section-tag">RELATED WORK</span><h2>More projects</h2></div>
-          <div className="case-study-grid">{related.map((item) => <ProjectCard key={item.id} project={item} onOpenDemo={onOpenDemo} />)}</div>
-        </section>
-      )}
-      <section className="detail-cta"><h2>Have a similar workflow to improve?</h2><Link className="btn btn-primary" to="/contact#book">Let&apos;s discuss it</Link></section>
-      <style>{`
-        .detail-layout { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(220px, 0.7fr); gap: 1.3rem; align-items: start; }
-        .detail-main, .detail-sidebar { min-width: 0; padding: clamp(1rem, 3vw, 1.5rem); border: 1px solid var(--border-subtle); border-radius: 12px; background: rgba(13, 23, 39, 0.62); }
-        .detail-image-wrap { position: relative; margin-bottom: 1.2rem; }
-        .detail-image { display: block; width: 100%; height: auto; border-radius: 9px; }
-        .project-image-label { position: absolute; right: 0.65rem; bottom: 0.65rem; padding: 0.25rem 0.45rem; border: 1px solid rgba(203, 213, 225, 0.35); border-radius: 4px; background: rgba(8, 15, 27, 0.88); color: #E2E8F0; font: 0.62rem var(--font-mono); }
-        .detail-block { margin: 1.1rem 0; }
-        .detail-block h2 { margin-bottom: 0.45rem; color: var(--accent-cyan); font: 0.72rem var(--font-mono); text-transform: uppercase; }
-        .detail-stack { display: flex; flex-wrap: wrap; gap: 0.55rem; }
-        .detail-stack span { color: #A7B6CB; font: 0.75rem var(--font-mono); }
-        .detail-sidebar p { margin-top: 1rem; font-size: 0.84rem; }
-        .related-projects { margin-top: 3rem; }
-        .detail-cta { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 2rem; padding: 1.5rem; border: 1px solid rgba(0,240,255,.2); border-radius: 12px; }
-        .detail-cta h2 { font-size: 1.2rem; }
-        @media (max-width: 760px) { .detail-layout { grid-template-columns: minmax(0, 1fr); } .detail-cta { align-items: flex-start; flex-direction: column; } }
-      `}</style>
-    </PageShell>
   );
 }
 
 export function ServicesPage() {
   return (
-    <PageShell eyebrow="SERVICES" title="AI and software services" description="Outcome-focused services for teams looking to improve a repeatable workflow or make business information easier to use.">
-      <div className="service-grid">{SERVICES.map((service) => <ServiceCard key={service.slug} service={service} />)}</div>
-      <section className="page-cta"><h2>Not sure where to start?</h2><p>I can help map the current workflow and identify a useful first step.</p><ContactCTA location="services-cta" /></section>
-    </PageShell>
-  );
-}
-
-export function ServiceDetailPage({ onOpenDemo }) {
-  const { slug } = useParams();
-  if (slug === 'pricing-process') return <PricingProcessPage />;
-  const service = SERVICES.find((item) => item.slug === slug);
-  if (!service) return <NotFoundPage />;
-  const relatedProject = PROJECTS.find((item) => item.id === service.relatedProject);
-
-  return (
-    <PageShell eyebrow="SERVICE" title={service.title} description={service.summary}>
-      <div className="service-detail-grid">
-        <div className="service-detail-main">
-          <DetailBlock title="Who this is for"><p>{service.audience}</p></DetailBlock>
-          <DetailBlock title="The problem"><p>{service.problem}</p></DetailBlock>
-          <DetailBlock title="What you get"><ul className="deliverables">{service.deliverables.map((item) => <li key={item}><CheckCircle2 size={17} />{item}</li>)}</ul></DetailBlock>
-          {service.timeline && <DetailBlock title="Typical timeline"><p>{service.timeline}</p></DetailBlock>}
-          {service.startingPrice && <DetailBlock title="Starting from"><p>{service.startingPrice}</p></DetailBlock>}
-          <DetailBlock title="Technology used"><p className="muted-tech">{relatedProject?.stack?.join(' · ') || 'Selected to fit your requirements.'}</p></DetailBlock>
-        </div>
-        <aside className="service-detail-aside">
-          <h2>Common questions</h2>
-          {service.faqs.map((faq) => <details key={faq.question}><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}
-        </aside>
-      </div>
-      {relatedProject && <section className="related-projects"><div className="section-header"><span className="section-tag">RELATED CASE STUDY</span></div><div className="case-study-grid"><ProjectCard project={relatedProject} onOpenDemo={onOpenDemo} /></div></section>}
-      <section className="page-cta"><h2>Discuss this workflow</h2><p>Tell me what needs to work and what systems are involved.</p><ContactCTA location={`service-${service.slug}`} /></section>
-      <style>{servicePageStyles}</style>
-    </PageShell>
-  );
-}
-
-export function PricingProcessPage() {
-  return (
-    <PageShell eyebrow="PRICING & PROCESS" title="A clear path from discovery to support" description="Scope and pricing depend on the workflow, integrations, and requirements.">
-      <div className="process-grid">
-        {PROCESS_STEPS.map((step, index) => <article className="process-step" key={step.title}><span>0{index + 1}</span><h3>{step.title}</h3><p>{step.description}</p></article>)}
-      </div>
-      <div className="engagement-grid">
-        {ENGAGEMENT_MODELS.map((model) => <article className="engagement-card" key={model.name}><h2>{model.name}</h2><p>{model.description}</p>{model.price && <strong>{model.price}</strong>}</article>)}
-      </div>
-      <section className="faq-list">
-        <h2>Frequently asked</h2>
-        <details><summary>How is a project scoped?</summary><p>I start with a discussion of the workflow, access constraints, and desired outcome, then agree on scope before implementation.</p></details>
-        <details><summary>Can I start with a prototype?</summary><p>Yes. A focused prototype can help validate the approach before deciding on a larger build.</p></details>
-        <details><summary>Are prices fixed?</summary><p>Pricing is shared after the scope and requirements are understood.</p></details>
-      </section>
-      <section className="page-cta"><h2>Talk through your requirements</h2><ContactCTA location="pricing-process" /></section>
-      <style>{servicePageStyles}</style>
-    </PageShell>
-  );
-}
-
-export function AboutStoryPage() { return <About />; }
-
-export function SkillsPage() {
-  return (
-    <PageShell eyebrow="ABOUT ME" title="Skills & stack" description="Selected tools used to build the projects in this portfolio.">
-      <div className="skills-grid">
-        {SKILL_CATEGORIES.map((group) => (
-          <article className="skill-group glass-card" key={group.category}>
-            <h2>{group.category}</h2>
-            <div className="skill-tags">{group.skills.map((skill) => <span key={skill}>{skill}</span>)}</div>
-            {group.projectIds.length > 0 && <p>Used in: {group.projectIds.map((id) => {
-              const project = PROJECTS.find((item) => item.id === id);
-              return project ? <Link key={id} to={`/work/${id}`}>{project.title}</Link> : null;
-            }).reduce((previous, current) => previous ? <>{previous}, {current}</> : current, null)}</p>}
-          </article>
+    <main className="container site-page">
+      <header className="section-header">
+        <span className="section-tag">SERVICES</span>
+        <h1>AI automation and software services</h1>
+        <p>Explore a focused way to improve recurring work or make business information easier to use.</p>
+      </header>
+      <div className="services-list">
+        {SERVICES.map((service) => (
+          <section className="service-detail" id={service.id} key={service.id}>
+            <div className="service-detail-copy">
+              <span className="section-tag">SERVICE</span>
+              <h2>{service.outcome}</h2>
+              <h3>Who it&apos;s for</h3><p>{service.audience}</p>
+              <h3>What you get</h3>
+              <ul>{service.deliverables.map((item) => <li key={item}>{item}</li>)}</ul>
+              {service.startingPrice && <p className="service-price">Starting from {service.startingPrice}</p>}
+              <p className="service-tech">Tech used: {service.technology.join(' · ')}</p>
+              <ContactCTA className="btn btn-primary" location={`service-${service.id}`} />
+            </div>
+            <div className="service-faq">
+              <h3>Frequently asked</h3>
+              {service.faqs.map((faq) => (
+                <details key={faq.question}><summary>{faq.question}</summary><p>{faq.answer}</p></details>
+              ))}
+            </div>
+          </section>
         ))}
       </div>
-      <style>{pageGridStyles}</style>
-    </PageShell>
+      <section className="services-process">
+        <SectionHeader eyebrow={HOME_COPY.processEyebrow} title="Start with the workflow, not the tools." />
+        <div className="process-grid">
+          {PROCESS_STEPS.map((step, index) => <article className="process-step" key={step.title}><span>0{index + 1}</span><h3>{step.title}</h3><p>{step.description}</p></article>)}
+        </div>
+      </section>
+      <style>{`
+        .site-page { padding-top: var(--section-space); padding-bottom: var(--section-space); }
+        .services-list { display: grid; gap: 1.2rem; }
+        .service-detail { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(250px,.85fr); gap: 1.5rem; padding: clamp(1.1rem,3vw,1.7rem); border: 1px solid var(--border-subtle); border-radius: 14px; background: rgba(13,23,39,.62); scroll-margin-top: 100px; }
+        .service-detail-copy h2 { margin: .35rem 0 .9rem; font-size: clamp(1.25rem,2.4vw,1.8rem); }
+        .service-detail-copy h3, .service-faq h3 { margin: 1rem 0 .4rem; font-size: .92rem; }
+        .service-detail-copy p, .service-detail-copy li { color: #D1DCEB; font-size: .84rem; }
+        .service-detail-copy ul { display: grid; gap: .35rem; padding-left: 1.2rem; }
+        .service-price { margin-top: .9rem; font-weight: 600; }
+        .service-tech { margin: 1rem 0; color: #A5B2C5 !important; font: .7rem var(--font-mono); }
+        .service-faq details { padding: .8rem 0; border-top: 1px solid var(--border-subtle); }
+        .service-faq summary { color: #F1F5F9; font-size: .84rem; cursor: pointer; }
+        .service-faq p { margin-top: .55rem; font-size: .8rem; }
+        .services-process { margin-top: var(--section-space); }
+        .process-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: .9rem; }
+        .process-step { padding: 1.15rem; border: 1px solid var(--border-subtle); border-radius: 12px; background: rgba(13,23,39,.55); }
+        .process-step > span { color: var(--accent-cyan); font: .72rem var(--font-mono); }
+        .process-step h3 { margin: .5rem 0; font-size: 1rem; }
+        .process-step p { color: #C5D2E2; font-size: .82rem; }
+        @media (max-width: 760px) { .service-detail { grid-template-columns: 1fr; } .process-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+        @media (max-width: 420px) { .process-grid { grid-template-columns: 1fr; } }
+      `}</style>
+    </main>
   );
 }
 
-export function ExperiencePage() {
-  const items = [...EXPERIENCE, ...EDUCATION, ...OWNER_INPUTS.experience, ...OWNER_INPUTS.education];
+export function AboutStoryPage() {
+  return <About />;
+}
+
+export function WorkPage() {
   return (
-    <PageShell eyebrow="ABOUT ME" title="Experience & education" description="Get in touch to discuss my background and project fit.">
-      {items.length > 0 ? <ol className="timeline">{items.map((item) => <li key={item.id}><h2>{item.title}</h2><p>{item.organization} · {item.period}</p><p>{item.description}</p></li>)}</ol> : <p>Additional experience and education details are available on request.</p>}
-      <style>{pageGridStyles}</style>
-    </PageShell>
+    <main className="site-page">
+      <div className="container">
+        <header className="section-header projects-page-header"><span className="section-tag">PROJECTS</span><h1>Projects</h1><p>AI systems, machine learning projects, and software work in the portfolio.</p></header>
+      </div>
+      <Projects showHeader={false} />
+    </main>
   );
 }
 
-export function CertificatesPage() {
+export function FounderPage() {
+  const experience = [...EXPERIENCE, ...OWNER_INPUTS.experience];
+  const education = [...EDUCATION, ...OWNER_INPUTS.education];
   const certificates = [...CERTIFICATES, ...OWNER_INPUTS.certificates];
-  return (
-    <PageShell eyebrow="ABOUT ME" title="Certificates & hackathons" description="Only verified credentials and results will be published.">
-      {certificates.length > 0
-        ? <div className="certificate-grid">{certificates.map((item) => <article className="certificate-card" key={item.id}><h2>{item.title}</h2><p>{item.issuer}</p>{item.description && <p>{item.description}</p>}{item.image && <img src={item.image} alt={item.imageAlt || `${item.title} certificate`} loading="lazy" />}{item.url && <a href={item.url} target="_blank" rel="noopener noreferrer">View credential</a>}</article>)}</div>
-        : <p>No public credentials are listed here at this time.</p>}
-      <style>{pageGridStyles}</style>
-    </PageShell>
-  );
-}
+  const bio = [...PROFILE.bio, ...OWNER_INPUTS.founderBio];
 
-export function ResumePage() {
-  const resumeExists = Boolean(PROFILE.resumeUrl);
   return (
-    <PageShell eyebrow="ABOUT ME" title="Resume / CV" description={BRAND.tagline}>
-      <p>Founder and lead AI engineer focused on AI agents, retrieval-augmented generation, and business workflow automation.</p>
-      {resumeExists && <a className="btn btn-primary" href={PROFILE.resumeUrl} download>Download CV</a>}
-      {!resumeExists && <p>A downloadable CV is not currently available. <Link to="/contact">Contact me</Link> for a summary of relevant experience.</p>}
-      <h2 className="resume-section-title">Skills</h2>
-      {SKILL_CATEGORIES.map((group) => <p key={group.category}><strong>{group.category}:</strong> {group.skills.join(', ')}</p>)}
-      {(EXPERIENCE.length > 0 || EDUCATION.length > 0) && <Link to="/about/experience">Experience &amp; education</Link>}
-      <style>{pageGridStyles}</style>
-    </PageShell>
+    <main className="container site-page founder-page">
+      <p className="founder-back"><Link to="/">← Back to MFK AI Solutions</Link></p>
+      <header className="founder-header">
+        <img src={PROFILE.photo} alt={PROFILE.name} width="1024" height="1024" />
+        <div>
+          <span className="section-tag">FOUNDER PROFILE</span>
+          <h1>{PROFILE.name}</h1>
+          <p>{PROFILE.title}</p>
+          <p className="founder-location">{PROFILE.location} · {PROFILE.timezone}</p>
+        </div>
+      </header>
+
+      {bio.length > 0 && (
+        <section className="founder-section"><h2>Profile</h2>{bio.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</section>
+      )}
+
+      <section className="founder-section">
+        <h2>Skills &amp; tools</h2>
+        <div className="founder-skill-grid">
+          {SKILL_CATEGORIES.map((group) => (
+            <article className="founder-skill-card" key={group.category}>
+              <h3>{group.category}</h3>
+              <p>{group.skills.join(' · ')}</p>
+              {group.projectIds.length > 0 && (
+                <p className="founder-used-in">
+                  Used in: {group.projectIds.map((id) => PROJECTS.find((project) => project.id === id)).filter(Boolean).map((project, index) => (
+                    <React.Fragment key={project.id}>{index > 0 && ', '}<Link to="/projects">{project.title}</Link></React.Fragment>
+                  ))}
+                </p>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {experience.length > 0 && (
+        <section className="founder-section"><h2>Experience</h2>{experience.map((item) => <article className="founder-entry" key={item.id}><h3>{item.title}</h3><p>{[item.organization, item.period].filter(Boolean).join(' · ')}</p><p>{item.description}</p></article>)}</section>
+      )}
+      {education.length > 0 && (
+        <section className="founder-section"><h2>Education</h2>{education.map((item) => <article className="founder-entry" key={item.id}><h3>{item.title}</h3><p>{[item.organization, item.period].filter(Boolean).join(' · ')}</p>{item.description && <p>{item.description}</p>}</article>)}</section>
+      )}
+      {certificates.length > 0 && (
+        <section className="founder-section"><h2>Certificates &amp; hackathons</h2><div className="founder-certificate-grid">
+          {certificates.map((item) => (
+            <article className="founder-entry" key={item.id}>
+              <h3>{item.title}</h3><p>{item.issuer}</p>
+              {item.participationOnly && <p>Participation</p>}
+              {item.description && <p>{item.description}</p>}
+              {item.image && <img src={item.image} alt={item.imageAlt || `${item.title} badge`} width="1306" height="916" loading="lazy" />}
+              {item.url && <a href={item.url} target="_blank" rel="noopener noreferrer">View credential</a>}
+            </article>
+          ))}
+        </div></section>
+      )}
+
+      <section className="founder-section founder-contact">
+        <h2>Contact</h2>
+        <a className="btn btn-primary" href={`mailto:${PROFILE.email}`}>Email</a>
+        <a className="btn btn-secondary" href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a className="btn btn-secondary" href={BRAND.whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a className="btn btn-secondary" href={PROFILE.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+      </section>
+      <style>{`
+        .founder-page { max-width: 1000px; }
+        .founder-back { margin-bottom: 1.4rem; font-size: .82rem; }
+        .founder-header { display: grid; grid-template-columns: auto minmax(0,1fr); align-items: center; gap: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-subtle); }
+        .founder-header img { width: 148px; height: 148px; border: 2px solid rgba(103,232,249,.4); border-radius: 50%; object-fit: cover; }
+        .founder-header h1 { margin: .3rem 0; font-size: clamp(1.8rem,4vw,2.7rem); }
+        .founder-header p { color: #D1DCEB; font-size: .9rem; }
+        .founder-header .founder-location { margin-top: .35rem; color: #A5B2C5; font-size: .78rem; }
+        .founder-section { margin-top: 1.8rem; }
+        .founder-section > h2 { margin-bottom: .8rem; font-size: 1.2rem; }
+        .founder-section > p { color: #D1DCEB; font-size: .88rem; }
+        .founder-skill-grid, .founder-certificate-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,260px),1fr)); gap: .75rem; }
+        .founder-skill-card, .founder-entry { padding: .9rem; border: 1px solid var(--border-subtle); border-radius: 9px; background: rgba(13,23,39,.55); }
+        .founder-skill-card h3, .founder-entry h3 { margin-bottom: .35rem; font-size: .9rem; }
+        .founder-skill-card p, .founder-entry p { color: #D1DCEB; font-size: .77rem; }
+        .founder-skill-card .founder-used-in { margin-top: .45rem; color: #A5B2C5; }
+        .founder-used-in a { color: #A5F3FC; text-decoration: underline; text-underline-offset: 2px; }
+        .founder-entry img { display: block; width: min(100%,300px); height: auto; margin-top: .7rem; }
+        .founder-contact { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; }
+        .founder-contact h2 { flex: 1 0 100%; }
+        @media (max-width: 520px) { .founder-header { grid-template-columns: 1fr; } .founder-header img { width: 110px; height: 110px; } .founder-contact .btn { flex: 1 1 100%; } }
+        @media print {
+          body { color: #111; background: #fff; }
+          .founder-page { max-width: none; padding: 0; color: #111; }
+          .founder-page .section-tag, .founder-page p, .founder-page h1, .founder-page h2, .founder-page h3, .founder-page a { color: #111 !important; }
+          .site-header, .site-footer, .founder-back { display: none; }
+          .founder-skill-card, .founder-entry { break-inside: avoid; border-color: #bbb; background: #fff; }
+        }
+      `}</style>
+    </main>
   );
 }
 
 export function NotFoundPage() {
-  return <PageShell eyebrow="404" title="Page not found" description="That page may have moved or the link may be incorrect."><Link className="btn btn-primary" to="/">Return home</Link></PageShell>;
+  return <main className="container site-page"><span className="section-tag">404</span><h1>Page not found</h1><p>This page may have moved or the link may be incorrect.</p><Link className="btn btn-primary" to="/">Return home</Link></main>;
 }
-
-function DetailBlock({ title, children }) {
-  return <section className="detail-block"><h2>{title}</h2>{children}</section>;
-}
-
-const servicePageStyles = `
-  .service-detail-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(240px, 0.7fr); gap: 1rem; }
-  .service-detail-main, .service-detail-aside, .engagement-card, .faq-list { padding: 1.3rem; border: 1px solid var(--border-subtle); border-radius: 12px; background: rgba(13, 23, 39, 0.62); }
-  .service-detail-aside h2, .faq-list h2 { margin-bottom: 0.8rem; font-size: 1.15rem; }
-  .service-detail-aside details, .faq-list details { padding: 0.75rem 0; border-top: 1px solid var(--border-subtle); }
-  .service-detail-aside summary, .faq-list summary { color: var(--text-main); font-size: 0.84rem; cursor: pointer; }
-  .service-detail-aside details p, .faq-list details p { margin-top: 0.55rem; font-size: 0.8rem; }
-  .deliverables { display: grid; gap: 0.65rem; list-style: none; }
-  .deliverables li { display: flex; align-items: flex-start; gap: 0.5rem; color: #C8D6E6; font-size: 0.86rem; }
-  .deliverables svg { flex: 0 0 auto; color: #34D399; }
-  .muted-tech { color: #A7B6CB; font: 0.75rem var(--font-mono); }
-  .engagement-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 0.8rem; margin: 1.5rem 0; }
-  .engagement-card h2 { font-size: 1rem; margin-bottom: 0.45rem; }
-  .engagement-card p { font-size: 0.82rem; }
-  .faq-list { margin-top: 1.5rem; }
-  .related-projects { margin-top: 3rem; }
-  .related-projects .section-header { margin-bottom: 1.2rem; }
-  .page-cta { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: clamp(2.5rem, 5vw, 4rem); padding: 1.35rem; border: 1px solid rgba(0,240,255,.18); border-radius: 12px; }
-  .page-cta h2 { font-size: 1.15rem; }
-  .page-cta p { margin-top: 0.3rem; font-size: 0.82rem; }
-  @media (max-width: 700px) { .service-detail-grid { grid-template-columns: minmax(0,1fr); } .page-cta { align-items: flex-start; flex-direction: column; } }
-`;
-
-const pageGridStyles = `
-  .skills-grid, .certificate-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 1rem; }
-  .skill-group, .certificate-card { min-width: 0; padding: 1.25rem; }
-  .skill-group h2, .certificate-card h2 { margin-bottom: 0.8rem; font-size: 1.05rem; }
-  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-  .skill-tags span { padding: 0.25rem 0.5rem; border: 1px solid var(--border-subtle); border-radius: 5px; color: #C3D0E0; font-size: 0.75rem; }
-  .skill-group > p { margin-top: 0.9rem; font-size: 0.75rem; }
-  .skill-group > p a { color: #B7D8F4; text-decoration: underline; text-underline-offset: 2px; }
-  .timeline { display: grid; gap: 1rem; list-style: none; }
-  .timeline li { padding: 1.1rem; border-left: 2px solid var(--accent-cyan); background: rgba(13, 23, 39, 0.55); }
-  .timeline h2 { font-size: 1.05rem; }
-  .certificate-card img { display: block; width: 100%; height: auto; margin-top: 0.8rem; }
-  .certificate-card a { display: inline-block; margin-top: 0.8rem; color: #B7D8F4; }
-  .resume-section-title { margin: 1.5rem 0 0.6rem; }
-  @media (max-width: 600px) { .skills-grid, .certificate-grid { grid-template-columns: minmax(0,1fr); } }
-`;

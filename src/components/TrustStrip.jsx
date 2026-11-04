@@ -1,45 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { getHomeProofItems } from '../data/portfolioData';
+import { getProjectStats } from '../data/portfolioData';
 
 export default function TrustStrip() {
-  const proofItems = getHomeProofItems();
+  const stats = getProjectStats();
+  if (stats.length < 3) return null;
 
   return (
-    <section className="trust-strip" aria-label="Selected project areas">
+    <section className="trust-strip" aria-label="Portfolio facts">
       <div className="container trust-strip-inner">
-        {proofItems.map((item) => (
-          <div className="trust-proof-item" key={item.title}>
-            <h2>{item.title}</h2>
-            <div className="trust-proof-links">
-              {item.projects.map((project) => (
-                <Link key={project.id} to={`/work/${project.id}`}>{project.title}</Link>
-              ))}
-            </div>
+        {stats.map((item) => (
+          <div className="trust-stat" key={item.label}>
+            <strong>{item.value}</strong>
+            <span>{item.label}</span>
           </div>
         ))}
       </div>
-
       <style>{`
-        .trust-strip {
-          border-top: 1px solid rgba(0, 240, 255, 0.12);
-          border-bottom: 1px solid rgba(0, 240, 255, 0.12);
-          background: linear-gradient(90deg, rgba(0, 240, 255, 0.035), rgba(59, 130, 246, 0.055), rgba(0, 240, 255, 0.035));
-        }
-        .trust-strip-inner {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
-          gap: 1.25rem;
-          padding-top: 1.35rem;
-          padding-bottom: 1.35rem;
-        }
-        .trust-proof-item h2 { margin-bottom: 0.4rem; color: #67E8F9; font: 600 0.7rem var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; }
-        .trust-proof-links { display: flex; flex-wrap: wrap; gap: 0.35rem 0.75rem; }
-        .trust-proof-links a { color: #D1DCEB; font-size: 0.8rem; text-decoration: underline; text-underline-offset: 3px; }
-        .trust-proof-links a:hover { color: #67E8F9; }
-        @media (max-width: 768px) {
-          .trust-strip-inner { grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 0.9rem; }
-        }
+        .trust-strip { border-block: 1px solid rgba(0,240,255,.14); background: linear-gradient(90deg, rgba(0,240,255,.035), rgba(59,130,246,.055), rgba(0,240,255,.035)); }
+        .trust-strip-inner { display: flex; justify-content: center; padding-block: 1.15rem; }
+        .trust-stat { display: flex; align-items: baseline; gap: 0.6rem; }
+        .trust-stat strong { color: #67E8F9; font: 600 1.1rem var(--font-mono); }
+        .trust-stat span { color: #D1DCEB; font-size: 0.82rem; }
       `}</style>
     </section>
   );

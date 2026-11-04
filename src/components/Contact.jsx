@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { AlertCircle, Check, Copy, ExternalLink, Mail, MessageCircle, Send } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
-import { BRAND, PROFILE } from '../data/portfolioData';
-import { LinkedinIcon } from './BrandIcons';
-
-const FORM_ENDPOINT = import.meta.env.VITE_FORM_ENDPOINT;
-const PROJECT_TYPES = ['AI Receptionist', 'RAG Assistant', 'Custom Agent', 'Automation', 'Other'];
-const BUDGETS = ['<$500', '$500-$1.5k', '$1.5k-$5k', '$5k+', 'Not sure'];
-const TIMELINES = ['As soon as possible', 'Within 1 month', 'Within 1-3 months', 'Flexible'];
+import { BOOKING_URL, BRAND, CONTACT_OPTIONS, FORM_ENDPOINT, PROFILE } from '../data/portfolioData';
+import { GithubIcon, LinkedinIcon } from './BrandIcons';
 
 export default function Contact() {
   const [searchParams] = useSearchParams();
@@ -98,14 +93,14 @@ export default function Contact() {
 
       <section id="book" className="booking-section">
         <div>
-          <span className="section-tag">{import.meta.env.VITE_BOOKING_URL ? 'BOOK A CALL' : 'GET IN TOUCH'}</span>
+          <span className="section-tag">{BOOKING_URL ? 'BOOK A CALL' : 'GET IN TOUCH'}</span>
           <h2>Start with a conversation</h2>
           <p>Share the process you want to improve and I can discuss a suitable next step.</p>
         </div>
-        {import.meta.env.VITE_BOOKING_URL ? (
+        {BOOKING_URL ? (
           <iframe
             className="booking-embed"
-            src={import.meta.env.VITE_BOOKING_URL}
+            src={BOOKING_URL}
             title="Schedule a call with MFK AI Solutions"
             loading="lazy"
             allow="payment"
@@ -140,6 +135,7 @@ export default function Contact() {
             {copyStatus && <p className="copy-status" role="status">{copyStatus}</p>}
             <a className="channel-link" href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer"><LinkedinIcon size={18} /> LinkedIn</a>
             <a className="channel-link" href={BRAND.whatsappUrl} target="_blank" rel="noopener noreferrer" onClick={() => window.plausible?.('WhatsApp Click', { props: { location: 'contact' } })}><MessageCircle size={18} /> WhatsApp — MFK AI Solutions</a>
+            <a className="channel-link" href={PROFILE.github} target="_blank" rel="noopener noreferrer"><GithubIcon size={18} /> GitHub</a>
           </div>
         </section>
 
@@ -167,9 +163,9 @@ export default function Contact() {
               <div className="form-two-col">
                 <label>Your name<input name="name" value={formData.name} onChange={updateField} autoComplete="name" required maxLength={120} placeholder="Your name" /></label>
                 <label>Your email<input name="email" type="email" value={formData.email} onChange={updateField} autoComplete="email" required maxLength={254} placeholder="you@example.com" /></label>
-                <label>Project type<select name="projectType" value={formData.projectType} onChange={updateField} required><option value="" disabled>Select...</option>{PROJECT_TYPES.map((value) => <option key={value} value={value}>{value}</option>)}</select></label>
-                <label>Budget range<select name="budget" value={formData.budget} onChange={updateField} required><option value="" disabled>Select...</option>{BUDGETS.map((value) => <option key={value} value={value}>{value}</option>)}</select></label>
-                <label>Timeline<select name="timeline" value={formData.timeline} onChange={updateField} required><option value="" disabled>Select...</option>{TIMELINES.map((value) => <option key={value} value={value}>{value}</option>)}</select></label>
+                <label>Project type<select name="projectType" value={formData.projectType} onChange={updateField} required><option value="" disabled>Select...</option>{CONTACT_OPTIONS.projectTypes.map((value) => <option key={value} value={value}>{value}</option>)}</select></label>
+                <label>Budget range<select name="budget" value={formData.budget} onChange={updateField} required><option value="" disabled>Select...</option>{CONTACT_OPTIONS.budgets.map((value) => <option key={value} value={value}>{value}</option>)}</select></label>
+                <label>Timeline<select name="timeline" value={formData.timeline} onChange={updateField} required><option value="" disabled>Select...</option>{CONTACT_OPTIONS.timelines.map((value) => <option key={value} value={value}>{value}</option>)}</select></label>
               </div>
               <label>Project details<textarea name="message" rows={5} value={formData.message} onChange={updateField} required maxLength={5000} placeholder="What are you hoping to automate or improve?" /></label>
               <button type="submit" className="btn btn-primary" disabled={status.state === 'submitting'}>

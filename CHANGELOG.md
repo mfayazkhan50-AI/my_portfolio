@@ -2,17 +2,24 @@
 
 ## 2026-11-04
 
-- Reframed the site as an agency-supported, founder-led AI engineering portfolio.
-- Added routed Home, Services, Work/Case Study, About, Resume, and Contact pages.
-- Added data-driven service/project listings, project filters, demo actions, and related work.
-- Added direct contact channels, configurable booking/form providers, and CTA analytics events.
-- Added page metadata, canonical/social tags, structured data, sitemap, robots, and social preview art.
-- Improved keyboard focus visibility, reduced-motion handling, route scroll behavior, and demo-dialog keyboard access.
-- Replaced the ClinicFlow thumbnail containing patient details with a privacy-safe dashboard mockup.
-- Added deployment and owner-input documentation.
-- Standardized booking/message CTA labels, project-card styling, category filters, resume download, form placeholders, and global link/eyebrow styles.
-- Added data-driven skills/proof items, conditional About navigation, a participation-only hackathon entry, and founder CTAs/headshot.
-- Labeled illustrative project visuals and documented the BizBrain and CompetiTrack screenshots that need owner replacement.
-- Kept a single shared project card across the Home, Work, and service-related listings; surfaced each project's canonical category and aligned card actions.
-- Added the data-driven project proof section on About and labeled previews on the full case-study pages as well as cards.
-- Recorded the two verified screenshot replacement items in `TODO_OWNER.md`; the ClinicFlow visual remains clearly labeled as an illustrative preview.
+- Checkpointed the prior working tree before restructuring.
+- Reframed the site as a business website for MFK AI Solutions with a separate founder profile page.
+- Replaced dropdown navigation with Home, Services, Projects, and About links and a config-driven contact/booking CTA.
+- Replaced `/work` with `/projects`, removed case-study and nested About/service routes, and added `/founder`.
+- Added a Vercel SPA rewrite and updated the route sitemap.
+- Reordered Home sections and added configured service cards, project proof, supported differentiators, process, founder card, and CTA.
+- Added four configured services with outcomes, audience, deliverables, FAQ, technology, and optional prices.
+- Added one shared project card and separated four client-style projects from five experiments; filters come from populated project categories.
+- Moved skills, credentials, and contact links into the standalone founder profile; empty owner-provided sections stay hidden.
+- Connected contact options to shared config and kept the form validation and no-endpoint fallback.
+- Added route-specific title, description, canonical, Open Graph, Twitter, and JSON-LD updates; documented the SPA metadata limitation.
+- Updated owner placeholders and documented the BizBrain and CompetiTrack images that need replacement.
+- Added optimized WebP copies for displayed project, profile, and badge images without deleting their original public assets.
+- Added the supplied first-person founder biography while leaving experience and education empty.
+- Consolidated the founder link under Company in the footer and kept the configured contact destinations.
+- Kept BizBrain without a demo action until an owner-provided demo URL exists; balanced project cards in two-column rows.
+- Reduced the shared section spacing, suppressed the one-item facts strip, and changed the scrollbar thumb to neutral gray.
+- Added the owner-provided BSCS in-progress entry without adding an institution or dates.
+- Added the owner-provided BizBrain YouTube demo URL.
+- Added the owner-provided education term and recorded approval for project descriptions and public links.
+- Recorded owner approval for the current labeled project visuals.
