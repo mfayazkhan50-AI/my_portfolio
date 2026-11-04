@@ -23,3 +23,4 @@
 - Added the owner-provided BizBrain YouTube demo URL.
 - Added the owner-provided education term and recorded approval for project descriptions and public links.
 - Recorded owner approval for the current labeled project visuals.
+- Removed Founder page education, skills, and certificates sections at owner request.

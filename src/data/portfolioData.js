@@ -214,8 +214,6 @@ export const WHY_WORK_WITH_US = [
 /** @type {{
  * founderBio: string[],
  * experience: Array<{id: string, title: string, organization?: string, period?: string, description?: string}>,
- * education: Array<{id: string, title: string, organization?: string, period?: string, description?: string}>,
- * certificates: Array<{id: string, title: string, issuer: string, image?: string, imageAlt?: string, description?: string, url?: string, participationOnly?: boolean}>,
  * projectResults: Record<string, string>,
  * additionalProof: Array<{title: string, projects: ProjectData[]}>,
  * projectContentAutomation: {title: string}
@@ -223,8 +221,6 @@ export const WHY_WORK_WITH_US = [
 export const OWNER_INPUTS = {
   founderBio: [],
   experience: [],
-  education: [],
-  certificates: [],
   projectResults: {},
   additionalProof: [],
   projectContentAutomation: {
@@ -233,38 +229,6 @@ export const OWNER_INPUTS = {
 };
 
 export const EXPERIENCE = [];
-export const EDUCATION = [
-  {
-    id: "bscs-in-progress",
-    title: "BSCS (in progress)",
-    period: "2026, 1st semester"
-  }
-];
-export const CERTIFICATES = [
-  {
-    id: "fortyguard-hackathon-26",
-    title: "FortyGuard Hackathon '26 — Participation",
-    issuer: "FortyGuard",
-    image: "/images/hackathon-badge.webp",
-    imageAlt: "FortyGuard Hackathon '26 participation badge",
-    participationOnly: true
-  }
-];
-
-/** @type {Array<{category: string, skills: string[], projectIds: string[]}>} */
-export const SKILL_CATEGORIES = [
-  { category: "AI & LLMs", skills: ["LangChain", "LangGraph", "RAG"], projectIds: ["clinicflow-ai", "bizbrain", "competitrack-ai"] },
-  { category: "Backend & APIs", skills: ["FastAPI", "Python", "Pydantic", "Docker"], projectIds: ["clinicflow-ai", "bizbrain", "competitrack-ai"] },
-  { category: "Frontend", skills: ["React", "JavaScript", "HTML", "CSS"], projectIds: [] },
-  { category: "Vector DBs & Data", skills: ["ChromaDB", "SQLite", "Hybrid Search"], projectIds: ["clinicflow-ai", "bizbrain"] },
-  { category: "Tools & Evaluation", skills: ["Playwright", "Streamlit", "Groq", "RAGAS"], projectIds: ["competitrack-ai", "bizbrain"] },
-  {
-    category: "Machine Learning & Fine-tuning",
-    skills: ["PyTorch", "Transformers", "LoRA", "TRL", "DPO", "scikit-learn"],
-    projectIds: ["urdugpt", "rossmann-sales-predictor", "churn-predictor", "diabetes-risk-analyzer", "house-price-prediction", "cat-vs-dog-cnn"]
-  }
-];
-
 /** @type {ProjectData[]} */
 export const PROJECTS = [
   {

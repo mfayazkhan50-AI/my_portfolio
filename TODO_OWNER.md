@@ -3,9 +3,9 @@
 ## Done
 - [x] Founder bio added (PROFILE.bio).
 - [x] CV download removed from the site.
+- [x] Education, skills, and certificates removed from the Founder page at owner request.
 
 ## Content to supply
-- [x] Education entry added: BSCS (in progress), 2026, 1st semester. Institution not provided.
 - [ ] Experience entries (EXPERIENCE).
 - [ ] Project results (OWNER_INPUTS.projectResults), only measured outcomes.
 - [ ] Starting prices (service startingPrice), only if ready to publish.

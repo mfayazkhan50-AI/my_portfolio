@@ -11,15 +11,12 @@ import ServiceCard from '../components/ServiceCard';
 import TrustStrip from '../components/TrustStrip';
 import {
   BRAND,
-  CERTIFICATES,
-  EDUCATION,
   EXPERIENCE,
   HOME_COPY,
   OWNER_INPUTS,
   PROCESS_STEPS,
   PROJECTS,
   PROFILE,
-  SKILL_CATEGORIES,
   SERVICES,
   WHY_WORK_WITH_US
 } from '../data/portfolioData';
@@ -191,8 +188,6 @@ export function WorkPage() {
 
 export function FounderPage() {
   const experience = [...EXPERIENCE, ...OWNER_INPUTS.experience];
-  const education = [...EDUCATION, ...OWNER_INPUTS.education];
-  const certificates = [...CERTIFICATES, ...OWNER_INPUTS.certificates];
   const bio = [...PROFILE.bio, ...OWNER_INPUTS.founderBio];
 
   return (
@@ -212,43 +207,8 @@ export function FounderPage() {
         <section className="founder-section"><h2>Profile</h2>{bio.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</section>
       )}
 
-      <section className="founder-section">
-        <h2>Skills &amp; tools</h2>
-        <div className="founder-skill-grid">
-          {SKILL_CATEGORIES.map((group) => (
-            <article className="founder-skill-card" key={group.category}>
-              <h3>{group.category}</h3>
-              <p>{group.skills.join(' · ')}</p>
-              {group.projectIds.length > 0 && (
-                <p className="founder-used-in">
-                  Used in: {group.projectIds.map((id) => PROJECTS.find((project) => project.id === id)).filter(Boolean).map((project, index) => (
-                    <React.Fragment key={project.id}>{index > 0 && ', '}<Link to="/projects">{project.title}</Link></React.Fragment>
-                  ))}
-                </p>
-              )}
-            </article>
-          ))}
-        </div>
-      </section>
-
       {experience.length > 0 && (
         <section className="founder-section"><h2>Experience</h2>{experience.map((item) => <article className="founder-entry" key={item.id}><h3>{item.title}</h3><p>{[item.organization, item.period].filter(Boolean).join(' · ')}</p><p>{item.description}</p></article>)}</section>
-      )}
-      {education.length > 0 && (
-        <section className="founder-section"><h2>Education</h2>{education.map((item) => <article className="founder-entry" key={item.id}><h3>{item.title}</h3><p>{[item.organization, item.period].filter(Boolean).join(' · ')}</p>{item.description && <p>{item.description}</p>}</article>)}</section>
-      )}
-      {certificates.length > 0 && (
-        <section className="founder-section"><h2>Certificates &amp; hackathons</h2><div className="founder-certificate-grid">
-          {certificates.map((item) => (
-            <article className="founder-entry" key={item.id}>
-              <h3>{item.title}</h3><p>{item.issuer}</p>
-              {item.participationOnly && <p>Participation</p>}
-              {item.description && <p>{item.description}</p>}
-              {item.image && <img src={item.image} alt={item.imageAlt || `${item.title} badge`} width="1306" height="916" loading="lazy" />}
-              {item.url && <a href={item.url} target="_blank" rel="noopener noreferrer">View credential</a>}
-            </article>
-          ))}
-        </div></section>
       )}
 
       <section className="founder-section founder-contact">
@@ -269,13 +229,9 @@ export function FounderPage() {
         .founder-section { margin-top: 1.8rem; }
         .founder-section > h2 { margin-bottom: .8rem; font-size: 1.2rem; }
         .founder-section > p { color: #D1DCEB; font-size: .88rem; }
-        .founder-skill-grid, .founder-certificate-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,260px),1fr)); gap: .75rem; }
-        .founder-skill-card, .founder-entry { padding: .9rem; border: 1px solid var(--border-subtle); border-radius: 9px; background: rgba(13,23,39,.55); }
-        .founder-skill-card h3, .founder-entry h3 { margin-bottom: .35rem; font-size: .9rem; }
-        .founder-skill-card p, .founder-entry p { color: #D1DCEB; font-size: .77rem; }
-        .founder-skill-card .founder-used-in { margin-top: .45rem; color: #A5B2C5; }
-        .founder-used-in a { color: #A5F3FC; text-decoration: underline; text-underline-offset: 2px; }
-        .founder-entry img { display: block; width: min(100%,300px); height: auto; margin-top: .7rem; }
+        .founder-entry { padding: .9rem; border: 1px solid var(--border-subtle); border-radius: 9px; background: rgba(13,23,39,.55); }
+        .founder-entry h3 { margin-bottom: .35rem; font-size: .9rem; }
+        .founder-entry p { color: #D1DCEB; font-size: .77rem; }
         .founder-contact { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; }
         .founder-contact h2 { flex: 1 0 100%; }
         @media (max-width: 520px) { .founder-header { grid-template-columns: 1fr; } .founder-header img { width: 110px; height: 110px; } .founder-contact .btn { flex: 1 1 100%; } }
@@ -284,7 +240,7 @@ export function FounderPage() {
           .founder-page { max-width: none; padding: 0; color: #111; }
           .founder-page .section-tag, .founder-page p, .founder-page h1, .founder-page h2, .founder-page h3, .founder-page a { color: #111 !important; }
           .site-header, .site-footer, .founder-back { display: none; }
-          .founder-skill-card, .founder-entry { break-inside: avoid; border-color: #bbb; background: #fff; }
+          .founder-entry { break-inside: avoid; border-color: #bbb; background: #fff; }
         }
       `}</style>
     </main>
