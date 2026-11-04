@@ -1,8 +1,10 @@
 import React from 'react';
 import { ArrowRight, CalendarCheck, Check, Clock3, MessageCircle } from 'lucide-react';
-import { PROFILE } from '../data/portfolioData';
+import { Link } from 'react-router-dom';
+import { BRAND, PROFILE } from '../data/portfolioData';
+import ContactCTA from './ContactCTA';
 
-export default function Hero({ setActiveTab }) {
+export default function Hero() {
   return (
     <section style={{
       padding: '4.5rem 0 3.5rem',
@@ -31,10 +33,14 @@ export default function Hero({ setActiveTab }) {
           alignItems: 'center'
         }}>
           <div>
+            <div className="hero-founder">
+              <img src={PROFILE.profilePhoto} alt="" width="42" height="42" />
+              <span>Hi, I&apos;m Fayaz</span>
+            </div>
             <div style={{ marginBottom: '1.25rem' }}>
               <div className="status-badge">
                 <span className="pulse-dot"></span>
-                {PROFILE.status}
+                {BRAND.availability}
               </div>
             </div>
 
@@ -43,7 +49,7 @@ export default function Hero({ setActiveTab }) {
               lineHeight: 1.08,
               margin: '0 0 1.25rem'
             }}>
-              I build <span className="gradient-text">AI Agents</span> that automate repetitive business work.
+              I build <span className="gradient-text">AI agents</span> and RAG systems that automate repetitive business work.
             </h1>
 
             <p style={{
@@ -54,7 +60,7 @@ export default function Hero({ setActiveTab }) {
               marginBottom: '2rem',
               maxWidth: '650px'
             }}>
-              {PROFILE.valueProp}
+              I help teams spend less time on repetitive questions and manual workflows by building practical AI around the way they work.
             </p>
 
             <div className="hero-actions" style={{
@@ -63,21 +69,20 @@ export default function Hero({ setActiveTab }) {
               gap: '1rem',
               marginBottom: '1rem'
             }}>
-              <button
-                onClick={() => setActiveTab('contact')}
+              <ContactCTA
                 className="btn btn-primary"
+                location="hero"
                 style={{ padding: '0.9rem 1.35rem', fontSize: '1rem' }}
-              >
-                <CalendarCheck size={18} /> Book a Free Consultation
-              </button>
+                icon={import.meta.env.VITE_BOOKING_URL ? <CalendarCheck size={18} /> : <MessageCircle size={18} />}
+              />
 
-              <button
-                onClick={() => setActiveTab('projects')}
+              <Link
+                to="/work"
                 className="btn btn-secondary"
                 style={{ padding: '0.9rem 1.35rem', fontSize: '1rem' }}
               >
                 See My Work <ArrowRight size={18} />
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -140,6 +145,8 @@ export default function Hero({ setActiveTab }) {
           filter: blur(35px);
           pointer-events: none;
         }
+        .hero-founder { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1rem; color: #D1DCEB; font-size: 0.84rem; font-weight: 600; }
+        .hero-founder img { width: 42px; height: 42px; border: 1px solid rgba(103, 232, 249, 0.45); border-radius: 50%; object-fit: cover; background: var(--bg-card); }
         .hero-mockup {
           position: relative;
           overflow: hidden;
@@ -269,7 +276,7 @@ export default function Hero({ setActiveTab }) {
         @media (max-width: 992px) {
           .hero-grid { grid-template-columns: 1fr !important; }
         }
-        @media (max-width: 768px) {
+        @media (max-width: 767px) {
           .hero-section { padding: 3rem 0 2.5rem !important; }
           .hero-visual { display: none !important; }
           .hero-title { font-size: clamp(2.15rem, 9.5vw, 3rem) !important; }

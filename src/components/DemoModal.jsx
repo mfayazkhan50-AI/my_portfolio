@@ -1,8 +1,53 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ArrowUpRight, Play, Sparkles, X } from 'lucide-react';
 import { GithubIcon } from './BrandIcons';
 
 export default function DemoModal({ isOpen, onClose, project }) {
+  const dialogRef = useRef(null);
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const previousFocus = document.activeElement;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    dialogRef.current?.focus();
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        onClose();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+
+      const focusable = dialogRef.current?.querySelectorAll(
+        'a[href], button:not([disabled]), iframe, video[controls], [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable?.length) {
+        event.preventDefault();
+        dialogRef.current?.focus();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+      if (previousFocus instanceof HTMLElement) previousFocus.focus();
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen || !project) return null;
 
   const videoUrl = project.demoVideoUrl;
@@ -18,9 +63,11 @@ export default function DemoModal({ isOpen, onClose, project }) {
     <div className="modal-overlay" onClick={onClose}>
       <div
         className="glass-card demo-modal"
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="project-demo-title"
+        tabIndex={-1}
         onClick={(event) => event.stopPropagation()}
       >
         <button type="button" className="demo-modal-close" onClick={onClose} aria-label="Close dialog">

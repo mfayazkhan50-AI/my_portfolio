@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mfayazkhan.vercel.app/sitemap.xml

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title description">
+  <title id="title">ClinicFlow AI appointment dashboard preview</title>
+  <desc id="description">A privacy-safe mock dashboard showing appointment totals and an empty appointment schedule.</desc>
+  <rect width="1200" height="675" fill="#F4F7FB"/>
+  <rect width="1200" height="76" fill="#101B31"/>
+  <rect x="28" y="19" width="38" height="38" rx="11" fill="#08A9E8"/>
+  <text x="42" y="45" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="21" font-weight="700">C</text>
+  <text x="80" y="43" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="20" font-weight="700">ClinicFlow AI</text>
+  <text x="946" y="43" fill="#C5D2E5" font-family="Arial, sans-serif" font-size="15">Doctor dashboard preview</text>
+  <text x="48" y="124" fill="#15243A" font-family="Arial, sans-serif" font-size="25" font-weight="700">Appointments overview</text>
+  <rect x="48" y="150" width="340" height="102" rx="13" fill="#FFFFFF" stroke="#DBE4EF"/>
+  <rect x="430" y="150" width="340" height="102" rx="13" fill="#FFFFFF" stroke="#DBE4EF"/>
+  <rect x="812" y="150" width="340" height="102" rx="13" fill="#FFFFFF" stroke="#DBE4EF"/>
+  <text x="72" y="187" fill="#687890" font-family="Arial, sans-serif" font-size="15">Appointments today</text>
+  <text x="72" y="226" fill="#15243A" font-family="Arial, sans-serif" font-size="31" font-weight="700">08</text>
+  <text x="454" y="187" fill="#687890" font-family="Arial, sans-serif" font-size="15">Confirmed</text>
+  <text x="454" y="226" fill="#15243A" font-family="Arial, sans-serif" font-size="31" font-weight="700">06</text>
+  <text x="836" y="187" fill="#687890" font-family="Arial, sans-serif" font-size="15">Pending requests</text>
+  <text x="836" y="226" fill="#15243A" font-family="Arial, sans-serif" font-size="31" font-weight="700">02</text>
+  <rect x="48" y="278" width="1104" height="345" rx="13" fill="#FFFFFF" stroke="#DBE4EF"/>
+  <text x="72" y="317" fill="#15243A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Today's schedule</text>
+  <path d="M72 341h1056" stroke="#E8EEF5"/>
+  <text x="82" y="380" fill="#74849A" font-family="Arial, sans-serif" font-size="14">09:00 AM</text>
+  <text x="82" y="438" fill="#74849A" font-family="Arial, sans-serif" font-size="14">10:00 AM</text>
+  <text x="82" y="496" fill="#74849A" font-family="Arial, sans-serif" font-size="14">11:00 AM</text>
+  <text x="82" y="554" fill="#74849A" font-family="Arial, sans-serif" font-size="14">12:00 PM</text>
+  <path d="M180 364h948M180 422h948M180 480h948M180 538h948M180 596h948" stroke="#E8EEF5"/>
+  <rect x="208" y="372" width="284" height="39" rx="8" fill="#E4F6FC"/>
+  <circle cx="228" cy="391" r="5" fill="#0891B2"/>
+  <text x="244" y="397" fill="#17627A" font-family="Arial, sans-serif" font-size="14">Appointment confirmed</text>
+  <rect x="541" y="488" width="315" height="39" rx="8" fill="#EAF0FF"/>
+  <circle cx="561" cy="507" r="5" fill="#526BD1"/>
+  <text x="577" y="513" fill="#3C508F" font-family="Arial, sans-serif" font-size="14">Appointment request</text>
+</svg>

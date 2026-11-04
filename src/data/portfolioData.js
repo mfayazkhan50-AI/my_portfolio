@@ -1,45 +1,181 @@
-export const PROFILE = {
-  name: "Muhammad Fayaz Khan",
-  title: "AI Agents for Business Automation",
-  shortTitle: "AI Software Engineer",
-  bioLine: "Muhammad Fayaz Khan — AI Software Engineer",
-  valueProp: "Stop losing customers to missed calls or slow manual workflows. I build production-ready AI systems that save you time and money. (e.g., 24/7 AI Receptionists, RAG Document Assistants).",
-  aboutSummary: "Specializing in high-performance AI architectures, enterprise RAG systems, and autonomous multi-agent workflows. I build complete, full-stack software solutions—from custom backends to interactive Web UIs.",
-  email: "muhammadfayazkhan50@gmail.com",
+export const BRAND = {
+  name: "MFK AI Solutions",
+  tagline: "I build AI agents and RAG systems that automate repetitive business work.",
+  availability: "Accepting new projects",
+  contactEmail: "mfkaisolutions@gmail.com",
+  whatsappUrl: "https://wa.me/923269709369?text=Hi%20Fayaz%2C%20I%20saw%20your%20website%20and%20would%20like%20to%20discuss%20a%20project.",
   linkedin: "https://linkedin.com/in/muhammad-fayaz-khan-271487381",
   github: "https://github.com/mfayazkhan50-AI",
-  closingLine: "Open for freelance projects and consulting. Ready to save time and scale? Send me a message.",
-  status: "Available for Q4 AI Automation Projects",
-  location: "Global / Remote",
-  profilePhoto: "/images/fayaz-profile-cutout.png",
-  resumeUrl: "/resume.pdf",
-  // TODO: replace with verified/true stat items if preferred later.
-  // Neutral, factual-only items — no unproven metrics or counts.
-  stats: [
-    { label: "Status", value: "Open to freelance projects" },
-    { label: "Core Stack", value: "Python • LLMs • Automation" },
-    { label: "Clients", value: "Remote / International clients" }
-  ]
+  location: "Islamabad, Pakistan",
+  timezone: "PKT (UTC+5)",
+  workingHours: ""
 };
 
-// TODO: add real, client-approved testimonials here (quote, name, role).
-// Keep this array empty until real quotes exist — the About section renders
-// nothing when it is empty, so no placeholder/fake content appears on the page.
+export const PROFILE = {
+  name: "Muhammad Fayaz Khan",
+  title: "Founder & Lead AI Engineer, MFK AI Solutions",
+  shortTitle: "Founder & Lead AI Engineer",
+  bioLine: "Founder & Lead AI Engineer, MFK AI Solutions",
+  valueProp: BRAND.tagline,
+  aboutSummary: "I build AI systems, retrieval-augmented generation applications, and full-stack software around practical business needs.",
+  email: BRAND.contactEmail,
+  linkedin: BRAND.linkedin,
+  github: BRAND.github,
+  closingLine: "Available for AI automation and software consulting. Tell me what you would like to improve.",
+  status: BRAND.availability,
+  location: BRAND.location,
+  profilePhoto: "/images/fayaz-profile-cutout.png",
+  resumeUrl: "/Muhammad-Fayaz-Resume.pdf"
+};
+
+export const SERVICES = [
+  {
+    slug: "ai-receptionist",
+    title: "AI Receptionist",
+    summary: "Help customers get answers and request appointments when your team is busy or unavailable.",
+    audience: "Clinics and service businesses handling appointment or enquiry calls.",
+    problem: "Missed calls and repetitive questions can interrupt staff and leave customers waiting.",
+    deliverables: ["Conversation and FAQ design", "Appointment workflow integration plan", "Review and handoff dashboard"],
+    timeline: "",
+    startingPrice: "",
+    relatedProject: "clinicflow-ai",
+    faqs: [
+      { question: "Can the assistant hand a conversation to a person?", answer: "Handoff requirements are defined during discovery and depend on the systems available." },
+      { question: "Can it work with an existing booking system?", answer: "Integration options depend on the booking system and its available access methods." },
+      { question: "What happens when it does not know an answer?", answer: "A safe fallback and human follow-up path can be designed for unanswered questions." }
+    ]
+  },
+  {
+    slug: "rag-document-assistant",
+    title: "RAG Document Assistant",
+    summary: "Make internal documents easier to search with an assistant that answers questions using supplied sources.",
+    audience: "Teams that regularly look up information across policies, manuals, or business documents.",
+    problem: "Finding a specific answer across many documents can take time and interrupt focused work.",
+    deliverables: ["Document ingestion workflow", "Search and answer experience", "Source citation and evaluation plan"],
+    timeline: "",
+    startingPrice: "",
+    relatedProject: "bizbrain",
+    faqs: [
+      { question: "Which document types can be used?", answer: "Supported formats are confirmed during discovery based on your source documents." },
+      { question: "Can answers include citations?", answer: "Yes. Source references can be included so users can review the relevant material." },
+      { question: "Where is my data stored?", answer: "Storage and deployment options are selected based on your security and hosting requirements." }
+    ]
+  },
+  {
+    slug: "custom-ai-agents",
+    title: "Custom AI Agents",
+    summary: "Connect AI to a defined set of tools and workflows to take repetitive operational steps off your plate.",
+    audience: "Businesses with repeatable workflows that involve several tools, checks, or handoffs.",
+    problem: "Manual, multi-step work can be slow and difficult to keep consistent.",
+    deliverables: ["Workflow discovery and scope", "Agent prototype with bounded tools", "Testing and handoff documentation"],
+    timeline: "",
+    startingPrice: "",
+    relatedProject: "competitrack-ai",
+    faqs: [
+      { question: "Can an agent take actions in my tools?", answer: "Actions and permissions are scoped explicitly, with human approval where appropriate." },
+      { question: "How is reliability tested?", answer: "I test the workflow against agreed scenarios and failure cases before handoff." },
+      { question: "Can I start with a small prototype?", answer: "A focused prototype can be scoped as an initial engagement." }
+    ]
+  },
+  {
+    slug: "business-automation",
+    title: "Business Automation",
+    summary: "Reduce repetitive administrative work by connecting the systems and steps your team already uses.",
+    audience: "Teams looking to streamline recurring data entry, notifications, or internal handoffs.",
+    problem: "Repeated manual tasks consume time and create opportunities for missed steps.",
+    deliverables: ["Process map", "Automation workflow", "Error handling and operating notes"],
+    timeline: "",
+    startingPrice: "",
+    relatedProject: "competitrack-ai",
+    faqs: [
+      { question: "Can you work with my current software?", answer: "Available integrations and access methods are assessed before proposing an implementation." },
+      { question: "Will automation replace staff decisions?", answer: "Automations can be designed to keep people involved in decisions that need review." },
+      { question: "Can workflows send alerts?", answer: "Notifications can be included when they are part of the agreed workflow." }
+    ]
+  }
+];
+
+export const ENGAGEMENT_MODELS = [
+  { name: "Fixed-scope project", description: "A defined deliverable with agreed scope and milestones.", price: "" },
+  { name: "Monthly retainer", description: "Ongoing implementation or improvement support.", price: "" },
+  { name: "Consulting", description: "Focused technical or workflow guidance.", price: "" }
+];
+
+export const PROCESS_STEPS = [
+  { title: "Discovery", description: "Understand the workflow, constraints, and desired outcome." },
+  { title: "Prototype", description: "Validate the core experience with a focused implementation." },
+  { title: "Deploy", description: "Prepare the agreed solution for its target environment." },
+  { title: "Support", description: "Review operation and agree any next improvements." }
+];
+
+export const EXPERIENCE = [];
+export const EDUCATION = [];
+export const CERTIFICATES = [
+  {
+    id: "fortyguard-hackathon-26",
+    title: "FortyGuard Hackathon '26 — Participation",
+    issuer: "FortyGuard",
+    image: "/images/hackathon-badge.png",
+    imageAlt: "FortyGuard Hackathon '26 participation badge"
+  }
+];
 export const TESTIMONIALS = [];
+export const OWNER_INPUTS = {
+  averageLatencySeconds: null,
+  hackathonResult: "",
+  projectResults: {},
+  projectDataStatuses: {},
+  story: [],
+  experience: [],
+  education: [],
+  certificates: [],
+  testimonials: []
+};
 
 export const SKILL_CATEGORIES = [
   {
     category: "AI & LLMs",
-    skills: ["LangChain", "LangGraph", "PyTorch", "RAG"]
+    skills: ["LangChain", "LangGraph", "RAG"],
+    projectIds: ["clinicflow-ai", "bizbrain", "competitrack-ai"]
   },
   {
     category: "Backend & APIs",
-    skills: ["FastAPI", "Python (Async)", "Pydantic", "Docker"]
+    skills: ["FastAPI", "Python", "Pydantic", "Docker"],
+    projectIds: ["clinicflow-ai", "bizbrain", "competitrack-ai"]
   },
   {
-    category: "Frontend & Databases",
-    skills: ["React", "Next.js", "ChromaDB", "Qdrant"]
+    category: "Frontend",
+    skills: ["React", "JavaScript", "HTML", "CSS"],
+    projectIds: []
+  },
+  {
+    category: "Vector DBs & Data",
+    skills: ["ChromaDB", "SQLite", "Hybrid Search"],
+    projectIds: ["clinicflow-ai", "bizbrain"]
+  },
+  {
+    category: "Tools & Evaluation",
+    skills: ["Playwright", "Streamlit", "Groq", "RAGAS"],
+    projectIds: ["competitrack-ai", "bizbrain"]
+  },
+  {
+    category: "Machine Learning & Fine-tuning",
+    skills: ["PyTorch", "Transformers", "LoRA", "TRL", "DPO", "scikit-learn"],
+    projectIds: [
+      "urdugpt",
+      "rossmann-sales-predictor",
+      "churn-predictor",
+      "diabetes-risk-analyzer",
+      "house-price-prediction",
+      "cat-vs-dog-cnn"
+    ]
   }
+];
+
+export const HOME_PROOF_ITEMS = [
+  { title: "AI agent workflows", projectIds: ["clinicflow-ai", "competitrack-ai"] },
+  { title: "RAG document assistants", projectIds: ["bizbrain"] },
+  { title: "Language model fine-tuning", projectIds: ["urdugpt"] }
 ];
 
 export const PROJECTS = [
@@ -47,8 +183,9 @@ export const PROJECTS = [
     id: "clinicflow-ai",
     title: "ClinicFlow AI",
     isFeatured: true,
-    thumbnail: "/images/clinicflow-dashboard.png",
-    category: "Agentic AI & RAG",
+    thumbnail: "/images/clinicflow-dashboard.svg",
+    imageLabel: "Illustrative preview",
+    category: "Agentic AI",
     tags: ["Business Automation", "AI Agent", "RAG"],
     stack: ["FastAPI", "LangGraph", "ChromaDB", "Hybrid Search", "Groq LLM", "SQLite"],
     description: "Help clinics capture more appointment requests with an AI receptionist that is available after hours and during busy periods.",
@@ -77,6 +214,7 @@ export const PROJECTS = [
     title: "CompetiTrack AI",
     isFeatured: true,
     thumbnail: "/images/competitrack-terminal.jpg",
+    imageLabel: "Concept mockup",
     category: "Agentic AI",
     tags: ["E-Commerce", "Business Automation", "AI Agent"],
     stack: ["LangGraph", "Playwright", "FastAPI", "Streamlit", "Groq"],
@@ -122,7 +260,8 @@ export const PROJECTS = [
     title: "BizBrain",
     isFeatured: true,
     thumbnail: "/images/bizbrain-chat.jpg",
-    category: "Generative AI & RAG",
+    imageLabel: "Concept mockup",
+    category: "RAG",
     tags: ["Business Automation", "Document Assistant", "RAG"],
     stack: ["FastAPI", "ChromaDB", "RAGAS", "RAG", "LangChain", "Pydantic", "Chainlit", "Docker"],
     description: "Enterprise hybrid search for instant document querying with source citations.",
@@ -158,7 +297,7 @@ export const PROJECTS = [
     id: "churn-predictor",
     title: "Churn Predictor",
     isFeatured: false,
-    category: "Machine Learning & API",
+    category: "Machine Learning",
     stack: ["Python", "Scikit-Learn", "FastAPI"],
     description: "Help teams identify customers who may be at risk of leaving so they can prioritize retention outreach, with predictions available through a web interface.",
     github: "https://github.com/mfayazkhan50-AI/churn-predictor",
@@ -172,7 +311,7 @@ export const PROJECTS = [
     id: "diabetes-risk-analyzer",
     title: "Diabetes Risk Analyzer",
     isFeatured: false,
-    category: "Machine Learning & App",
+    category: "Machine Learning",
     stack: ["Python", "Scikit-Learn", "Streamlit"],
     description: "Give users an interactive way to explore diabetes risk indicators from health metrics; the app is an informational prediction tool, not a medical diagnosis.",
     github: "https://github.com/mfayazkhan50-AI/diabetes-risk-analyzer",
@@ -218,7 +357,6 @@ export const PROJECTS = [
     title: "Content Automation — Client Project",
     isFeatured: true,
     hidden: true,
-    category: "Automation",
     stack: [],
     description: "TODO: add client-approved description, tech stack and links before publishing.",
     github: null,
@@ -226,3 +364,12 @@ export const PROJECTS = [
     highlights: []
   }
 ];
+
+export function getHomeProofItems() {
+  return HOME_PROOF_ITEMS.map((item) => ({
+    ...item,
+    projects: item.projectIds
+      .map((id) => PROJECTS.find((project) => project.id === id && !project.hidden))
+      .filter(Boolean)
+  })).filter((item) => item.projects.length > 0);
+}

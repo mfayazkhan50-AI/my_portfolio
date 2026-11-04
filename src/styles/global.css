@@ -51,6 +51,16 @@ body {
   background-attachment: fixed;
 }
 
+.site-layout {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.site-layout > main {
+  flex: 1 0 auto;
+}
+
 /* Keep the ambient background understated and free of editor-like grid lines. */
 body::before {
   content: "";
@@ -83,6 +93,15 @@ h1, h2, h3, h4, h5, h6 {
 p {
   line-height: 1.65;
   color: var(--text-muted);
+}
+
+a:not(.btn),
+a:not(.btn):visited {
+  color: #67E8F9;
+}
+
+a:not(.btn):hover {
+  color: #A5F3FC;
 }
 
 .gradient-text {
@@ -325,15 +344,13 @@ p {
   text-align: left;
 }
 
-.section-header .section-tag {
-  font-family: var(--font-body);
-  color: #5EDCF0;
-  font-size: 0.76rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
+.section-tag {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.55rem;
+  color: #67E8F9;
+  font: 600 0.72rem var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .section-header h2 {
@@ -404,5 +421,32 @@ p {
   .container {
     padding-right: 1rem;
     padding-left: 1rem;
+  }
+}
+
+section[id],
+.site-page {
+  scroll-margin-top: 100px;
+}
+
+img,
+iframe,
+video {
+  max-width: 100%;
+}
+
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid #67e8f9;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
