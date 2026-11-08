@@ -19,10 +19,8 @@
 - [ ] VITE_BOOKING_URL only if a Cal.com/Calendly link exists.
 - [ ] VITE_PLAUSIBLE_DOMAIN only if analytics is wanted.
 
-## Screenshot replacements
-- [x] Keep public/images/bizbrain-chat.webp as a labeled "Concept mockup" per owner instruction.
-- [x] Keep public/images/competitrack-terminal.webp as a labeled "Concept mockup" per owner instruction.
-- [x] public/images/clinicflow-dashboard.svg stays as "Illustrative preview".
+## Project screenshots
+- [x] Keep the current project screenshots published without mockup or preview labels.
 
 ## Launch validation
 - [ ] Sitemap uses the final domain.

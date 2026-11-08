@@ -16,7 +16,6 @@
  * @property {string} [thumbnail]
  * @property {number} [imageWidth]
  * @property {number} [imageHeight]
- * @property {string} [imageLabel]
  * @property {string} [demoUrl]
  * @property {string} [repoUrl]
  * @property {string[]} stack
@@ -46,28 +45,28 @@ export const BRAND = {
   availability: "Accepting new projects",
   contactEmail: "mfkaisolutions@gmail.com",
   whatsappUrl: "https://wa.me/923269709369?text=Hi%20Fayaz%2C%20I%20saw%20your%20website%20and%20would%20like%20to%20discuss%20a%20project.",
-  linkedin: "https://linkedin.com/in/muhammad-fayaz-khan-271487381",
+  linkedin: "https://linkedin.com/in/mfayazkhan-ai",
   github: "https://github.com/mfayazkhan50-AI",
   location: "Islamabad, Pakistan",
   timezone: "PKT (UTC+5)",
   aboutStory: [
-    "MFK AI Solutions is an AI automation and software studio founded by Muhammad Fayaz Khan.",
-    "The studio focuses on AI agents, document assistants, and custom software for repeatable workflows.",
+    "MFK AI Solutions partners with businesses across industries to improve customer experiences and streamline operations.",
+    "From AI assistants and custom agents to backends and APIs, solutions are designed around real workflows.",
     "Projects begin with understanding the process and constraints, then validating a focused implementation."
   ]
 };
 
 export const BOOKING_URL = import.meta.env.VITE_BOOKING_URL || "";
 export const FORM_ENDPOINT = import.meta.env.VITE_FORM_ENDPOINT || "";
-export const SITE_URL = (import.meta.env.VITE_SITE_URL || "https://mfayazkhan.vercel.app").replace(/\/$/, "");
+export const SITE_URL = (import.meta.env.VITE_SITE_URL || "https://mfkaisolutions.vercel.app").replace(/\/$/, "");
 export const SEO_PAGES = {
   home: {
     title: "MFK AI Solutions | AI Agents, RAG & Software Development",
-    description: "MFK AI Solutions builds AI agents, retrieval-augmented generation systems, and custom software for practical business workflows."
+    description: "MFK AI Solutions builds production-ready AI systems and full-stack software for businesses across industries."
   },
   services: {
     title: "AI Automation Services | MFK AI Solutions",
-    description: "Explore AI agents, RAG document assistants, AI receptionist workflows, and custom software services."
+    description: "Explore custom AI agents, RAG document search, and backend and API development for businesses of all sizes."
   },
   projects: {
     title: "Projects | MFK AI Solutions",
@@ -124,10 +123,11 @@ export const PROFILE = {
 export const HOME_COPY = {
   heroHighlight: "AI agents",
   heroAfterHighlight: " and software that automate repetitive business work.",
-  heroSupporting: "Give your team more time for customers and focused work by automating routine processes.",
-  workCta: BRAND.voice === "we" ? "See Our Work" : "See My Work",
-  servicesTitle: "Practical automation for repeatable work",
-  servicesDescription: "Choose a starting point for a workflow, information need, or software product.",
+  heroSupporting: "Stop losing customers to missed calls or slow manual workflows. MFK AI Solutions builds production-ready AI systems for modern businesses of all sizes—from 24/7 AI Receptionists to custom RAG Assistants and Backend APIs.",
+  workCta: "See Our Work",
+  aboutPitch: "Specializing in high-performance AI architectures, enterprise RAG systems, and autonomous multi-agent workflows. We build complete, full-stack software solutions—from custom backends to interactive Web UIs for businesses across all industries.",
+  servicesTitle: "AI and software solutions for every industry",
+  servicesDescription: "Build better customer experiences, streamline operations, and scale your software with services designed around your business.",
   whyEyebrow: BRAND.voice === "we" ? "WHY WORK WITH US" : "WHY WORK WITH ME",
   whyTitle: BRAND.voice === "we" ? "Why work with us" : "Why work with me",
   processEyebrow: BRAND.voice === "we" ? "HOW WE WORK" : "HOW I WORK",
@@ -145,11 +145,11 @@ export const HOME_COPY = {
  * }>} */
 export const SERVICES = [
   {
-    id: "ai-agents",
-    title: "AI Agents & Business Automation",
-    outcome: "Automate repeatable work across defined tools and steps.",
-    audience: "Businesses with recurring workflows that involve several checks, tools, or handoffs.",
-    deliverables: ["Workflow discovery and scope", "Agent prototype with bounded tools", "Testing and handoff documentation"],
+    id: "custom-ai-agents",
+    title: "Custom AI Agents",
+    outcome: "Automate customer-facing and internal workflows with purpose-built AI agents.",
+    audience: "Sales, support, and operations teams looking to reduce manual work.",
+    deliverables: ["Workflow discovery and scope", "Custom agent with bounded tools", "Testing and handoff documentation"],
     technology: ["LangGraph", "Playwright", "FastAPI"],
     startingPrice: "",
     faqs: [
@@ -158,10 +158,10 @@ export const SERVICES = [
     ]
   },
   {
-    id: "rag-assistants",
-    title: "RAG Document Assistants",
-    outcome: "Find answers in your documents with references to the source material.",
-    audience: "Teams that regularly look up information across policies, manuals, or business documents.",
+    id: "rag-document-search",
+    title: "RAG Document Search",
+    outcome: "Make trusted answers easy to find across your organization's documents.",
+    audience: "Teams building internal knowledge bases from policies, manuals, and business documents.",
     deliverables: ["Document ingestion workflow", "Search and answer experience", "Source citations and evaluation plan"],
     technology: ["FastAPI", "ChromaDB", "RAGAS"],
     startingPrice: "",
@@ -171,24 +171,11 @@ export const SERVICES = [
     ]
   },
   {
-    id: "ai-receptionist",
-    title: "AI Receptionist",
-    outcome: "Help customers get answers and submit appointment requests when staff are busy.",
-    audience: "Clinics and service businesses handling appointment or enquiry requests.",
-    deliverables: ["Conversation and FAQ design", "Appointment workflow plan", "Review and handoff dashboard"],
-    technology: ["FastAPI", "LangGraph", "SQLite"],
-    startingPrice: "",
-    faqs: [
-      { question: "Can it work with an existing booking system?", answer: "Integration options depend on the booking system and its available access methods." },
-      { question: "What happens when it does not know an answer?", answer: "A safe fallback and human follow-up path can be defined for unanswered questions." }
-    ]
-  },
-  {
-    id: "custom-software",
-    title: "Custom Software & AI Web Apps",
-    outcome: "Build a web application around a specific workflow or product idea.",
-    audience: "Teams that need a custom interface, backend, or AI-enabled application.",
-    deliverables: ["Requirements and scope", "Application prototype", "Testing and operating notes"],
+    id: "backend-api-development",
+    title: "Backend & API Development",
+    outcome: "Build the reliable software infrastructure your products and workflows need to scale.",
+    audience: "Businesses that need scalable backends, integrations, and APIs to support their software.",
+    deliverables: ["Requirements and architecture", "Scalable backend and API implementation", "Testing and operating documentation"],
     technology: ["React", "FastAPI", "Python"],
     startingPrice: "",
     faqs: [
@@ -208,7 +195,7 @@ export const PROCESS_STEPS = [
 export const WHY_WORK_WITH_US = [
   { title: "Evaluation built into RAG work", description: "BizBrain includes evaluation with the RAGAS framework." },
   { title: "Automation centered on defined workflows", description: "CompetiTrack checks competitor product pages for price and stock changes before surfacing alerts." },
-  { title: "A project with a visible workflow", description: "ClinicFlow demonstrates appointment requests, answers, and a dashboard in an illustrative preview." }
+  { title: "A project with a visible workflow", description: "ClinicFlow demonstrates appointment requests, answers, and a dashboard for clinic workflows." }
 ];
 
 /** @type {{
@@ -239,14 +226,13 @@ export const PROJECTS = [
     thumbnail: "/images/clinicflow-dashboard.svg",
     imageWidth: 1200,
     imageHeight: 675,
-    imageLabel: "Illustrative preview",
     category: "Agentic AI",
     tags: ["Business Automation", "AI Agent", "RAG"],
     stack: ["FastAPI", "LangGraph", "ChromaDB", "Hybrid Search", "Groq LLM", "SQLite"],
-    summary: "Appointment and FAQ automation concept for clinics.",
+    summary: "Appointment and FAQ automation system for clinics.",
     description: "An AI receptionist concept for appointment requests and common clinic questions.",
     problem: "Clinics can miss potential patients when calls arrive after hours.",
-    solution: "An AI receptionist concept that handles appointment requests and common questions.",
+    solution: "An AI receptionist system that handles appointment requests and common questions.",
     demoUrl: "https://www.youtube.com/watch?v=3Hel8uL5V04"
   },
   {
@@ -257,7 +243,6 @@ export const PROJECTS = [
     thumbnail: "/images/competitrack-terminal.webp",
     imageWidth: 1408,
     imageHeight: 768,
-    imageLabel: "Concept mockup",
     category: "Agentic AI",
     tags: ["E-Commerce", "Business Automation", "AI Agent"],
     stack: ["LangGraph", "Playwright", "FastAPI", "Streamlit", "Groq"],
@@ -276,7 +261,6 @@ export const PROJECTS = [
     thumbnail: "/images/bizbrain-chat.webp",
     imageWidth: 1408,
     imageHeight: 768,
-    imageLabel: "Concept mockup",
     category: "RAG",
     tags: ["Business Automation", "Document Assistant"],
     stack: ["FastAPI", "ChromaDB", "RAGAS", "BM25", "LangChain", "Pydantic", "Chainlit", "Docker"],

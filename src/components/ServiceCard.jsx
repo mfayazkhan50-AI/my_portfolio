@@ -9,7 +9,7 @@ export default function ServiceCard({ service }) {
       <h3>{service.title}</h3>
       <p>{service.outcome || service.summary}</p>
       <Link to={`/services#${service.id}`} aria-label={`Learn about ${service.title}`}>
-        Explore service <ArrowRight size={16} />
+        See How It Works <ArrowRight size={16} />
       </Link>
       <style>{`
         .service-card { display: flex; min-width: 0; height: 100%; flex-direction: column; padding: 1.35rem; }

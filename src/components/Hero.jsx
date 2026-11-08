@@ -14,7 +14,7 @@ export default function Hero() {
           <h1>{voice} build <span className="gradient-text">{HOME_COPY.heroHighlight}</span>{HOME_COPY.heroAfterHighlight}</h1>
           <p>{HOME_COPY.heroSupporting}</p>
           <div className="hero-actions">
-            <ContactCTA className="btn btn-primary" location="hero" />
+            <ContactCTA className="btn btn-primary" location="hero" label="Book a Free 15-Min Workflow Audit" />
             <Link className="btn btn-secondary" to="/projects">{HOME_COPY.workCta} <ArrowRight size={18} /></Link>
           </div>
           {BOOKING_URL && <span className="hero-booking-note">Schedule a conversation that works for you.</span>}

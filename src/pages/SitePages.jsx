@@ -82,7 +82,7 @@ export function HomePage() {
 
       <section className="final-cta container">
         <div><span className="section-tag">NEXT STEP</span><h2>{HOME_COPY.finalTitle}</h2><p>{HOME_COPY.finalDescription}</p></div>
-        <ContactCTA location="home-final" />
+        <ContactCTA location="home-final" label="Book a Free 15-Min Workflow Audit" />
       </section>
 
       <style>{`

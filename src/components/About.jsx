@@ -1,6 +1,6 @@
 import React from 'react';
-import { MapPin } from 'lucide-react';
-import { BRAND, getHomeProofItems, HOME_COPY, OWNER_INPUTS } from '../data/portfolioData';
+import { Check, MapPin } from 'lucide-react';
+import { BRAND, getHomeProofItems, HOME_COPY, OWNER_INPUTS, PROFILE } from '../data/portfolioData';
 import ContactCTA from './ContactCTA';
 import FounderCard from './FounderCard';
 
@@ -12,13 +12,18 @@ export default function About() {
     <main className="container site-page">
       <header className="section-header">
         <span className="section-tag">ABOUT</span>
-        <h1>AI automation and software, built around real workflows.</h1>
+        <h1>{PROFILE.title}</h1>
       </header>
 
       <section className="about-story">
         <div>
           <span className="section-tag">THE STUDIO</span>
+          <p>{HOME_COPY.aboutPitch}</p>
           {BRAND.aboutStory.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          <ul className="about-highlights">
+            <li><Check size={17} />Production-Ready Code</li>
+            <li><Check size={17} />End-to-End Automation</li>
+          </ul>
           <p className="about-location"><MapPin size={17} />{BRAND.location} · {BRAND.timezone}</p>
         </div>
         <div className="about-founder">
@@ -56,6 +61,9 @@ export default function About() {
         .site-page { padding-top: var(--section-space); padding-bottom: var(--section-space); }
         .about-story { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, .8fr); gap: 2rem; align-items: start; }
         .about-story > div:first-child p { margin-bottom: 0.9rem; color: #D1DCEB; font-size: 0.96rem; }
+        .about-highlights { display: grid; gap: .55rem; margin: 1.1rem 0; padding: 0; list-style: none; }
+        .about-highlights li { display: flex; align-items: center; gap: .55rem; color: #D1DCEB; font-size: .88rem; }
+        .about-highlights svg { flex: 0 0 auto; color: var(--accent-cyan); }
         .about-location { display: flex; align-items: center; gap: .45rem; color: #D1DCEB; font-size: .82rem !important; }
         .about-location svg { flex: 0 0 auto; color: var(--accent-cyan); }
         .about-proof { margin-top: var(--section-space); }

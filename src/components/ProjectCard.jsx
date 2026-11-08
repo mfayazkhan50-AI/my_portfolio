@@ -20,7 +20,6 @@ export default function ProjectCard({ project }) {
             height={project.imageHeight || 675}
             loading="lazy"
           />
-          {project.imageLabel && <span className="project-image-label">{project.imageLabel}</span>}
           {project.demoData && <span className="demo-data-label">Demo data</span>}
         </div>
       )}
@@ -63,8 +62,7 @@ export default function ProjectCard({ project }) {
         .project-card { display: flex; height: 100%; min-width: 0; flex-direction: column; overflow: hidden; border: 1px solid rgba(148,163,184,.16); border-radius: 14px; background: rgba(13,23,39,.76); box-shadow: 0 18px 48px rgba(2,8,20,.24); }
         .project-card-image { position: relative; flex: 0 0 auto; aspect-ratio: 16/9; overflow: hidden; border-bottom: 1px solid var(--border-subtle); background: rgba(4,9,18,.9); }
         .project-card-image img { display: block; width: 100%; height: 100%; object-fit: cover; }
-        .project-image-label, .demo-data-label { z-index: 2; display: inline-flex; align-items: center; padding: .23rem .48rem; border: 1px solid rgba(203,213,225,.35); border-radius: 4px; background: rgba(8,15,27,.92); color: #E2E8F0; font: .62rem var(--font-mono); }
-        .project-image-label { position: absolute; right: .65rem; bottom: .65rem; }
+        .demo-data-label { z-index: 2; display: inline-flex; align-items: center; padding: .23rem .48rem; border: 1px solid rgba(203,213,225,.35); border-radius: 4px; background: rgba(8,15,27,.92); color: #E2E8F0; font: .62rem var(--font-mono); }
         .project-card-image .demo-data-label { position: absolute; top: .65rem; left: .65rem; border-color: rgba(245,158,11,.4); color: #FCD34D; }
         .project-card-content { display: flex; flex: 1; min-width: 0; flex-direction: column; padding: 1.25rem; }
         .project-card-tags { display: flex; flex-wrap: wrap; gap: .38rem; margin-bottom: .75rem; }
